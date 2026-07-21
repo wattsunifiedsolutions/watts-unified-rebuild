@@ -178,6 +178,8 @@ test("renders the complete Financial Professional opportunity page", async () =>
   const response = await worker.fetch(new Request("https://wattsunified.com/opportunity/financial-professional"));
   assert.equal(response.status, 200);
   assert.match(response.headers.get("content-type") ?? "", /^text\/html\b/i);
+  assert.match(response.headers.get("cache-control") ?? "", /no-store/);
+  assert.match(response.headers.get("cloudflare-cdn-cache-control") ?? "", /no-store/);
 
   const html = await response.text();
   assert.match(html, /Financial Professional Opportunity \| Watts Unified Solutions/);
@@ -190,6 +192,8 @@ test("renders the complete Financial Professional opportunity page", async () =>
   assert.match(html, /The Freedom Framework/);
   assert.match(html, /\.framework\{padding:72px 0;background:var\(--cream\)/);
   assert.doesNotMatch(html, /\.framework\{[^}]*background:var\(--navy\)/);
+  assert.match(html, /\.values\{display:grid;grid-template-columns:repeat\(6,1fr\)/);
+  assert.match(html, /\.value:nth-child\(4\)\{grid-column:2\/span 2\}/);
   assert.match(html, /Meet Your Mentor/);
   assert.match(html, /Book a Fit Conversation/);
   assert.match(html, /\/schedule\/opportunity/);
