@@ -1,7 +1,7 @@
 const ORIGIN = "https://watts-unified-rebuild.pages.dev";
 const STABLE_SITE = "https://watts-retirement-wealth.salexw.chatgpt.site";
 const APP_ASSET = "/assets/index-CQRwdLu0.js";
-const APP_VERSION = "20260721-solutions-nav17";
+const APP_VERSION = "20260721-solutions-nav18";
 const HOMEPAGE_REPAIR_SCRIPT = "/homepage-images-v1.js";
 const ALIGNABLE_ICON_PATH = "/alignable-icon.png";
 const OPPORTUNITY_PATHS_IMAGE_PATH = "/assets/opportunity-paths.png";
@@ -328,6 +328,11 @@ export default {
       }
     }
     if (opportunityPathname === "/opportunity") {
+      document.querySelectorAll('main a[href="/schedule/opportunity"], main a[href$="/schedule/opportunity"]').forEach((link) => {
+        if (link.getAttribute("href") === "/growth") return;
+        link.setAttribute("href", "/growth");
+        link.setAttribute("data-wu-route", "growth-opportunity");
+      });
       const opportunityFooter = document.querySelector("footer");
       if (opportunityFooter) {
         opportunityFooter.classList.add("global-footer");
@@ -386,7 +391,7 @@ export default {
           '<p>If you are looking for additional income, professional growth, or business ownership, start with a clear conversation before choosing a path.</p>',
           '</div>',
           '<div class="wu-next-step-action">',
-          '<a class="wu-next-step-cta" href="/schedule/opportunity" data-wu-event="opportunity_fit_conversation">Book a Fit Conversation <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>',
+          '<a class="wu-next-step-cta" href="/growth" data-wu-route="growth-opportunity" data-wu-event="opportunity_fit_conversation">Book a Fit Conversation <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>',
           '<p class="wu-next-step-trust">No pressure. Clear answers. The right next step.</p>',
           '</div>',
           '</div>',
@@ -407,7 +412,7 @@ export default {
         headers: {
           "content-type": "application/javascript; charset=UTF-8",
           "cache-control": "no-store",
-          "x-watts-homepage-repair": "opportunity-next-step-v2",
+          "x-watts-homepage-repair": "opportunity-growth-route-v1",
           "x-content-type-options": "nosniff",
         },
       });
