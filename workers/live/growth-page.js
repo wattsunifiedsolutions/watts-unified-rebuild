@@ -1,4 +1,4 @@
-const PAGE_PATHS = new Set(["/growth", "/growth/"]);
+const PAGE_PATHS = new Set(["/growth", "/growth/", "/schedule/opportunity", "/schedule/opportunity/"]);
 const HERO_PATH = "/assets/growth-opportunity-hero.webp";
 const HERO_URL = `${HERO_PATH}?v=20260721-hero2`;
 const HERO_KEY = "growth-opportunity-hero.webp";

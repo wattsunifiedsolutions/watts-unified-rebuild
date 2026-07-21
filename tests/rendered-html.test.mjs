@@ -282,6 +282,13 @@ test("rebuilds the Growth Opportunity booking page from the HighLevel reference"
   assert.equal(image.headers.get("content-type"), "image/webp");
   assert.match(image.headers.get("cache-control") ?? "", /immutable/);
   await access(new URL("../public/growth-opportunity-hero.webp", import.meta.url));
+
+  const opportunityAlias = await worker.fetch(new Request("https://wattsunified.com/schedule/opportunity"));
+  assert.equal(opportunityAlias.status, 200);
+  const opportunityHtml = await opportunityAlias.text();
+  assert.match(opportunityHtml, /Explore a Growth Opportunity/);
+  assert.match(opportunityHtml, /growth-opportunity-hero\.webp\?v=20260721-hero2/);
+  assert.match(opportunityHtml, /Schedule Growth &amp; Opportunity Session/);
 });
 
 test("rebuilds the Financial Strategy Session page for focused conversion", async () => {
