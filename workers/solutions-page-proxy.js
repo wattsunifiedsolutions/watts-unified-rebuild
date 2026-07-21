@@ -1,6 +1,7 @@
 const PUBLISHED_SITE = "https://watts-retirement-wealth.salexw.chatgpt.site";
 const ASSET_PREFIX = "/solutions-app";
 const SOLUTIONS_REPAIR_VERSION = "20260721-optimizer4";
+const SOLUTIONS_SITE_RELEASE = "20260721-v33";
 const PAGE_ASSETS = new Set([
   "watts-logo.png",
   "watts-brand-lockup.png",
@@ -17,6 +18,8 @@ function upstreamRequest(request, target) {
   headers.delete("host");
   headers.delete("cookie");
   headers.delete("authorization");
+  headers.set("cache-control", "no-cache, no-store, max-age=0");
+  headers.set("pragma", "no-cache");
   return new Request(target, {
     method: request.method,
     headers,
@@ -134,7 +137,10 @@ export default {
       return stableResponse(response, "stable-page-asset-v3", filename);
     }
 
-    const response = await fetch(upstreamRequest(request, `${PUBLISHED_SITE}/solutions${url.search}`));
+    const publishedUrl = new URL(`${PUBLISHED_SITE}/solutions`);
+    publishedUrl.search = url.search;
+    publishedUrl.searchParams.set("wu-release", SOLUTIONS_SITE_RELEASE);
+    const response = await fetch(upstreamRequest(request, publishedUrl));
     const contentType = response.headers.get("content-type") || "";
     if (!response.ok || !contentType.includes("text/html")) {
       return stableResponse(response, "stable-passthrough-v3");
@@ -149,6 +155,7 @@ export default {
     headers.set("pragma", "no-cache");
     headers.set("expires", "0");
     headers.set("x-watts-solutions-worker", "stable-approved-v3");
+    headers.set("x-watts-solutions-release", SOLUTIONS_SITE_RELEASE);
     headers.set("x-content-type-options", "nosniff");
     headers.delete("content-length");
     return new Response(html, { status: response.status, headers });
