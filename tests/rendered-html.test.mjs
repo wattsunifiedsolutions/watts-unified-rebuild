@@ -405,9 +405,8 @@ test("keeps homepage program imagery stable and routes the Solutions card correc
   assert.match(worker, /No pressure\. Clear answers\. The right next step\./);
   assert.match(worker, /\/schedule\/opportunity/);
   assert.match(worker, /opportunity-next-step-v2/);
-  assert.match(worker, /data-wu-footer/);
-  assert.match(worker, /navy-v1/);
-  assert.match(worker, /background:#0b1f3a!important/);
+  assert.match(worker, /opportunityFooter\.classList\.add\("global-footer"\)/);
+  assert.doesNotMatch(worker, /footer\[data-wu-footer="navy-v1"\]/);
   assert.match(worker, /footerLogo\.setAttribute\("src", "\/solutions-app\/watts-brand-lockup\.png"\)/);
   assert.doesNotMatch(worker, /standaloneSection\.remove\(\)/);
   assert.doesNotMatch(worker, /wu-opportunity-path-card/);
@@ -481,8 +480,7 @@ test("adds homepage discovery metadata and one versioned repair script", async (
   assert.match(opportunityPage, /"@type":"FAQPage"/);
   assert.match(opportunityPage, /conversion-v2/);
   assert.match(opportunityPage, /wu-next-step-inner/);
-  assert.match(opportunityPage, /footer\[data-wu-footer="navy-v1"\]/);
-  assert.match(opportunityPage, /background:#0b1f3a!important/);
+  assert.doesNotMatch(opportunityPage, /footer\[data-wu-footer="navy-v1"\]/);
 
   const repairResponse = await homepageWorker.fetch(
     new Request("https://wattsunified.com/homepage-images-v1.js"),
