@@ -13,6 +13,14 @@
       "zone_name": "wattsunified.com"
     },
     {
+      "pattern": "wattsunified.com/*",
+      "zone_name": "wattsunified.com"
+    },
+    {
+      "pattern": "www.wattsunified.com/*",
+      "zone_name": "wattsunified.com"
+    },
+    {
       "pattern": "wattsunified.com/assets/index-CQRwdLu0.js*",
       "zone_name": "wattsunified.com"
     },
