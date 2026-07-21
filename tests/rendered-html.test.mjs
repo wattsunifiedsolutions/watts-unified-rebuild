@@ -317,8 +317,7 @@ test("keeps homepage program imagery stable and routes the Solutions card correc
   assert.match(worker, /\/assets\/tools\.png/);
   assert.match(worker, /\/assets\/opportunity-paths\.png/);
   assert.match(worker, /homepage-images-v1\.js/);
-  assert.match(worker, /20260721-solutions-nav10/);
-  assert.match(worker, /item\.textContent\.trim\(\) !== copyright/);
+  assert.match(worker, /20260721-solutions-nav16/);
   assert.match(worker, /wu-opportunity-path-enhancements/);
   assert.match(worker, /opportunity-paths\.png/);
   assert.match(worker, /opportunity-paths-original-v1/);
@@ -335,10 +334,15 @@ test("keeps homepage program imagery stable and routes the Solutions card correc
   assert.match(worker, /data-wu-faq/);
   assert.match(worker, /conversion-v2/);
   assert.match(worker, /content-visibility:auto/);
-  assert.match(worker, /opportunity-faq-v2/);
+  assert.match(worker, /opportunity_faq_connect/);
   assert.match(worker, /Talk With S\. Alex/);
   assert.match(worker, /\/schedule\/solutions/);
   assert.match(worker, /item\.setAttribute\("name", "opportunity-faq"\)/);
+  assert.match(worker, /data-wu-next-step/);
+  assert.match(worker, /Book a Fit Conversation/);
+  assert.match(worker, /No pressure\. Clear answers\. The right next step\./);
+  assert.match(worker, /\/schedule\/opportunity/);
+  assert.match(worker, /opportunity-next-step-v2/);
   assert.doesNotMatch(worker, /standaloneSection\.remove\(\)/);
   assert.doesNotMatch(worker, /wu-opportunity-path-card/);
   assert.doesNotMatch(worker, /__OPPORTUNITY_PATHS_IMAGE_BASE64__/);
@@ -354,6 +358,10 @@ test("keeps homepage program imagery stable and routes the Solutions card correc
   assert.match(worker, /heading\.textContent = "Watts Unified Solutions"/);
   assert.match(worker, /link\.setAttribute\("href", "\/solutions"\)/);
   assert.match(worker, /© 2026 Watts Unified Solutions/);
+  assert.match(worker, /footer small, footer p/);
+  assert.match(worker, /currentText\.includes\("Watts Unified Solutions"\)/);
+  assert.match(worker, /characterData: true/);
+  assert.match(worker, /\[250, 750, 2000\]\.forEach/);
   assert.match(worker, /new Request\(originRequest, \{ cache: "no-store" \}\)/);
   assert.match(worker, /"cache-control": "no-store"/);
   assert.match(worker, /headers\.set\("cache-control", "no-cache"\)/);
@@ -381,7 +389,7 @@ test("keeps homepage program imagery stable and routes the Solutions card correc
 });
 
 test("adds homepage discovery metadata and one versioned repair script", async () => {
-  const { patchHomepageHtml } = await import("../workers/core-navigation-homepage.js");
+  const { default: homepageWorker, patchHomepageHtml } = await import("../workers/core-navigation-homepage.js");
   const source = `<!doctype html><html><head><title>Retirement & Legacy Specialist | Watts Unified Solutions</title></head><body><div id="root"></div><script type="module" src="/assets/index-CQRwdLu0.js"></script><script src="/homepage-images-v1.js"></script></body></html>`;
   const html = patchHomepageHtml(source, true);
 
@@ -390,14 +398,14 @@ test("adds homepage discovery metadata and one versioned repair script", async (
   assert.match(html, /property="og:image" content="https:\/\/wattsunified\.com\/assets\/hero\.webp"/);
   assert.match(html, /rel="preload" as="image" href="\/assets\/hero\.webp"[^>]*fetchpriority="high"/);
   assert.match(html, /id="wu-homepage-schema" type="application\/ld\+json"/);
-  assert.match(html, /\/assets\/index-CQRwdLu0\.js\?v=20260721-solutions-nav10/);
+  assert.match(html, /\/assets\/index-CQRwdLu0\.js\?v=20260721-solutions-nav16/);
   assert.equal((html.match(/homepage-images-v1\.js/g) || []).length, 1);
-  assert.match(html, /homepage-images-v1\.js\?v=20260721-solutions-nav10/);
+  assert.match(html, /homepage-images-v1\.js\?v=20260721-solutions-nav16/);
 
   const internalPage = patchHomepageHtml(source, false);
   assert.doesNotMatch(internalPage, /rel="canonical" href="https:\/\/wattsunified\.com\/"/);
   assert.doesNotMatch(internalPage, /id="wu-homepage-schema"/);
-  assert.match(internalPage, /homepage-images-v1\.js\?v=20260721-solutions-nav10/);
+  assert.match(internalPage, /homepage-images-v1\.js\?v=20260721-solutions-nav16/);
 
   const opportunityPage = patchHomepageHtml(source, false, "/opportunity");
   assert.match(opportunityPage, /wu-opportunity-path-enhancements/);
@@ -406,4 +414,11 @@ test("adds homepage discovery metadata and one versioned repair script", async (
   assert.match(opportunityPage, /id="wu-opportunity-faq-schema"/);
   assert.match(opportunityPage, /"@type":"FAQPage"/);
   assert.match(opportunityPage, /conversion-v2/);
+  assert.match(opportunityPage, /wu-next-step-inner/);
+
+  const repairResponse = await homepageWorker.fetch(
+    new Request("https://wattsunified.com/homepage-images-v1.js"),
+  );
+  const repairScript = await repairResponse.text();
+  assert.doesNotThrow(() => new Function(repairScript));
 });
