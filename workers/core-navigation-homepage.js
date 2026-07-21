@@ -3,6 +3,9 @@ const STABLE_SITE = "https://watts-retirement-wealth.salexw.chatgpt.site";
 const APP_ASSET = "/assets/index-CQRwdLu0.js";
 const APP_VERSION = "20260721-cache-policy2";
 const HOMEPAGE_REPAIR_SCRIPT = "/homepage-images-v1.js";
+const ALIGNABLE_ICON_PATH = "/alignable-icon.png";
+
+const ALIGNABLE_ICON = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Alignable"><rect width="64" height="64" rx="12" fill="#1769aa"/><text x="32" y="44" fill="#fff" font-family="Arial,Helvetica,sans-serif" font-size="44" font-weight="700" text-anchor="middle">a</text></svg>`;
 
 const HOMEPAGE_IMAGE_REPLACEMENTS = new Map([
   ["/assets/veterans.webp", "/solutions-veteran.webp"],
@@ -66,6 +69,17 @@ export default {
           "content-type": "application/javascript; charset=UTF-8",
           "cache-control": "no-store",
           "x-watts-homepage-repair": "homepage-card-v1",
+          "x-content-type-options": "nosniff",
+        },
+      });
+    }
+
+    if (incoming.pathname === ALIGNABLE_ICON_PATH) {
+      return new Response(ALIGNABLE_ICON, {
+        headers: {
+          "content-type": "image/svg+xml; charset=UTF-8",
+          "cache-control": "no-store",
+          "x-watts-social-icon": "alignable-stable-v1",
           "x-content-type-options": "nosniff",
         },
       });
