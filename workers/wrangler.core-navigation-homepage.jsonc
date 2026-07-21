@@ -1,0 +1,48 @@
+{
+  "$schema": "../node_modules/wrangler/config-schema.json",
+  "name": "watts-core-navigation",
+  "main": "core-navigation-homepage.js",
+  "compatibility_date": "2026-07-21",
+  "routes": [
+    {
+      "pattern": "wattsunified.com/",
+      "zone_name": "wattsunified.com"
+    },
+    {
+      "pattern": "www.wattsunified.com/",
+      "zone_name": "wattsunified.com"
+    },
+    {
+      "pattern": "wattsunified.com/assets/index-CQRwdLu0.js*",
+      "zone_name": "wattsunified.com"
+    },
+    {
+      "pattern": "www.wattsunified.com/assets/index-CQRwdLu0.js*",
+      "zone_name": "wattsunified.com"
+    },
+    {
+      "pattern": "wattsunified.com/homepage-images-v1.js*",
+      "zone_name": "wattsunified.com"
+    },
+    {
+      "pattern": "www.wattsunified.com/homepage-images-v1.js*",
+      "zone_name": "wattsunified.com"
+    },
+    {
+      "pattern": "wattsunified.com/assets/veterans.webp*",
+      "zone_name": "wattsunified.com"
+    },
+    {
+      "pattern": "www.wattsunified.com/assets/veterans.webp*",
+      "zone_name": "wattsunified.com"
+    },
+    {
+      "pattern": "wattsunified.com/assets/solutions.webp*",
+      "zone_name": "wattsunified.com"
+    },
+    {
+      "pattern": "www.wattsunified.com/assets/solutions.webp*",
+      "zone_name": "wattsunified.com"
+    }
+  ]
+}
