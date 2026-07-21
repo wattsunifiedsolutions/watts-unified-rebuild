@@ -214,18 +214,34 @@ test("renders the complete Financial Professional opportunity page", async () =>
   assert.match(html, /Instagram/);
   assert.match(html, /Alignable/);
   assert.match(html, /(?:©|&copy;) 2026 Watts Unified Solutions/);
+  assert.match(html, /\.global-footer\{[^}]*background:#f6f8fa[^}]*color:#667085/);
+  assert.doesNotMatch(html, /\.global-footer\{[^}]*background:var\(--navy\)/);
+  assert.match(html, /Watts Unified Solutions home/);
+  assert.match(html, /Let's Connect/);
   assert.doesNotMatch(html, /filesafe\.space|\/growth|carrier logo/i);
 });
 
 test("serves immutable Financial Professional deployment-owned images", async () => {
   const { default: worker } = await import("../workers/live/financial-professional.js");
-  const response = await worker.fetch(
-    new Request("https://wattsunified.com/assets/financial-professional/hero.webp"),
-    { FIN_HERO: new Uint8Array([82, 73, 70, 70]) },
-  );
-  assert.equal(response.status, 200);
-  assert.equal(response.headers.get("content-type"), "image/webp");
-  assert.match(response.headers.get("cache-control") ?? "", /immutable/);
+  const assets = [
+    ["hero.webp", "FIN_HERO"],
+    ["retirement.webp", "FIN_RETIREMENT"],
+    ["education.webp", "FIN_EDUCATION"],
+    ["legacy.webp", "FIN_LEGACY"],
+    ["mentor.webp", "FIN_MENTOR"],
+    ["freedom.webp", "FIN_FREEDOM"],
+    ["alex.webp", "FIN_ALEX"],
+  ];
+  for (const [file, binding] of assets) {
+    const response = await worker.fetch(
+      new Request(`https://wattsunified.com/assets/financial-professional/${file}`),
+      { [binding]: new Uint8Array([82, 73, 70, 70]) },
+    );
+    assert.equal(response.status, 200, file);
+    assert.equal(response.headers.get("content-type"), "image/webp", file);
+    assert.match(response.headers.get("cache-control") ?? "", /immutable/, file);
+    assert.equal(response.headers.get("x-watts-financial-professional"), "complete-images-light-footer-v1", file);
+  }
 });
 
 test("ships optimized local brand and hero assets", async () => {
