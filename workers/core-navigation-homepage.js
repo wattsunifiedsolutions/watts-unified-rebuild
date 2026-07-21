@@ -1,7 +1,7 @@
 const ORIGIN = "https://watts-unified-rebuild.pages.dev";
 const STABLE_SITE = "https://watts-retirement-wealth.salexw.chatgpt.site";
 const APP_ASSET = "/assets/index-CQRwdLu0.js";
-const APP_VERSION = "20260721-solutions-nav4";
+const APP_VERSION = "20260721-solutions-nav5";
 const HOMEPAGE_REPAIR_SCRIPT = "/homepage-images-v1.js";
 const ALIGNABLE_ICON_PATH = "/alignable-icon.png";
 
@@ -89,7 +89,7 @@ function installVersionedRepairScript(html) {
   return html;
 }
 
-export function patchHomepageHtml(html, isHomepage = false) {
+export function patchHomepageHtml(html, isHomepage = false, pathname = "") {
   const homepageSeo = `<link rel="canonical" href="https://wattsunified.com/">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <meta property="og:type" content="website">
@@ -110,9 +110,12 @@ export function patchHomepageHtml(html, isHomepage = false) {
 
   html = html.replace(APP_ASSET, `${APP_ASSET}?v=${APP_VERSION}`);
   const homepageMetadata = isHomepage ? homepageSeo : "";
+  const opportunityImageRemoval = pathname.startsWith("/opportunity")
+    ? `<style id="wu-opportunity-image-removal">section:has(>img[src*="/assets/opportunity-paths.png"]),img[src*="/assets/opportunity-paths.png"]{display:none!important}</style>`
+    : "";
   html = html.replace(
     "</head>",
-    `${homepageMetadata}<style id="wu-nonsticky-header">header{position:relative!important;top:auto!important}</style></head>`,
+    `${homepageMetadata}${opportunityImageRemoval}<style id="wu-nonsticky-header">header{position:relative!important;top:auto!important}</style></head>`,
   );
   return installVersionedRepairScript(html);
 }
@@ -177,6 +180,13 @@ export default {
       const link = card.querySelector("a");
       if (link) link.setAttribute("href", "/solutions");
     });
+    if (location.pathname.startsWith("/opportunity")) {
+      document.querySelectorAll('img[src*="/assets/opportunity-paths.png"]').forEach((image) => {
+        const standaloneSection = image.closest("section");
+        if (standaloneSection && standaloneSection.children.length === 1) standaloneSection.remove();
+        else image.remove();
+      });
+    }
   };
   document.addEventListener("click", forceSolutionsDocumentNavigation, true);
   repairHomepage();
@@ -233,7 +243,7 @@ export default {
 
     const contentType = originResponse.headers.get("content-type") || "";
     if (contentType.includes("text/html") && isManagedHtmlPath(incoming.pathname)) {
-      const html = patchHomepageHtml(await originResponse.text(), incoming.pathname === "/");
+      const html = patchHomepageHtml(await originResponse.text(), incoming.pathname === "/", incoming.pathname);
       return new Response(html, {
         status: originResponse.status,
         headers: {
