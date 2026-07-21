@@ -58,7 +58,8 @@ function rewritePublishedHtml(html) {
     .replace(
       /(?<!\/solutions-app)\/(watts-logo\.png|solutions-protection\.jpg|solutions-(?:hero|retirement|legacy|business|veteran)\.webp)/g,
       `${ASSET_PREFIX}/$1`,
-    );
+    )
+    .replace(/<section class="solutions-trust"[\s\S]*?<\/section>/, "");
 }
 
 export default {

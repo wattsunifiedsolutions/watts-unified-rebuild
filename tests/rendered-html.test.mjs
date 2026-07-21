@@ -43,6 +43,7 @@ test("server-renders the concise solutions acquisition page", async () => {
   assert.match(html, /rel="canonical" href="https:\/\/wattsunified\.com\/solutions\/"/);
   assert.match(html, /application\/ld\+json/);
   assert.match(html, /width="1445" height="1088"/);
+  assert.doesNotMatch(html, /What Happens Next|A clear, private path forward|Choose Your Focus/);
   assert.doesNotMatch(html, /calendar|iframe/i);
 });
 
@@ -251,6 +252,7 @@ test("keeps the Solutions edge route pinned to the approved build", async () => 
 
   assert.match(worker, /stable-approved-v3/);
   assert.match(worker, /stable-image-bypass-v3/);
+  assert.match(worker, /solutions-trust/);
   assert.doesNotMatch(worker, /North American Company Partner|Retirement Readiness Checklist|wus-trust-bar|injectEnhancements/);
   assert.match(config, /wattsunified\.com\/solutions\*/);
   assert.match(config, /www\.wattsunified\.com\/solutions\*/);

@@ -173,18 +173,6 @@ export default function SolutionsPage() {
           </div>
         </section>
 
-        <section className="solutions-trust" aria-labelledby="solutions-trust-title">
-          <div className="solutions-section-heading compact-heading">
-            <p className="solutions-eyebrow">What Happens Next</p>
-            <h2 id="solutions-trust-title">A clear, private path forward.</h2>
-          </div>
-          <div className="solutions-trust-grid">
-            <article><b>1</b><h3>Choose Your Focus</h3><p>Start with the solution that matches the decision in front of you.</p></article>
-            <article><b>2</b><h3>Get Clear</h3><p>Organize your priorities through education or the private Financial Snapshot.</p></article>
-            <article><b>3</b><h3>Move at Your Pace</h3><p>Review the next step in a focused conversation without pressure.</p></article>
-          </div>
-        </section>
-
         <section className="programs-section" aria-labelledby="programs-title">
           <div className="solutions-section-heading compact-heading">
             <p className="solutions-eyebrow">Specialized Programs</p>
