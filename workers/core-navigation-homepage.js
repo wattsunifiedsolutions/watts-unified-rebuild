@@ -23,7 +23,8 @@ function patchAppBundle(source) {
     .replace(oldNavigation, newNavigation)
     .replace(oldHeaderCta, newHeaderCta)
     .replace(oldFooterLinks, newFooterLinks)
-    .replaceAll("Retirement & Legacy Solutions", "Watts Unified Solutions");
+    .replaceAll("Retirement & Legacy Solutions", "Watts Unified Solutions")
+    .replaceAll("© 2025 Watts Unified Solutions. All rights reserved.", "© 2025–2026 Watts Unified Solutions. All rights reserved.");
 }
 
 function upstreamRequest(request, target) {
