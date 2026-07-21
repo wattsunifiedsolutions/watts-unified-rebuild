@@ -1,7 +1,7 @@
 const ORIGIN = "https://watts-unified-rebuild.pages.dev";
 const STABLE_SITE = "https://watts-retirement-wealth.salexw.chatgpt.site";
 const APP_ASSET = "/assets/index-CQRwdLu0.js";
-const APP_VERSION = "20260721-solutions-nav5";
+const APP_VERSION = "20260721-solutions-nav6";
 const HOMEPAGE_REPAIR_SCRIPT = "/homepage-images-v1.js";
 const ALIGNABLE_ICON_PATH = "/alignable-icon.png";
 
@@ -35,7 +35,7 @@ const HOMEPAGE_SCHEMA = {
   ],
 };
 
-const ALIGNABLE_ICON = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Alignable"><rect width="64" height="64" rx="12" fill="#1769aa"/><text x="32" y="44" fill="#fff" font-family="Arial,Helvetica,sans-serif" font-size="44" font-weight="700" text-anchor="middle">a</text></svg>`;
+const ALIGNABLE_ICON = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 38 47" role="img" aria-label="Alignable"><path fill="#6C33D8" fill-rule="evenodd" d="M34.1 14.865C31.728 7.968 25.198 3 17.528 3a17.34 17.34 0 0 0-5.75.978l.265.82c.431 1.328.88 2.714 1.35 4.095.276.81.56 1.613.85 2.404.922 2.507 1.915 4.85 2.993 6.61.474.774.967 1.421 1.474 1.932.734.738 1.503 1.18 2.31 1.18 1.18 0 2.277-.912 3.302-2.381.877 1.763 1.773 4.055 2.55 6.23-1.642 1.415-3.55 2.267-5.85 2.267h-.003c-1.746 0-3.263-.5-4.615-1.348a10.72 10.72 0 0 1-1.82-1.427c-1.618-1.59-2.959-3.773-4.137-6.275a48.728 48.728 0 0 1-1.183-2.735c-1.05-2.628-1.985-5.473-2.904-8.307A17.502 17.502 0 0 0 4.614 8.71 17.545 17.545 0 0 0 0 20.585c0 3.995 1.338 7.683 3.585 10.64a17.6 17.6 0 0 0 1.66 1.889 218.651 218.651 0 0 0 1.79-5.384c.752-2.328 1.513-4.667 2.335-6.898 1.249 2.337 2.694 4.342 4.434 5.82a359.435 359.435 0 0 0-.968 2.963c-.768 2.38-1.544 4.776-2.386 7.051.66.294 1.341.55 2.04.762 1.597.48 3.289.742 5.038.742 4.71 0 8.987-1.876 12.14-4.918a17.695 17.695 0 0 0 1.677-1.864c-.195-.595-.387-1.19-.58-1.785a260.15 260.15 0 0 0-1.348-4.087c-.277-.811-.56-1.615-.85-2.407-.92-2.504-1.912-4.85-2.99-6.61-.473-.775-.967-1.422-1.474-1.933a5.78 5.78 0 0 0-.556-.495c-.563-.436-1.144-.684-1.75-.684-1.18 0-2.28.911-3.306 2.382-.879-1.765-1.772-4.055-2.551-6.23.205-.177.414-.345.628-.505 1.5-1.113 3.212-1.763 5.227-1.763h.006c1.742 0 3.256.499 4.608 1.347.643.402 1.251.868 1.821 1.425 1.618 1.59 2.957 3.775 4.135 6.278.413.877.806 1.79 1.184 2.736a86.59 86.59 0 0 1 1.369 3.706c.088-.715.14-1.44.14-2.178 0-2.003-.34-3.926-.958-5.72Z" clip-rule="evenodd"/></svg>`;
 
 const HOMEPAGE_IMAGE_REPLACEMENTS = new Map([
   ["/assets/veterans.webp", "/solutions-veteran.webp"],
@@ -68,7 +68,8 @@ function patchAppBundle(source) {
     .replace(oldHeaderCta, newHeaderCta)
     .replace(oldFooterLinks, newFooterLinks)
     .replaceAll("Retirement & Legacy Solutions", "Watts Unified Solutions")
-    .replaceAll("© 2025 Watts Unified Solutions. All rights reserved.", "© 2025–2026 Watts Unified Solutions. All rights reserved.");
+    .replaceAll("© 2025–2026 Watts Unified Solutions. All rights reserved.", "© 2026 Watts Unified Solutions. All rights reserved.")
+    .replaceAll("© 2025 Watts Unified Solutions. All rights reserved.", "© 2026 Watts Unified Solutions. All rights reserved.");
 }
 
 function installVersionedRepairScript(html) {
@@ -180,6 +181,9 @@ export default {
       const link = card.querySelector("a");
       if (link) link.setAttribute("href", "/solutions");
     });
+    document.querySelectorAll("footer small, footer p").forEach((item) => {
+      if (item.textContent.trim().startsWith("©")) item.textContent = "© 2026 Watts Unified Solutions. All rights reserved.";
+    });
     if (location.pathname.startsWith("/opportunity")) {
       document.querySelectorAll('img[src*="/assets/opportunity-paths.png"]').forEach((image) => {
         const standaloneSection = image.closest("section");
@@ -207,7 +211,7 @@ export default {
         headers: {
           "content-type": "image/svg+xml; charset=UTF-8",
           "cache-control": "no-store",
-          "x-watts-social-icon": "alignable-stable-v1",
+          "x-watts-social-icon": "alignable-official-v2",
           "x-content-type-options": "nosniff",
         },
       });
