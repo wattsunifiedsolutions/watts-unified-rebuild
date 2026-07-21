@@ -295,8 +295,14 @@ test("keeps homepage program imagery stable and routes the Solutions card correc
   assert.match(worker, /\/solutions-veteran\.webp/);
   assert.match(worker, /\/assets\/solutions\.webp/);
   assert.match(worker, /\/solutions-hero\.webp/);
+  assert.match(worker, /\/assets\/veterans-live-hero\.webp/);
+  assert.match(worker, /\/assets\/system-live-hero\.png/);
+  assert.match(worker, /\/assets\/domain\.png/);
+  assert.match(worker, /\/assets\/email\.png/);
+  assert.match(worker, /\/assets\/tools\.png/);
+  assert.match(worker, /\/assets\/opportunity-paths\.png/);
   assert.match(worker, /homepage-images-v1\.js/);
-  assert.match(worker, /20260721-solutions-nav3/);
+  assert.match(worker, /20260721-solutions-nav4/);
   assert.match(worker, /forceSolutionsDocumentNavigation/);
   assert.match(worker, /location\.assign\(destination\.href\)/);
   assert.match(worker, /installVersionedRepairScript/);
@@ -321,8 +327,14 @@ test("keeps homepage program imagery stable and routes the Solutions card correc
   assert.match(config, /www\.wattsunified\.com\/assets\/solutions\.webp\*/);
   assert.match(config, /wattsunified\.com\/homepage-images-v1\.js\*/);
   assert.match(config, /www\.wattsunified\.com\/homepage-images-v1\.js\*/);
-  assert.match(config, /"pattern": "wattsunified\.com\/\*"/);
-  assert.match(config, /"pattern": "www\.wattsunified\.com\/\*"/);
+  assert.doesNotMatch(config, /"pattern": "wattsunified\.com\/\*"/);
+  assert.doesNotMatch(config, /"pattern": "www\.wattsunified\.com\/\*"/);
+  assert.match(config, /wattsunified\.com\/assets\/veterans-live-hero\.webp\*/);
+  assert.match(config, /wattsunified\.com\/assets\/system-live-hero\.png\*/);
+  assert.match(config, /wattsunified\.com\/assets\/domain\.png\*/);
+  assert.match(config, /wattsunified\.com\/assets\/email\.png\*/);
+  assert.match(config, /wattsunified\.com\/assets\/tools\.png\*/);
+  assert.match(config, /wattsunified\.com\/assets\/opportunity-paths\.png\*/);
   assert.match(config, /wattsunified\.com\/alignable-icon\.png\*/);
   assert.match(config, /www\.wattsunified\.com\/alignable-icon\.png\*/);
 });
@@ -337,12 +349,12 @@ test("adds homepage discovery metadata and one versioned repair script", async (
   assert.match(html, /property="og:image" content="https:\/\/wattsunified\.com\/assets\/hero\.webp"/);
   assert.match(html, /rel="preload" as="image" href="\/assets\/hero\.webp"[^>]*fetchpriority="high"/);
   assert.match(html, /id="wu-homepage-schema" type="application\/ld\+json"/);
-  assert.match(html, /\/assets\/index-CQRwdLu0\.js\?v=20260721-solutions-nav3/);
+  assert.match(html, /\/assets\/index-CQRwdLu0\.js\?v=20260721-solutions-nav4/);
   assert.equal((html.match(/homepage-images-v1\.js/g) || []).length, 1);
-  assert.match(html, /homepage-images-v1\.js\?v=20260721-solutions-nav3/);
+  assert.match(html, /homepage-images-v1\.js\?v=20260721-solutions-nav4/);
 
   const internalPage = patchHomepageHtml(source, false);
   assert.doesNotMatch(internalPage, /rel="canonical" href="https:\/\/wattsunified\.com\/"/);
   assert.doesNotMatch(internalPage, /id="wu-homepage-schema"/);
-  assert.match(internalPage, /homepage-images-v1\.js\?v=20260721-solutions-nav3/);
+  assert.match(internalPage, /homepage-images-v1\.js\?v=20260721-solutions-nav4/);
 });
