@@ -4,11 +4,11 @@ Last verified: 2026-07-21
 
 ## Source branches
 
-- Current live update: `codex/footer-2025-2026`
+- Current live update: `codex/site-enhancements-2026-07-21`
 - Protected rollback baseline: `codex/production-stable-2026-07-21`
 - Do not overwrite or force-push the protected rollback branch.
 
-When opening the repository in Cursor, fetch the remote branches and check out `codex/footer-2025-2026` before making changes.
+When opening the repository in Cursor, fetch the remote branches and check out `codex/site-enhancements-2026-07-21` before making changes.
 
 ## Shared site deployment
 
@@ -19,8 +19,10 @@ When opening the repository in Cursor, fetch the remote branches and check out `
 - Shared source commit: `c8f4e417b074b79d1b7f09395d6f35970d248212`
 - Solutions edge release: `20260721-v33`
 - Solutions Worker deployment: `28a2bdf9-ee68-4bee-85c7-713e2de51383`
-- Homepage navigation Worker deployment: `41bfe08e-0b1b-42a4-8e64-f1f2cf74d33b`
+- Homepage navigation Worker deployment: `013e3ffc-d982-4562-a369-7f3bc63b7edd`
+- Homepage wildcard route IDs: apex `6b3ece9bb21d4fb1befebc3e37705376`; www `d595361d2c5d4e2f966edad6f0c7c052`
 - Homepage Solutions links force a full document navigation to release 33 so the legacy SPA route cannot render.
+- Homepage canonical, social metadata, structured data, and hero preload apply to both direct and campaign-tagged homepage visits.
 
 ## Live Worker source map
 
@@ -52,7 +54,7 @@ The `workers/live/` files were downloaded from the deployed Cloudflare Workers a
 ## Current verification
 
 - Production build passed.
-- 13 automated tests passed.
+- 14 automated tests passed.
 - 17 sitemap pages checked.
 - 71 image placements checked.
 - 33 unique images checked.
