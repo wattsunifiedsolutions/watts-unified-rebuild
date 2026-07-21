@@ -3,6 +3,12 @@
   "name": "watts-core-navigation",
   "main": "core-navigation-homepage.js",
   "compatibility_date": "2026-07-21",
+  "kv_namespaces": [
+    {
+      "binding": "LEGALSHIELD_ASSETS",
+      "id": "9a2ff1847b7a49c6beb883c6c09df225"
+    }
+  ],
   "routes": [
     {
       "pattern": "wattsunified.com/",
@@ -90,6 +96,22 @@
     },
     {
       "pattern": "www.wattsunified.com/assets/tools.png*",
+      "zone_name": "wattsunified.com"
+    },
+    {
+      "pattern": "wattsunified.com/assets/legalshield-live-hero.png*",
+      "zone_name": "wattsunified.com"
+    },
+    {
+      "pattern": "www.wattsunified.com/assets/legalshield-live-hero.png*",
+      "zone_name": "wattsunified.com"
+    },
+    {
+      "pattern": "wattsunified.com/assets/legalshield-professional.png*",
+      "zone_name": "wattsunified.com"
+    },
+    {
+      "pattern": "www.wattsunified.com/assets/legalshield-professional.png*",
       "zone_name": "wattsunified.com"
     },
     {

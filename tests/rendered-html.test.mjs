@@ -395,7 +395,7 @@ test("keeps homepage program imagery stable and routes the Solutions card correc
   assert.match(worker, /\/assets\/tools\.png/);
   assert.match(worker, /\/assets\/opportunity-paths\.png/);
   assert.match(worker, /homepage-images-v1\.js/);
-  assert.match(worker, /20260721-solutions-nav16/);
+  assert.match(worker, /20260721-solutions-nav17/);
   assert.match(worker, /wu-opportunity-path-enhancements/);
   assert.match(worker, /opportunity-paths\.png/);
   assert.match(worker, /opportunity-paths-original-v1/);
@@ -448,9 +448,16 @@ test("keeps homepage program imagery stable and routes the Solutions card correc
   assert.match(worker, /headers\.set\("cache-control", "no-cache"\)/);
   assert.match(worker, /alignable-icon\.png/);
   assert.match(worker, /image\/svg\+xml/);
-  assert.match(worker, /alignable-official-v2/);
+  assert.match(worker, /alignable-official-v3/);
   assert.match(worker, /#6C33D8/);
   assert.match(worker, /M34\.1 14\.865/);
+  assert.match(worker, /LEGALSHIELD_IMAGE_KEYS/);
+  assert.match(worker, /legalshield-live-hero\.png/);
+  assert.match(worker, /legalshield-professional\.png/);
+  assert.match(worker, /LEGALSHIELD_ASSETS\.get/);
+  assert.match(worker, /legalshield-original-v1/);
+  assert.match(worker, /fetchpriority/);
+  assert.match(worker, /alignable-icon\.png\?v=20260721-v3/);
   assert.match(config, /wattsunified\.com\/assets\/veterans\.webp\*/);
   assert.match(config, /wattsunified\.com\/assets\/solutions\.webp\*/);
   assert.match(config, /www\.wattsunified\.com\/assets\/veterans\.webp\*/);
@@ -465,6 +472,12 @@ test("keeps homepage program imagery stable and routes the Solutions card correc
   assert.match(config, /wattsunified\.com\/assets\/email\.png\*/);
   assert.match(config, /wattsunified\.com\/assets\/tools\.png\*/);
   assert.match(config, /wattsunified\.com\/assets\/opportunity-paths\.png\*/);
+  assert.match(config, /wattsunified\.com\/assets\/legalshield-live-hero\.png\*/);
+  assert.match(config, /www\.wattsunified\.com\/assets\/legalshield-live-hero\.png\*/);
+  assert.match(config, /wattsunified\.com\/assets\/legalshield-professional\.png\*/);
+  assert.match(config, /www\.wattsunified\.com\/assets\/legalshield-professional\.png\*/);
+  assert.match(config, /LEGALSHIELD_ASSETS/);
+  assert.match(config, /9a2ff1847b7a49c6beb883c6c09df225/);
   assert.match(config, /wattsunified\.com\/alignable-icon\.png\*/);
   assert.match(config, /www\.wattsunified\.com\/alignable-icon\.png\*/);
 });
@@ -479,14 +492,14 @@ test("adds homepage discovery metadata and one versioned repair script", async (
   assert.match(html, /property="og:image" content="https:\/\/wattsunified\.com\/assets\/hero\.webp"/);
   assert.match(html, /rel="preload" as="image" href="\/assets\/hero\.webp"[^>]*fetchpriority="high"/);
   assert.match(html, /id="wu-homepage-schema" type="application\/ld\+json"/);
-  assert.match(html, /\/assets\/index-CQRwdLu0\.js\?v=20260721-solutions-nav16/);
+  assert.match(html, /\/assets\/index-CQRwdLu0\.js\?v=20260721-solutions-nav17/);
   assert.equal((html.match(/homepage-images-v1\.js/g) || []).length, 1);
-  assert.match(html, /homepage-images-v1\.js\?v=20260721-solutions-nav16/);
+  assert.match(html, /homepage-images-v1\.js\?v=20260721-solutions-nav17/);
 
   const internalPage = patchHomepageHtml(source, false);
   assert.doesNotMatch(internalPage, /rel="canonical" href="https:\/\/wattsunified\.com\/"/);
   assert.doesNotMatch(internalPage, /id="wu-homepage-schema"/);
-  assert.match(internalPage, /homepage-images-v1\.js\?v=20260721-solutions-nav16/);
+  assert.match(internalPage, /homepage-images-v1\.js\?v=20260721-solutions-nav17/);
 
   const opportunityPage = patchHomepageHtml(source, false, "/opportunity");
   assert.match(opportunityPage, /wu-opportunity-path-enhancements/);
@@ -503,4 +516,31 @@ test("adds homepage discovery metadata and one versioned repair script", async (
   );
   const repairScript = await repairResponse.text();
   assert.doesNotThrow(() => new Function(repairScript));
+});
+
+test("serves deployment-owned LegalShield opportunity images", async () => {
+  const { default: homepageWorker } = await import("../workers/core-navigation-homepage.js");
+  const expectedBytes = new Uint8Array([82, 73, 70, 70, 87, 69, 66, 80]);
+  const requestedKeys = [];
+  const env = {
+    LEGALSHIELD_ASSETS: {
+      async get(key, type) {
+        requestedKeys.push([key, type]);
+        return expectedBytes.buffer;
+      },
+    },
+  };
+
+  for (const [pathname, key] of [
+    ["/assets/legalshield-live-hero.png", "legalshield-live-hero.webp"],
+    ["/assets/legalshield-professional.png", "legalshield-professional.webp"],
+  ]) {
+    const response = await homepageWorker.fetch(new Request(`https://wattsunified.com${pathname}`), env);
+    assert.equal(response.status, 200);
+    assert.equal(response.headers.get("content-type"), "image/webp");
+    assert.match(response.headers.get("cache-control") ?? "", /immutable/);
+    assert.equal(response.headers.get("x-watts-opportunity-image"), "legalshield-original-v1");
+    assert.deepEqual(new Uint8Array(await response.arrayBuffer()), expectedBytes);
+    assert.deepEqual(requestedKeys.at(-1), [key, "arrayBuffer"]);
+  }
 });
