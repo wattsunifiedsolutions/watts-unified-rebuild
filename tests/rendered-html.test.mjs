@@ -352,6 +352,42 @@ test("rebuilds the Veteran Strategy Session page from the HighLevel mission brie
   await access(new URL("../public/veteran-strategy-session-hero.webp", import.meta.url));
 });
 
+test("rebuilds the Marketing Strategy Session page around the original systems audit", async () => {
+  const { default: worker } = await import("../workers/live/marketing-strategy-session.js");
+  const response = await worker.fetch(new Request("https://wattsunified.com/schedule/marketing"));
+  assert.equal(response.status, 200);
+  assert.match(response.headers.get("cache-control") ?? "", /no-store/);
+  assert.equal(response.headers.get("x-watts-marketing-strategy"), "highlevel-conversion-v1");
+  const html = await response.text();
+  assert.match(html, /Audit Your Digital Foundation/);
+  assert.match(html, /Systems &amp; Infrastructure/);
+  assert.match(html, /Reserve Your Business Systems Strategy Session/);
+  assert.match(html, /Schedule Marketing Audit/);
+  assert.match(html, /calendar\.google\.com\/calendar\/appointments\/schedules\/AcZssZ1gxff_vnvbL_Xrb8CT2bEncJcdBy-_EY-Wa_gYbGqKdf2nKCbVkcgvXMIDtCKqjp83elVSXgTh\?gv=true/);
+  assert.match(html, /\/assets\/marketing-strategy-session-hero\.webp/);
+  assert.match(html, /width="1408" height="768" fetchpriority="high" decoding="async"/);
+  assert.match(html, /<link rel="canonical" href="https:\/\/wattsunified\.com\/schedule\/marketing">/);
+  assert.match(html, /60-Minute Strategy Session/);
+  assert.match(html, /Clear Action Priorities/);
+  assert.match(html, /data-watts-event="marketing_primary_cta"/);
+  assert.match(html, /Let&#39;s Connect/);
+  assert.match(html, /LinkedIn/);
+  assert.match(html, /Instagram/);
+  assert.match(html, /Alignable/);
+  assert.match(html, /&copy; 2026 Watts Unified Solutions/);
+  assert.doesNotMatch(html, /filesafe\.space|Unified System<\/a><\/nav>|Not ready to lock in a time\?<\/h2>/);
+
+  const image = await worker.fetch(
+    new Request("https://wattsunified.com/assets/marketing-strategy-session-hero.webp"),
+    { SCHEDULE_ASSETS: { get: async () => new Uint8Array([82, 73, 70, 70]) } },
+  );
+  assert.equal(image.status, 200);
+  assert.equal(image.headers.get("content-type"), "image/webp");
+  assert.match(image.headers.get("cache-control") ?? "", /immutable/);
+  assert.equal(image.headers.get("x-watts-marketing-strategy"), "highlevel-conversion-v1");
+  await access(new URL("../public/marketing-strategy-session-hero.webp", import.meta.url));
+});
+
 test("ships optimized local brand and hero assets", async () => {
   const [page, layout, packageJson] = await Promise.all([
     readFile(new URL("../app/page.tsx", import.meta.url), "utf8"),
