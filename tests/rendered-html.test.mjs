@@ -302,7 +302,10 @@ test("keeps homepage program imagery stable and routes the Solutions card correc
   assert.match(worker, /\/assets\/tools\.png/);
   assert.match(worker, /\/assets\/opportunity-paths\.png/);
   assert.match(worker, /homepage-images-v1\.js/);
-  assert.match(worker, /20260721-solutions-nav4/);
+  assert.match(worker, /20260721-solutions-nav5/);
+  assert.match(worker, /wu-opportunity-image-removal/);
+  assert.match(worker, /opportunity-paths\.png/);
+  assert.match(worker, /standaloneSection\.remove\(\)/);
   assert.match(worker, /forceSolutionsDocumentNavigation/);
   assert.match(worker, /location\.assign\(destination\.href\)/);
   assert.match(worker, /installVersionedRepairScript/);
@@ -349,12 +352,16 @@ test("adds homepage discovery metadata and one versioned repair script", async (
   assert.match(html, /property="og:image" content="https:\/\/wattsunified\.com\/assets\/hero\.webp"/);
   assert.match(html, /rel="preload" as="image" href="\/assets\/hero\.webp"[^>]*fetchpriority="high"/);
   assert.match(html, /id="wu-homepage-schema" type="application\/ld\+json"/);
-  assert.match(html, /\/assets\/index-CQRwdLu0\.js\?v=20260721-solutions-nav4/);
+  assert.match(html, /\/assets\/index-CQRwdLu0\.js\?v=20260721-solutions-nav5/);
   assert.equal((html.match(/homepage-images-v1\.js/g) || []).length, 1);
-  assert.match(html, /homepage-images-v1\.js\?v=20260721-solutions-nav4/);
+  assert.match(html, /homepage-images-v1\.js\?v=20260721-solutions-nav5/);
 
   const internalPage = patchHomepageHtml(source, false);
   assert.doesNotMatch(internalPage, /rel="canonical" href="https:\/\/wattsunified\.com\/"/);
   assert.doesNotMatch(internalPage, /id="wu-homepage-schema"/);
-  assert.match(internalPage, /homepage-images-v1\.js\?v=20260721-solutions-nav4/);
+  assert.match(internalPage, /homepage-images-v1\.js\?v=20260721-solutions-nav5/);
+
+  const opportunityPage = patchHomepageHtml(source, false, "/opportunity");
+  assert.match(opportunityPage, /wu-opportunity-image-removal/);
+  assert.match(opportunityPage, /opportunity-paths\.png/);
 });
