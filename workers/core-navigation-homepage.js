@@ -1,7 +1,7 @@
 const ORIGIN = "https://watts-unified-rebuild.pages.dev";
 const STABLE_SITE = "https://watts-retirement-wealth.salexw.chatgpt.site";
 const APP_ASSET = "/assets/index-CQRwdLu0.js";
-const APP_VERSION = "20260721-solutions-nav3";
+const APP_VERSION = "20260721-solutions-nav4";
 const HOMEPAGE_REPAIR_SCRIPT = "/homepage-images-v1.js";
 const ALIGNABLE_ICON_PATH = "/alignable-icon.png";
 
@@ -40,6 +40,12 @@ const ALIGNABLE_ICON = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 
 const HOMEPAGE_IMAGE_REPLACEMENTS = new Map([
   ["/assets/veterans.webp", "/solutions-veteran.webp"],
   ["/assets/solutions.webp", "/solutions-hero.webp"],
+  ["/assets/veterans-live-hero.webp", "/solutions-veteran.webp"],
+  ["/assets/system-live-hero.png", "/solutions-business.webp"],
+  ["/assets/domain.png", "/resources-calculators.webp"],
+  ["/assets/email.png", "/solutions-legacy.webp"],
+  ["/assets/tools.png", "/solutions-hero.webp"],
+  ["/assets/opportunity-paths.png", "/solutions-business.webp"],
 ]);
 
 function isManagedHtmlPath(pathname) {
@@ -203,7 +209,7 @@ export default {
       const headers = new Headers(response.headers);
       headers.set("content-type", "image/webp");
       headers.set("cache-control", "no-cache");
-      headers.set("x-watts-home-image", "stable-homepage-image-v1");
+      headers.set("x-watts-home-image", "stable-site-image-v2");
       headers.set("x-content-type-options", "nosniff");
       headers.delete("content-length");
       return new Response(response.body, { status: response.status, headers });
