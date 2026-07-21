@@ -299,7 +299,11 @@ test("keeps homepage program imagery stable and routes the Solutions card correc
   assert.match(worker, /20260721-solutions-nav3/);
   assert.match(worker, /forceSolutionsDocumentNavigation/);
   assert.match(worker, /location\.assign\(destination\.href\)/);
-  assert.match(worker, /html = html\.replace.*script src/);
+  assert.match(worker, /installVersionedRepairScript/);
+  assert.match(worker, /patchHomepageHtml/);
+  assert.match(worker, /wu-homepage-schema/);
+  assert.match(worker, /rel=\"preload\" as=\"image\" href=\"\/assets\/hero\.webp\"/);
+  assert.match(worker, /hero\.setAttribute\(\"fetchpriority\", \"high\"\)/);
   assert.match(worker, /heading\.textContent = "Watts Unified Solutions"/);
   assert.match(worker, /link\.setAttribute\("href", "\/solutions"\)/);
   assert.match(worker, /© 2025–2026 Watts Unified Solutions/);
@@ -317,4 +321,19 @@ test("keeps homepage program imagery stable and routes the Solutions card correc
   assert.match(config, /www\.wattsunified\.com\/homepage-images-v1\.js\*/);
   assert.match(config, /wattsunified\.com\/alignable-icon\.png\*/);
   assert.match(config, /www\.wattsunified\.com\/alignable-icon\.png\*/);
+});
+
+test("adds homepage discovery metadata and one versioned repair script", async () => {
+  const { patchHomepageHtml } = await import("../workers/core-navigation-homepage.js");
+  const source = `<!doctype html><html><head><title>Retirement & Legacy Specialist | Watts Unified Solutions</title></head><body><div id="root"></div><script type="module" src="/assets/index-CQRwdLu0.js"></script><script src="/homepage-images-v1.js"></script></body></html>`;
+  const html = patchHomepageHtml(source);
+
+  assert.match(html, /rel="canonical" href="https:\/\/wattsunified\.com\/"/);
+  assert.match(html, /name="robots" content="index, follow, max-image-preview:large"/);
+  assert.match(html, /property="og:image" content="https:\/\/wattsunified\.com\/assets\/hero\.webp"/);
+  assert.match(html, /rel="preload" as="image" href="\/assets\/hero\.webp"[^>]*fetchpriority="high"/);
+  assert.match(html, /id="wu-homepage-schema" type="application\/ld\+json"/);
+  assert.match(html, /\/assets\/index-CQRwdLu0\.js\?v=20260721-solutions-nav3/);
+  assert.equal((html.match(/homepage-images-v1\.js/g) || []).length, 1);
+  assert.match(html, /homepage-images-v1\.js\?v=20260721-solutions-nav3/);
 });
