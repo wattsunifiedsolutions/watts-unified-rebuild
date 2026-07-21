@@ -1,0 +1,38 @@
+{
+  "$schema": "../node_modules/wrangler/config-schema.json",
+  "name": "watts-marketing-strategy-session",
+  "main": "live/marketing-strategy-session.js",
+  "compatibility_date": "2026-07-21",
+  "kv_namespaces": [
+    {
+      "binding": "SCHEDULE_ASSETS",
+      "id": "b302eb806da84e34a5c91479f8c658cf"
+    }
+  ],
+  "routes": [
+    {
+      "pattern": "wattsunified.com/schedule/marketing*",
+      "zone_name": "wattsunified.com"
+    },
+    {
+      "pattern": "www.wattsunified.com/schedule/marketing*",
+      "zone_name": "wattsunified.com"
+    },
+    {
+      "pattern": "wattsunified.com/schedule/system*",
+      "zone_name": "wattsunified.com"
+    },
+    {
+      "pattern": "www.wattsunified.com/schedule/system*",
+      "zone_name": "wattsunified.com"
+    },
+    {
+      "pattern": "wattsunified.com/assets/marketing-strategy-session-hero.webp*",
+      "zone_name": "wattsunified.com"
+    },
+    {
+      "pattern": "www.wattsunified.com/assets/marketing-strategy-session-hero.webp*",
+      "zone_name": "wattsunified.com"
+    }
+  ]
+}

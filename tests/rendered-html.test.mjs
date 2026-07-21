@@ -388,6 +388,17 @@ test("rebuilds the Marketing Strategy Session page around the original systems a
   assert.match(html, /&copy; 2026 Watts Unified Solutions/);
   assert.doesNotMatch(html, /filesafe\.space|Unified System<\/a><\/nav>|Not ready to lock in a time\?<\/h2>/);
 
+  const systemAlias = await worker.fetch(new Request("https://wattsunified.com/schedule/system"));
+  assert.equal(systemAlias.status, 200);
+  const systemHtml = await systemAlias.text();
+  assert.match(systemHtml, /Audit Your Digital Foundation/);
+  assert.match(systemHtml, /marketing-strategy-session-hero\.webp\?v=20260721-hero2/);
+  assert.match(systemHtml, /Schedule Marketing Audit/);
+  assert.match(systemHtml, /<link rel="canonical" href="https:\/\/wattsunified\.com\/schedule\/marketing">/);
+  const marketingConfig = await readFile(new URL("../workers/wrangler.marketing-strategy-session.jsonc", import.meta.url), "utf8");
+  assert.match(marketingConfig, /wattsunified\.com\/schedule\/system\*/);
+  assert.match(marketingConfig, /www\.wattsunified\.com\/schedule\/system\*/);
+
   const image = await worker.fetch(
     new Request("https://wattsunified.com/assets/marketing-strategy-session-hero.webp"),
     { SCHEDULE_ASSETS: { get: async () => new Uint8Array([82, 73, 70, 70]) } },

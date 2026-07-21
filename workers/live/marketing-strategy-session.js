@@ -1,4 +1,9 @@
-const PAGE_PATHS = new Set(["/schedule/marketing", "/schedule/marketing/"]);
+const PAGE_PATHS = new Set([
+  "/schedule/marketing",
+  "/schedule/marketing/",
+  "/schedule/system",
+  "/schedule/system/",
+]);
 const HERO_PATH = "/assets/marketing-strategy-session-hero.webp";
 const HERO_URL = `${HERO_PATH}?v=20260721-hero2`;
 const HERO_KEY = "marketing-strategy-session-hero.webp";
