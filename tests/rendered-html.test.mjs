@@ -318,6 +318,40 @@ test("rebuilds the Financial Strategy Session page for focused conversion", asyn
   await access(new URL("../public/financial-strategy-session-hero.webp", import.meta.url));
 });
 
+test("rebuilds the Veteran Strategy Session page from the HighLevel mission briefing", async () => {
+  const { default: worker } = await import("../workers/live/veteran-strategy-session.js");
+  const response = await worker.fetch(new Request("https://wattsunified.com/veteran-strategy-session"));
+  assert.equal(response.status, 200);
+  assert.match(response.headers.get("cache-control") ?? "", /no-store/);
+  assert.equal(response.headers.get("x-watts-veteran-strategy"), "highlevel-conversion-v1");
+  const html = await response.text();
+  assert.match(html, /Mission Briefing/);
+  assert.match(html, /Veteran &amp; Federal Focus/);
+  assert.match(html, /Reserve Your Mission Briefing/);
+  assert.match(html, /Schedule Mission Briefing/);
+  assert.match(html, /calendar\.google\.com\/calendar\/appointments\/schedules\/AcZssZ0gtBbKISi03dplcfFfJEQqRCocuYZBrbUJYiuavFzCB9yXUZ-_sc3J0h-pXY9pMTV55ClCaLob\?gv=true/);
+  assert.match(html, /\/assets\/veteran-strategy-session-hero\.webp/);
+  assert.match(html, /width="1024" height="1024" fetchpriority="high" decoding="async"/);
+  assert.match(html, /<link rel="canonical" href="https:\/\/wattsunified\.com\/veteran-strategy-session">/);
+  assert.match(html, /not affiliated with or endorsed by the U\.S\. Government/);
+  assert.match(html, /Let&#39;s Connect/);
+  assert.match(html, /LinkedIn/);
+  assert.match(html, /Instagram/);
+  assert.match(html, /Alignable/);
+  assert.match(html, /&copy; 2026 Watts Unified Solutions/);
+  assert.doesNotMatch(html, /filesafe\.space|Unified System<\/a><\/nav>/);
+
+  const image = await worker.fetch(
+    new Request("https://wattsunified.com/assets/veteran-strategy-session-hero.webp"),
+    { SCHEDULE_ASSETS: { get: async () => new Uint8Array([82, 73, 70, 70]) } },
+  );
+  assert.equal(image.status, 200);
+  assert.equal(image.headers.get("content-type"), "image/webp");
+  assert.match(image.headers.get("cache-control") ?? "", /immutable/);
+  assert.equal(image.headers.get("x-watts-veteran-strategy"), "highlevel-conversion-v1");
+  await access(new URL("../public/veteran-strategy-session-hero.webp", import.meta.url));
+});
+
 test("ships optimized local brand and hero assets", async () => {
   const [page, layout, packageJson] = await Promise.all([
     readFile(new URL("../app/page.tsx", import.meta.url), "utf8"),

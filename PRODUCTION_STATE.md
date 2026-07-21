@@ -26,6 +26,7 @@ When opening the repository in Cursor, fetch the remote branches and check out `
 - About page deployment: `0919efa9913f4412b92fe17c263e1a30`
 - Growth Opportunity booking deployment: `f8707707877148948170fb5ccdf5b6f3`
 - Financial Strategy Session deployment: `1a839342475b4d10a2e87d516b4b33ca`
+- Veteran Strategy Session deployment: `a3c8d33ca5fc4022a868f051e070c4be`
 - The shared `/alignable-icon.png` route serves Alignable's official purple interlocking mark (`alignable-official-v3`) at a uniform 18×18 size across every managed footer.
 - Do not add `wattsunified.com/*` or `www.wattsunified.com/*` to the homepage Worker. Those wildcard routes were removed because they intercepted legacy `/assets/` image files and returned HTML instead of images.
 - Eight legacy image paths on both apex and `www` are pinned to deployment-owned replacements: Veteran imagery, Solutions imagery, Unified System hero, domain, email, tools, and Opportunity paths.
@@ -35,6 +36,7 @@ When opening the repository in Cursor, fetch the remote branches and check out `
 - The About page reuses the approved 800×800 Financial Professional portrait from `/assets/financial-professional/alex.webp`. The deployment-owned WebP is used consistently in the visible hero, preload, Open Graph metadata, and Person structured data; the established About layout, navigation, and footer remain unchanged.
 - The `/growth` schedule landing page is rebuilt from the original HighLevel reference with the premium boardroom hero, the live Growth & Opportunity Google Calendar, a responsive conversion layout, the shared non-sticky navigation/footer, social icons, and © 2026 copyright. Its optimized 1408×768 hero is stored in deployment-owned KV namespace `watts-schedule-page-assets` (`b302eb806da84e34a5c91479f8c658cf`) and served from `/assets/growth-opportunity-hero.webp` with immutable caching. Page HTML is no-store so the placeholder build cannot remain stuck behind a stale CDN response.
 - The `/financial-strategy-session` landing page preserves the original HighLevel office hero and live 60-minute Financial Strategy Session Google Calendar, then adds a concise three-point expectation strip, one primary booking action, private-session reassurance, accessible responsive behavior, and the uniform non-sticky navigation/light footer. Its optimized 1408×768 WebP is stored in the shared deployment-owned schedule KV namespace under `financial-strategy-session-hero.webp` and served from `/assets/financial-strategy-session-hero.webp` with immutable caching. Page HTML remains no-store.
+- The `/veteran-strategy-session` landing page preserves the original HighLevel Mission Briefing identity, exact veteran-strategy boardroom hero, and live 60-minute Google appointment calendar. It adds a concise veteran-and-federal expectation strip, one primary booking action, private-session reassurance, an explicit government non-affiliation disclaimer, responsive behavior, and the uniform non-sticky navigation/light footer. Its optimized 1024×1024 WebP is stored in the shared deployment-owned schedule KV namespace under `veteran-strategy-session-hero.webp` and served from `/assets/veteran-strategy-session-hero.webp` with immutable caching. Page HTML remains no-store.
 - Homepage Solutions links force a full document navigation to release 33 so the legacy SPA route cannot render.
 - Homepage canonical, social metadata, structured data, and hero preload apply to direct homepage visits.
 
@@ -50,6 +52,7 @@ When opening the repository in Cursor, fetch the remote branches and check out `
 | `watts-about-page` | `workers/live/about-page.js` |
 | `watts-growth-page` | `workers/live/growth-page.js` |
 | `watts-financial-strategy-session` | `workers/live/financial-strategy-session.js` |
+| `watts-veteran-strategy-session` | `workers/live/veteran-strategy-session.js` |
 | `watts-business-legalshield` | `workers/live/business-legalshield.js` |
 | `watts-business-page` | `workers/live/business-page.js` |
 | `watts-interactive-briefings` | `workers/live/interactive-briefings.js` |
@@ -75,7 +78,7 @@ The `workers/live/` files were downloaded from the deployed Cloudflare Workers a
 ## Current verification
 
 - Production build passed.
-- 21 automated tests passed.
+- 22 automated tests passed.
 - 17 sitemap pages checked.
 - 71 server-rendered image placements (33 unique images) checked across all 17 indexed pages.
 - 0 image failures.
