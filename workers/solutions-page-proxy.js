@@ -58,6 +58,8 @@ function stableResponse(response, tag, assetPath = "") {
 
 function rewritePublishedHtml(html) {
   return html
+    .replaceAll("© 2025–2026 Watts Unified Solutions. All rights reserved.", "© 2026 Watts Unified Solutions. All rights reserved.")
+    .replaceAll("© 2025 Watts Unified Solutions. All rights reserved.", "© 2026 Watts Unified Solutions. All rights reserved.")
     .replaceAll("/_vinext/", `${ASSET_PREFIX}/_vinext/`)
     .replaceAll("/assets/", `${ASSET_PREFIX}/assets/`)
     .replace(
@@ -128,6 +130,19 @@ export default {
     if (pathname.startsWith(`${ASSET_PREFIX}/`)) {
       const assetPath = pathname.slice(ASSET_PREFIX.length);
       const response = await fetch(upstreamRequest(request, `${PUBLISHED_SITE}${assetPath}${url.search}`));
+      if (response.ok && assetPath.endsWith(".js")) {
+        const body = (await response.text())
+          .replaceAll("© 2025–2026 Watts Unified Solutions. All rights reserved.", "© 2026 Watts Unified Solutions. All rights reserved.")
+          .replaceAll("© 2025 Watts Unified Solutions. All rights reserved.", "© 2026 Watts Unified Solutions. All rights reserved.");
+        const headers = new Headers(response.headers);
+        headers.set("content-type", "text/javascript; charset=utf-8");
+        headers.set("cache-control", "no-store, no-cache, must-revalidate, max-age=0");
+        headers.set("cdn-cache-control", "no-store");
+        headers.set("cloudflare-cdn-cache-control", "no-store");
+        headers.set("x-watts-solutions-worker", "stable-footer-asset-v1");
+        headers.delete("content-length");
+        return new Response(body, { status: response.status, headers });
+      }
       return stableResponse(response, "stable-asset-v3", assetPath);
     }
 
