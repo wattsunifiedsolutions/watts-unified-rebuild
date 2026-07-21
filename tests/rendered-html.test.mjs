@@ -550,7 +550,7 @@ test("keeps homepage program imagery stable and routes the Solutions card correc
   assert.match(worker, /\/assets\/tools\.png/);
   assert.match(worker, /\/assets\/opportunity-paths\.png/);
   assert.match(worker, /homepage-images-v1\.js/);
-  assert.match(worker, /20260721-solutions-nav18/);
+  assert.match(worker, /20260721-solutions-nav19/);
   assert.match(worker, /wu-opportunity-path-enhancements/);
   assert.match(worker, /opportunity-paths\.png/);
   assert.match(worker, /opportunity-paths-original-v1/);
@@ -576,6 +576,8 @@ test("keeps homepage program imagery stable and routes the Solutions card correc
   assert.match(worker, /No pressure\. Clear answers\. The right next step\./);
   assert.match(worker, /href=\"\/growth\"/);
   assert.match(worker, /data-wu-route=\"growth-opportunity\"/);
+  assert.match(worker, /forceGrowthOpportunityNavigation/);
+  assert.match(worker, /location\.assign\("\/growth"\)/);
   assert.match(worker, /opportunity-growth-route-v1/);
   assert.match(worker, /opportunityFooter\.classList\.add\("global-footer"\)/);
   assert.doesNotMatch(worker, /footer\[data-wu-footer="navy-v1"\]/);
@@ -648,14 +650,14 @@ test("adds homepage discovery metadata and one versioned repair script", async (
   assert.match(html, /property="og:image" content="https:\/\/wattsunified\.com\/assets\/hero\.webp"/);
   assert.match(html, /rel="preload" as="image" href="\/assets\/hero\.webp"[^>]*fetchpriority="high"/);
   assert.match(html, /id="wu-homepage-schema" type="application\/ld\+json"/);
-  assert.match(html, /\/assets\/index-CQRwdLu0\.js\?v=20260721-solutions-nav18/);
+  assert.match(html, /\/assets\/index-CQRwdLu0\.js\?v=20260721-solutions-nav19/);
   assert.equal((html.match(/homepage-images-v1\.js/g) || []).length, 1);
-  assert.match(html, /homepage-images-v1\.js\?v=20260721-solutions-nav18/);
+  assert.match(html, /homepage-images-v1\.js\?v=20260721-solutions-nav19/);
 
   const internalPage = patchHomepageHtml(source, false);
   assert.doesNotMatch(internalPage, /rel="canonical" href="https:\/\/wattsunified\.com\/"/);
   assert.doesNotMatch(internalPage, /id="wu-homepage-schema"/);
-  assert.match(internalPage, /homepage-images-v1\.js\?v=20260721-solutions-nav18/);
+  assert.match(internalPage, /homepage-images-v1\.js\?v=20260721-solutions-nav19/);
 
   const opportunityPage = patchHomepageHtml(source, false, "/opportunity");
   assert.match(opportunityPage, /wu-opportunity-path-enhancements/);

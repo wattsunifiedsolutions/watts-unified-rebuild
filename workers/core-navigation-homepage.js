@@ -1,7 +1,7 @@
 const ORIGIN = "https://watts-unified-rebuild.pages.dev";
 const STABLE_SITE = "https://watts-retirement-wealth.salexw.chatgpt.site";
 const APP_ASSET = "/assets/index-CQRwdLu0.js";
-const APP_VERSION = "20260721-solutions-nav18";
+const APP_VERSION = "20260721-solutions-nav19";
 const HOMEPAGE_REPAIR_SCRIPT = "/homepage-images-v1.js";
 const ALIGNABLE_ICON_PATH = "/alignable-icon.png";
 const OPPORTUNITY_PATHS_IMAGE_PATH = "/assets/opportunity-paths.png";
@@ -258,6 +258,14 @@ export default {
     destination.searchParams.set("wu-nav", solutionsRelease);
     location.assign(destination.href);
   };
+  const forceGrowthOpportunityNavigation = (event) => {
+    if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    const link = event.target.closest?.('a[data-wu-route="growth-opportunity"]');
+    if (!link) return;
+    event.preventDefault();
+    event.stopImmediatePropagation();
+    location.assign("/growth");
+  };
   const repairHomepage = () => {
     const hero = document.querySelector('img[src="/assets/hero.webp"], img[src$="/assets/hero.webp"]');
     if (hero) {
@@ -400,6 +408,7 @@ export default {
     }
   };
   document.addEventListener("click", forceSolutionsDocumentNavigation, true);
+  document.addEventListener("click", forceGrowthOpportunityNavigation, true);
   repairHomepage();
   [250, 750, 2000].forEach((delay) => setTimeout(repairHomepage, delay));
   new MutationObserver(repairHomepage).observe(document.documentElement, {
