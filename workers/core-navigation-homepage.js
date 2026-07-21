@@ -1,7 +1,7 @@
 const ORIGIN = "https://watts-unified-rebuild.pages.dev";
 const STABLE_SITE = "https://watts-retirement-wealth.salexw.chatgpt.site";
 const APP_ASSET = "/assets/index-CQRwdLu0.js";
-const APP_VERSION = "20260721-solutions-nav6";
+const APP_VERSION = "20260721-solutions-nav8";
 const HOMEPAGE_REPAIR_SCRIPT = "/homepage-images-v1.js";
 const ALIGNABLE_ICON_PATH = "/alignable-icon.png";
 
@@ -112,7 +112,32 @@ export function patchHomepageHtml(html, isHomepage = false, pathname = "") {
   html = html.replace(APP_ASSET, `${APP_ASSET}?v=${APP_VERSION}`);
   const homepageMetadata = isHomepage ? homepageSeo : "";
   const opportunityImageRemoval = pathname.startsWith("/opportunity")
-    ? `<style id="wu-opportunity-image-removal">section:has(>img[src*="/assets/opportunity-paths.png"]),img[src*="/assets/opportunity-paths.png"]{display:none!important}</style>`
+    ? `<style id="wu-opportunity-image-removal">
+img[src*="/assets/opportunity-paths.png"]{display:none!important}
+.opportunity-paths[data-wu-opportunity-paths="cards-v1"]{display:block!important;min-height:0!important;padding:clamp(3rem,6vw,5.5rem) clamp(1.25rem,5vw,5rem)!important;background:#fbfaf7!important;background-image:none!important;line-height:1.5!important}
+.wu-opportunity-paths-inner{width:min(1180px,100%);margin:0 auto}
+.wu-opportunity-paths-heading{text-align:center;margin:0 auto 2rem;max-width:720px}
+.wu-opportunity-paths-heading span{display:block;color:#b38b22;font-size:.78rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;margin-bottom:.65rem}
+.wu-opportunity-paths-heading h2{color:#0b1f3a;font-family:Georgia,serif;font-size:clamp(2rem,4vw,3rem);line-height:1.08;margin:0 0 .65rem}
+.wu-opportunity-paths-heading p{color:#455267;font-size:1rem;margin:0}
+.wu-opportunity-paths-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.25rem}
+.wu-opportunity-path-card{position:relative!important;inset:auto!important;display:flex!important;flex-direction:column;min-height:100%;padding:clamp(1.5rem,3vw,2.25rem)!important;border:1px solid #ded7c7;border-radius:18px;background:#fff;color:#0b1f3a!important;text-decoration:none!important;box-shadow:0 14px 38px rgba(11,31,58,.08);transition:transform .2s ease,border-color .2s ease,box-shadow .2s ease}
+.wu-opportunity-path-card:hover{transform:translateY(-4px);border-color:#d4af37;box-shadow:0 18px 42px rgba(11,31,58,.13)}
+.wu-opportunity-path-card:focus-visible{outline:3px solid #d4af37;outline-offset:4px}
+.wu-opportunity-path-icon{display:grid;place-items:center;width:52px;height:52px;margin-bottom:1.1rem;border-radius:50%;background:#0b1f3a;color:#d4af37}
+.wu-opportunity-path-icon svg{width:27px;height:27px;stroke:currentColor;fill:none;stroke-width:1.9}
+.wu-opportunity-path-card.legal .wu-opportunity-path-icon{background:#552a82;color:#fff}
+.wu-opportunity-path-card h3{font-family:Georgia,serif;font-size:clamp(1.4rem,2.5vw,1.9rem);line-height:1.15;margin:0 0 .5rem;color:#0b1f3a}
+.wu-opportunity-path-card>p{color:#5b6677;margin:0 0 .95rem}
+.wu-opportunity-path-card ul{display:grid;gap:.42rem;margin:0 0 1.2rem;padding:0;list-style:none;color:#26364d}
+.wu-opportunity-path-card li{position:relative;padding-left:1.35rem}
+.wu-opportunity-path-card li:before{content:"✓";position:absolute;left:0;color:#b38b22;font-weight:800}
+.wu-opportunity-path-fit{margin-top:auto!important;padding-top:1rem;border-top:1px solid #ebe6db;color:#455267!important;font-size:.9rem}
+.wu-opportunity-path-fit strong{color:#0b1f3a}
+.wu-opportunity-path-cta{display:inline-flex;align-items:center;gap:.45rem;margin-top:1rem;color:#9b7517;font-size:.78rem;font-weight:900;letter-spacing:.12em;text-transform:uppercase}
+@media(max-width:760px){.wu-opportunity-paths-grid{grid-template-columns:1fr}.opportunity-paths[data-wu-opportunity-paths="cards-v1"]{padding:3.25rem 1rem!important}.wu-opportunity-path-card{border-radius:14px}}
+@media(prefers-reduced-motion:reduce){.wu-opportunity-path-card{transition:none}.wu-opportunity-path-card:hover{transform:none}}
+</style>`
     : "";
   html = html.replace(
     "</head>",
@@ -182,7 +207,8 @@ export default {
       if (link) link.setAttribute("href", "/solutions");
     });
     document.querySelectorAll("footer small, footer p").forEach((item) => {
-      if (item.textContent.trim().startsWith("©")) item.textContent = "© 2026 Watts Unified Solutions. All rights reserved.";
+      const copyright = "© 2026 Watts Unified Solutions. All rights reserved.";
+      if (item.textContent.trim().startsWith("©") && item.textContent.trim() !== copyright) item.textContent = copyright;
     });
     if (location.pathname.startsWith("/opportunity")) {
       document.querySelectorAll('img[src*="/assets/opportunity-paths.png"]').forEach((image) => {
@@ -190,6 +216,29 @@ export default {
         if (standaloneSection && standaloneSection.children.length === 1) standaloneSection.remove();
         else image.remove();
       });
+      const pathSection = document.querySelector("section.opportunity-paths");
+      if (pathSection && pathSection.getAttribute("data-wu-opportunity-paths") !== "cards-v1") {
+        pathSection.setAttribute("data-wu-opportunity-paths", "cards-v1");
+        pathSection.setAttribute("aria-label", "Choose Your Path");
+        pathSection.innerHTML = [
+          '<div class="wu-opportunity-paths-inner">',
+          '<div class="wu-opportunity-paths-heading"><span>Professional paths</span><h2>Choose Your Path</h2><p>Two focused opportunities. One supportive team.</p></div>',
+          '<div class="wu-opportunity-paths-grid">',
+          '<a class="wu-opportunity-path-card financial" href="/opportunity/financial-professional" aria-label="Explore the Financial Services Partner path">',
+          '<span class="wu-opportunity-path-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 19V9m6 10V5m6 14v-7m4 7H2"/></svg></span>',
+          '<h3>Financial Services Partner</h3><p>For those interested in:</p>',
+          '<ul><li>Retirement strategies</li><li>Protected growth solutions</li><li>Legacy planning</li><li>Wealth-building education</li></ul>',
+          '<p class="wu-opportunity-path-fit"><strong>Ideal for:</strong> professionals, veterans, entrepreneurs, and career changers.</p>',
+          '<span class="wu-opportunity-path-cta">Explore the path <span aria-hidden="true">→</span></span></a>',
+          '<a class="wu-opportunity-path-card legal" href="/opportunity/legalshield-independent-associate" aria-label="Explore the Legal Services Partner path">',
+          '<span class="wu-opportunity-path-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3 5 6v5c0 4.6 2.8 8.1 7 10 4.2-1.9 7-5.4 7-10V6l-7-3Z"/><path d="m9 12 2 2 4-4"/></svg></span>',
+          '<h3>Legal Services Partner</h3><p>For those interested in:</p>',
+          '<ul><li>LegalShield</li><li>IDShield</li><li>Small business solutions</li><li>Employee benefits</li></ul>',
+          '<p class="wu-opportunity-path-fit"><strong>Ideal for:</strong> networkers, business owners, and community leaders.</p>',
+          '<span class="wu-opportunity-path-cta">Explore the path <span aria-hidden="true">→</span></span></a>',
+          '</div></div>',
+        ].join("");
+      }
     }
   };
   document.addEventListener("click", forceSolutionsDocumentNavigation, true);
