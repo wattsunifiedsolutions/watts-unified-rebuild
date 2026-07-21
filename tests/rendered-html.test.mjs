@@ -550,7 +550,7 @@ test("keeps homepage program imagery stable and routes the Solutions card correc
   assert.match(worker, /\/assets\/tools\.png/);
   assert.match(worker, /\/assets\/opportunity-paths\.png/);
   assert.match(worker, /homepage-images-v1\.js/);
-  assert.match(worker, /20260721-solutions-nav19/);
+  assert.match(worker, /20260721-solutions-nav20/);
   assert.match(worker, /wu-opportunity-path-enhancements/);
   assert.match(worker, /opportunity-paths\.png/);
   assert.match(worker, /opportunity-paths-original-v1/);
@@ -576,16 +576,16 @@ test("keeps homepage program imagery stable and routes the Solutions card correc
   assert.match(worker, /No pressure\. Clear answers\. The right next step\./);
   assert.match(worker, /href=\"\/growth\"/);
   assert.match(worker, /data-wu-route=\"growth-opportunity\"/);
-  assert.match(worker, /forceGrowthOpportunityNavigation/);
-  assert.match(worker, /location\.assign\("\/growth"\)/);
-  assert.match(worker, /opportunity-growth-route-v1/);
+  assert.match(worker, /forceCurrentDocumentNavigation/);
+  assert.match(worker, /destination\.origin !== location\.origin/);
+  assert.match(worker, /site-fresh-navigation-v1/);
   assert.match(worker, /opportunityFooter\.classList\.add\("global-footer"\)/);
   assert.doesNotMatch(worker, /footer\[data-wu-footer="navy-v1"\]/);
   assert.match(worker, /footerLogo\.setAttribute\("src", "\/solutions-app\/watts-brand-lockup\.png"\)/);
   assert.doesNotMatch(worker, /standaloneSection\.remove\(\)/);
   assert.doesNotMatch(worker, /wu-opportunity-path-card/);
   assert.doesNotMatch(worker, /__OPPORTUNITY_PATHS_IMAGE_BASE64__/);
-  assert.match(worker, /forceSolutionsDocumentNavigation/);
+  assert.doesNotMatch(worker, /forceSolutionsDocumentNavigation/);
   assert.match(worker, /location\.assign\(destination\.href\)/);
   assert.match(worker, /installVersionedRepairScript/);
   assert.match(worker, /patchHomepageHtml/);
@@ -603,6 +603,8 @@ test("keeps homepage program imagery stable and routes the Solutions card correc
   assert.match(worker, /\[250, 750, 2000\]\.forEach/);
   assert.match(worker, /new Request\(originRequest, \{ cache: "no-store" \}\)/);
   assert.match(worker, /"cache-control": "no-store"/);
+  assert.match(worker, /"cloudflare-cdn-cache-control": "no-store"/);
+  assert.match(worker, /"cdn-cache-control": "no-store"/);
   assert.match(worker, /headers\.set\("cache-control", "no-cache"\)/);
   assert.match(worker, /alignable-icon\.png/);
   assert.match(worker, /image\/svg\+xml/);
@@ -650,14 +652,14 @@ test("adds homepage discovery metadata and one versioned repair script", async (
   assert.match(html, /property="og:image" content="https:\/\/wattsunified\.com\/assets\/hero\.webp"/);
   assert.match(html, /rel="preload" as="image" href="\/assets\/hero\.webp"[^>]*fetchpriority="high"/);
   assert.match(html, /id="wu-homepage-schema" type="application\/ld\+json"/);
-  assert.match(html, /\/assets\/index-CQRwdLu0\.js\?v=20260721-solutions-nav19/);
+  assert.match(html, /\/assets\/index-CQRwdLu0\.js\?v=20260721-solutions-nav20/);
   assert.equal((html.match(/homepage-images-v1\.js/g) || []).length, 1);
-  assert.match(html, /homepage-images-v1\.js\?v=20260721-solutions-nav19/);
+  assert.match(html, /homepage-images-v1\.js\?v=20260721-solutions-nav20/);
 
   const internalPage = patchHomepageHtml(source, false);
   assert.doesNotMatch(internalPage, /rel="canonical" href="https:\/\/wattsunified\.com\/"/);
   assert.doesNotMatch(internalPage, /id="wu-homepage-schema"/);
-  assert.match(internalPage, /homepage-images-v1\.js\?v=20260721-solutions-nav19/);
+  assert.match(internalPage, /homepage-images-v1\.js\?v=20260721-solutions-nav20/);
 
   const opportunityPage = patchHomepageHtml(source, false, "/opportunity");
   assert.match(opportunityPage, /wu-opportunity-path-enhancements/);
@@ -673,6 +675,11 @@ test("adds homepage discovery metadata and one versioned repair script", async (
     new Request("https://wattsunified.com/homepage-images-v1.js"),
   );
   const repairScript = await repairResponse.text();
+  assert.equal(repairResponse.headers.get("cache-control"), "no-store");
+  assert.equal(repairResponse.headers.get("cloudflare-cdn-cache-control"), "no-store");
+  assert.equal(repairResponse.headers.get("cdn-cache-control"), "no-store");
+  assert.match(repairScript, /forceCurrentDocumentNavigation/);
+  assert.match(repairScript, /destination\.origin !== location\.origin/);
   assert.doesNotThrow(() => new Function(repairScript));
 });
 

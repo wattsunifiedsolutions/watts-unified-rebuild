@@ -1,7 +1,7 @@
 const ORIGIN = "https://watts-unified-rebuild.pages.dev";
 const STABLE_SITE = "https://watts-retirement-wealth.salexw.chatgpt.site";
 const APP_ASSET = "/assets/index-CQRwdLu0.js";
-const APP_VERSION = "20260721-solutions-nav19";
+const APP_VERSION = "20260721-solutions-nav20";
 const HOMEPAGE_REPAIR_SCRIPT = "/homepage-images-v1.js";
 const ALIGNABLE_ICON_PATH = "/alignable-icon.png";
 const OPPORTUNITY_PATHS_IMAGE_PATH = "/assets/opportunity-paths.png";
@@ -246,25 +246,31 @@ export default {
     if (incoming.pathname === HOMEPAGE_REPAIR_SCRIPT) {
       const script = `(() => {
   const solutionsRelease = "20260721-v33";
-  const forceSolutionsDocumentNavigation = (event) => {
+  const forceCurrentDocumentNavigation = (event) => {
     if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
     const link = event.target.closest?.("a[href]");
     if (!link) return;
+    if (link.hasAttribute("download")) return;
+    const target = link.getAttribute("target");
+    if (target && target !== "_self") return;
+    const rawHref = link.getAttribute("href") || "";
+    if (!rawHref || rawHref.startsWith("#")) return;
     const destination = new URL(link.href, location.href);
-    if (destination.pathname.replace(/\\/+$/, "") !== "/solutions") return;
+    if (destination.origin !== location.origin) return;
+    const current = new URL(location.href);
+    if (destination.pathname === current.pathname && destination.search === current.search && destination.hash) return;
     event.preventDefault();
     event.stopImmediatePropagation();
-    destination.pathname = "/solutions/";
-    destination.searchParams.set("wu-nav", solutionsRelease);
+    if (link.getAttribute("data-wu-route") === "growth-opportunity") {
+      destination.pathname = "/growth";
+      destination.search = "";
+      destination.hash = "";
+    }
+    if (destination.pathname.replace(/\\/+$/, "") === "/solutions") {
+      destination.pathname = "/solutions/";
+      destination.searchParams.set("wu-nav", solutionsRelease);
+    }
     location.assign(destination.href);
-  };
-  const forceGrowthOpportunityNavigation = (event) => {
-    if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
-    const link = event.target.closest?.('a[data-wu-route="growth-opportunity"]');
-    if (!link) return;
-    event.preventDefault();
-    event.stopImmediatePropagation();
-    location.assign("/growth");
   };
   const repairHomepage = () => {
     const hero = document.querySelector('img[src="/assets/hero.webp"], img[src$="/assets/hero.webp"]');
@@ -407,8 +413,7 @@ export default {
       }
     }
   };
-  document.addEventListener("click", forceSolutionsDocumentNavigation, true);
-  document.addEventListener("click", forceGrowthOpportunityNavigation, true);
+  document.addEventListener("click", forceCurrentDocumentNavigation, true);
   repairHomepage();
   [250, 750, 2000].forEach((delay) => setTimeout(repairHomepage, delay));
   new MutationObserver(repairHomepage).observe(document.documentElement, {
@@ -421,7 +426,11 @@ export default {
         headers: {
           "content-type": "application/javascript; charset=UTF-8",
           "cache-control": "no-store",
-          "x-watts-homepage-repair": "opportunity-growth-route-v1",
+          "cloudflare-cdn-cache-control": "no-store",
+          "cdn-cache-control": "no-store",
+          "pragma": "no-cache",
+          "expires": "0",
+          "x-watts-homepage-repair": "site-fresh-navigation-v1",
           "x-content-type-options": "nosniff",
         },
       });
@@ -491,6 +500,10 @@ export default {
         headers: {
           "content-type": "application/javascript;charset=UTF-8",
           "cache-control": "no-store",
+          "cloudflare-cdn-cache-control": "no-store",
+          "cdn-cache-control": "no-store",
+          "pragma": "no-cache",
+          "expires": "0",
           "x-content-type-options": "nosniff",
         },
       });
@@ -504,6 +517,10 @@ export default {
         headers: {
           "content-type": "text/html;charset=UTF-8",
           "cache-control": "no-store",
+          "cloudflare-cdn-cache-control": "no-store",
+          "cdn-cache-control": "no-store",
+          "pragma": "no-cache",
+          "expires": "0",
           "x-content-type-options": "nosniff",
         },
       });
