@@ -290,10 +290,15 @@ test("keeps homepage program imagery stable and routes the Solutions card correc
   assert.match(worker, /new Request\(originRequest, \{ cache: "no-store" \}\)/);
   assert.match(worker, /"cache-control": "no-store"/);
   assert.match(worker, /headers\.set\("cache-control", "no-cache"\)/);
+  assert.match(worker, /alignable-icon\.png/);
+  assert.match(worker, /image\/svg\+xml/);
+  assert.match(worker, /alignable-stable-v1/);
   assert.match(config, /wattsunified\.com\/assets\/veterans\.webp\*/);
   assert.match(config, /wattsunified\.com\/assets\/solutions\.webp\*/);
   assert.match(config, /www\.wattsunified\.com\/assets\/veterans\.webp\*/);
   assert.match(config, /www\.wattsunified\.com\/assets\/solutions\.webp\*/);
   assert.match(config, /wattsunified\.com\/homepage-images-v1\.js\*/);
   assert.match(config, /www\.wattsunified\.com\/homepage-images-v1\.js\*/);
+  assert.match(config, /wattsunified\.com\/alignable-icon\.png\*/);
+  assert.match(config, /www\.wattsunified\.com\/alignable-icon\.png\*/);
 });
