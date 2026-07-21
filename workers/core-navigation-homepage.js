@@ -172,6 +172,17 @@ export function patchHomepageHtml(html, isHomepage = false, pathname = "") {
     ? `<style id="wu-opportunity-path-enhancements">
 .opportunity-paths img[src*="/assets/opportunity-paths.png"]{display:block;width:100%;height:auto;aspect-ratio:1901/577;object-fit:contain}
 .opportunity-paths a:focus-visible{outline:3px solid #d4af37;outline-offset:-3px}
+footer[data-wu-footer="navy-v1"]{box-sizing:border-box!important;display:grid!important;grid-template-columns:1.7fr .7fr .7fr!important;gap:48px!important;width:100%!important;margin:0!important;padding:52px max(24px,calc((100% - 1180px)/2))!important;border:0!important;background:#0b1f3a!important;background-image:none!important;box-shadow:none!important;color:#fff!important;font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif!important;text-align:left!important}
+footer[data-wu-footer="navy-v1"]>div{display:block!important;min-width:0!important}
+footer[data-wu-footer="navy-v1"] b{display:block!important;margin:0!important;color:#d4af37!important;font-size:inherit!important;letter-spacing:normal!important;text-transform:none!important}
+footer[data-wu-footer="navy-v1"] a{display:block!important;width:max-content!important;max-width:100%!important;margin-top:9px!important;color:#e7eaf0!important;text-decoration:none!important}
+footer[data-wu-footer="navy-v1"] a:hover{color:#fff!important;text-decoration:underline!important}
+footer[data-wu-footer="navy-v1"] a:focus-visible{outline:3px solid #d4af37!important;outline-offset:3px!important}
+footer[data-wu-footer="navy-v1"] .footer-brand img{display:block!important;width:min(360px,100%)!important;height:auto!important;max-height:none!important;margin:0 0 18px!important;object-fit:contain!important}
+footer[data-wu-footer="navy-v1"] .footer-brand p{max-width:560px!important;margin:5px 0!important;color:#d8dee7!important;font-size:1rem!important;line-height:1.5!important;text-align:left!important}
+footer[data-wu-footer="navy-v1"] .footer-social a{display:flex!important;align-items:center!important;gap:9px!important;color:#e7eaf0!important;font-weight:inherit!important}
+footer[data-wu-footer="navy-v1"] .footer-social svg,footer[data-wu-footer="navy-v1"] .footer-social img{display:block!important;width:18px!important;height:18px!important;flex:0 0 18px!important;margin:0!important;color:inherit!important;object-fit:contain!important}
+footer[data-wu-footer="navy-v1"] small{grid-column:1/-1!important;display:block!important;width:100%!important;margin:0!important;padding-top:24px!important;border-top:1px solid #38506d!important;color:#bfc7d1!important;font-size:.72rem!important;line-height:1.4!important;text-align:left!important}
 .faq-section[data-wu-faq="conversion-v2"]{box-sizing:border-box!important;display:grid!important;grid-template-columns:minmax(260px,.78fr) minmax(0,1.35fr)!important;gap:clamp(2.25rem,5vw,4.75rem)!important;width:min(1180px,calc(100% - 2rem))!important;max-width:1180px!important;min-height:0!important;margin:0 auto!important;padding:clamp(3.5rem,7vw,5.75rem) clamp(1rem,3vw,2.5rem)!important;background:#fff!important;color:#0b1f3a!important;content-visibility:auto;contain-intrinsic-size:auto 520px}
 .faq-section[data-wu-faq="conversion-v2"] .section-title{align-self:start!important;margin:0!important;padding:.25rem 0 .25rem clamp(1.1rem,2vw,1.6rem)!important;text-align:left!important;border-left:4px solid #d4af37}
 .faq-section[data-wu-faq="conversion-v2"] .wu-faq-eyebrow{margin:0 0 .65rem!important;color:#9b7517!important;font-size:.75rem!important;font-weight:850!important;letter-spacing:.16em!important;line-height:1.3!important;text-transform:uppercase!important}
@@ -205,6 +216,8 @@ export function patchHomepageHtml(html, isHomepage = false, pathname = "") {
 .cta[data-wu-next-step="conversion-v2"] .wu-next-step-trust{margin:.7rem 0 0!important;color:#667181!important;font-size:.78rem!important;font-weight:650!important;line-height:1.4!important;text-align:center!important}
 @media(max-width:780px){.faq-section[data-wu-faq="conversion-v2"]{grid-template-columns:1fr!important;gap:2rem!important;width:100%!important;padding:3.5rem 1rem!important}.faq-section[data-wu-faq="conversion-v2"] .section-title{padding-left:1rem!important}.faq-section[data-wu-faq="conversion-v2"] summary{min-height:58px!important;padding:.9rem 1rem!important}.faq-section[data-wu-faq="conversion-v2"] details>p{padding:0 1rem 1rem!important}}
 @media(max-width:780px){.cta[data-wu-next-step="conversion-v2"] .wu-next-step-inner{grid-template-columns:1fr!important;gap:1.75rem!important;padding:3.5rem 1.25rem!important;text-align:center!important}.cta[data-wu-next-step="conversion-v2"] .wu-next-step-copy{max-width:620px!important;margin:0 auto!important}.cta[data-wu-next-step="conversion-v2"] h2,.cta[data-wu-next-step="conversion-v2"] .wu-next-step-copy>p{text-align:center!important}.cta[data-wu-next-step="conversion-v2"] .wu-next-step-action{width:100%!important}.cta[data-wu-next-step="conversion-v2"] .wu-next-step-cta{width:min(100%,340px)!important}}
+@media(max-width:760px){footer[data-wu-footer="navy-v1"]{grid-template-columns:1fr 1fr!important;padding:44px 24px!important}footer[data-wu-footer="navy-v1"] .footer-brand{grid-column:1/-1!important}}
+@media(max-width:480px){footer[data-wu-footer="navy-v1"]{grid-template-columns:1fr!important}footer[data-wu-footer="navy-v1"]>div,footer[data-wu-footer="navy-v1"] small{grid-column:1!important}footer[data-wu-footer="navy-v1"] .footer-brand img{max-width:310px!important}}
 @media(prefers-reduced-motion:reduce){.faq-section[data-wu-faq="conversion-v2"] summary svg,.faq-section[data-wu-faq="conversion-v2"] .wu-faq-cta,.cta[data-wu-next-step="conversion-v2"] .wu-next-step-cta,.cta[data-wu-next-step="conversion-v2"] .wu-next-step-cta svg{transition:none!important}}
 </style>`
     : "";
@@ -290,6 +303,17 @@ export default {
       ? location.pathname.slice(0, -1)
       : location.pathname;
     if (opportunityPathname === "/opportunity") {
+      const opportunityFooter = document.querySelector("footer");
+      if (opportunityFooter) {
+        opportunityFooter.setAttribute("data-wu-footer", "navy-v1");
+        const footerLogo = opportunityFooter.querySelector(".footer-brand img");
+        if (footerLogo) {
+          footerLogo.setAttribute("src", "/solutions-app/watts-brand-lockup.png");
+          footerLogo.setAttribute("width", "545");
+          footerLogo.setAttribute("height", "113");
+          footerLogo.setAttribute("decoding", "async");
+        }
+      }
       const pathSection = document.querySelector("section.opportunity-paths");
       const pathImage = pathSection?.querySelector('img[src*="/assets/opportunity-paths.png"]');
       if (pathImage) {
