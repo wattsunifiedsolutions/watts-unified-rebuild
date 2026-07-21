@@ -188,6 +188,8 @@ test("renders the complete Financial Professional opportunity page", async () =>
   assert.match(html, /Generational Legacy/);
   assert.match(html, /Build independently\. Never build alone\./);
   assert.match(html, /The Freedom Framework/);
+  assert.match(html, /\.framework\{padding:72px 0;background:var\(--cream\)/);
+  assert.doesNotMatch(html, /\.framework\{[^}]*background:var\(--navy\)/);
   assert.match(html, /Meet Your Mentor/);
   assert.match(html, /Book a Fit Conversation/);
   assert.match(html, /\/schedule\/opportunity/);
