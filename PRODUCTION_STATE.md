@@ -19,6 +19,8 @@ When opening the repository in Cursor, fetch the remote branches and check out `
 - Shared source commit: `c8f4e417b074b79d1b7f09395d6f35970d248212`
 - Solutions edge release: `20260721-v33`
 - Solutions Worker deployment: `28a2bdf9-ee68-4bee-85c7-713e2de51383`
+- Homepage navigation Worker deployment: `41bfe08e-0b1b-42a4-8e64-f1f2cf74d33b`
+- Homepage Solutions links force a full document navigation to release 33 so the legacy SPA route cannot render.
 
 ## Live Worker source map
 
