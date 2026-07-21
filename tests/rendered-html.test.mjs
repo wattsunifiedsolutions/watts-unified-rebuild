@@ -271,6 +271,8 @@ test("keeps the Solutions edge route pinned to the approved build", async () => 
   assert.match(worker, /pathname\.startsWith\("\/_vinext\/image"\)/);
   assert.match(worker, /wu-solutions-runtime-repair/);
   assert.match(worker, /20260721-optimizer4/);
+  assert.match(worker, /SOLUTIONS_SITE_RELEASE = "20260721-v33"/);
+  assert.match(worker, /searchParams\.set\("wu-release", SOLUTIONS_SITE_RELEASE\)/);
   assert.match(worker, /url\.searchParams\.set\("wu", version\)/);
   assert.match(worker, /img\[src\^="\/solutions-app\/"\]/);
   assert.match(worker, /cloudflare-cdn-cache-control", "no-store"/);
