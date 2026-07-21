@@ -173,6 +173,49 @@ test("server-renders the complete Tax-Free Retirement page", async () => {
   assert.match(html, /application\/ld\+json/);
 });
 
+test("renders the complete Financial Professional opportunity page", async () => {
+  const { default: worker } = await import("../workers/live/financial-professional.js");
+  const response = await worker.fetch(new Request("https://wattsunified.com/opportunity/financial-professional"));
+  assert.equal(response.status, 200);
+  assert.match(response.headers.get("content-type") ?? "", /^text\/html\b/i);
+
+  const html = await response.text();
+  assert.match(html, /Financial Professional Opportunity \| Watts Unified Solutions/);
+  assert.match(html, /Build a Financial Business On Your Terms\./);
+  assert.match(html, /What You Will Actually Do\./);
+  assert.match(html, /Retirement Planning/);
+  assert.match(html, /Financial Education/);
+  assert.match(html, /Generational Legacy/);
+  assert.match(html, /Build independently\. Never build alone\./);
+  assert.match(html, /The Freedom Framework/);
+  assert.match(html, /Meet Your Mentor/);
+  assert.match(html, /Book a Fit Conversation/);
+  assert.match(html, /\/schedule\/opportunity/);
+  assert.match(html, /independent 1099 contractor opportunity/i);
+  assert.match(html, /no income is guaranteed/i);
+  assert.match(html, /rel="canonical" href="https:\/\/wattsunified\.com\/opportunity\/financial-professional"/);
+  assert.match(html, /FAQPage/);
+  assert.match(html, /data-analytics-event="primary_cta_click"/);
+  assert.match(html, /\/assets\/financial-professional\/hero\.webp/);
+  assert.match(html, /width="1408" height="768" fetchpriority="high"/);
+  assert.match(html, /LinkedIn/);
+  assert.match(html, /Instagram/);
+  assert.match(html, /Alignable/);
+  assert.match(html, /© 2026 Watts Unified Solutions/);
+  assert.doesNotMatch(html, /filesafe\.space|\/growth|carrier logo/i);
+});
+
+test("serves immutable Financial Professional deployment-owned images", async () => {
+  const { default: worker } = await import("../workers/live/financial-professional.js");
+  const response = await worker.fetch(
+    new Request("https://wattsunified.com/assets/financial-professional/hero.webp"),
+    { FIN_HERO: new Uint8Array([82, 73, 70, 70]) },
+  );
+  assert.equal(response.status, 200);
+  assert.equal(response.headers.get("content-type"), "image/webp");
+  assert.match(response.headers.get("cache-control") ?? "", /immutable/);
+});
+
 test("ships optimized local brand and hero assets", async () => {
   const [page, layout, packageJson] = await Promise.all([
     readFile(new URL("../app/page.tsx", import.meta.url), "utf8"),
@@ -195,6 +238,12 @@ test("ships optimized local brand and hero assets", async () => {
     access(new URL("../public/family-protection-social.webp", import.meta.url)),
     access(new URL("../public/family-blueprint-guide.webp", import.meta.url)),
     access(new URL("../public/tax-free-retirement-hero-v2.webp", import.meta.url)),
+    access(new URL("../public/financial-professional-hero.webp", import.meta.url)),
+    access(new URL("../public/financial-professional-retirement.webp", import.meta.url)),
+    access(new URL("../public/financial-professional-education.webp", import.meta.url)),
+    access(new URL("../public/financial-professional-legacy.webp", import.meta.url)),
+    access(new URL("../public/financial-professional-mentor.webp", import.meta.url)),
+    access(new URL("../public/financial-professional-alex.webp", import.meta.url)),
   ]);
 
   assert.match(page, /src="\/retirement-family-v2\.webp"/);

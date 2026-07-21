@@ -1,0 +1,16 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "watts-financial-professional",
+  "main": "live/financial-professional.js",
+  "compatibility_date": "2026-07-21",
+  "workers_dev": false,
+  "kv_namespaces": [
+    { "binding": "FINANCIAL_ASSETS", "id": "1aa16e9230a54778bd8830493ba30095" }
+  ],
+  "routes": [
+    { "pattern": "wattsunified.com/opportunity/financial-professional*", "zone_name": "wattsunified.com" },
+    { "pattern": "www.wattsunified.com/opportunity/financial-professional*", "zone_name": "wattsunified.com" },
+    { "pattern": "wattsunified.com/assets/financial-professional/*", "zone_name": "wattsunified.com" },
+    { "pattern": "www.wattsunified.com/assets/financial-professional/*", "zone_name": "wattsunified.com" }
+  ]
+}

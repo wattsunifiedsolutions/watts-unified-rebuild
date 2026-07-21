@@ -22,10 +22,12 @@ When opening the repository in Cursor, fetch the remote branches and check out `
 - Homepage navigation Worker deployment: `644f97dcbbb642fbad872ff9bb7e3eba`
 - Resources Worker deployment: `ed024d71445543b5adb1e4d98f401d10`
 - Financial Snapshot enhancement deployment: `4b22c1fd21ef465aa5bca5ca9fe2d49c`
+- Financial Professional opportunity deployment: `0a0b7ad566a648aebe1b2eb2c5821740`
 - The shared `/alignable-icon.png` route serves Alignable's official purple interlocking mark (`alignable-official-v2`) across every footer.
 - Do not add `wattsunified.com/*` or `www.wattsunified.com/*` to the homepage Worker. Those wildcard routes were removed because they intercepted legacy `/assets/` image files and returned HTML instead of images.
 - Eight legacy image paths on both apex and `www` are pinned to deployment-owned replacements: Veteran imagery, Solutions imagery, Unified System hero, domain, email, tools, and Opportunity paths.
 - Opportunity page release `20260721-solutions-nav16` preserves the original image-led hero, partner-benefits strip, audience strip, and exact Professional Paths artwork. The Professional Paths image is embedded in the Worker as an optimized 1901×577 WebP, served from `/assets/opportunity-paths.png` with immutable browser caching, and retains both original destination links. The FAQ uses a compact responsive two-column layout, lightweight native accordions, one `/schedule/solutions` conversion CTA, and matching FAQPage structured data. The closing section is now a compact responsive fit-conversation layout with one `/schedule/opportunity` CTA and a short reassurance line. Fresh-browser verification confirmed the section, FAQ, artwork, and uniform © 2026 footer on deployment `644f97dcbbb642fbad872ff9bb7e3eba`.
+- Financial Professional release `0a0b7ad566a648aebe1b2eb2c5821740` rebuilds `/opportunity/financial-professional` from the original image-led HighLevel page with concise conversion copy, compliant 1099 and licensing language, a direct `/schedule/opportunity` path, four native FAQ accordions, FAQPage structured data, and the uniform site header, footer, and social links. Six optimized WebP images are stored in deployment-owned KV namespace `watts-financial-professional-assets` (`1aa16e9230a54778bd8830493ba30095`) and served through immutable first-party URLs under `/assets/financial-professional/`.
 - Homepage Solutions links force a full document navigation to release 33 so the legacy SPA route cannot render.
 - Homepage canonical, social metadata, structured data, and hero preload apply to direct homepage visits.
 
@@ -37,6 +39,7 @@ When opening the repository in Cursor, fetch the remote branches and check out `
 | `watts-core-navigation` | `workers/core-navigation-homepage.js` |
 | `watts-resources-stable-20260721` | `workers/resources-page.js` |
 | `watts-financial-snapshot-enhancements` | `workers/financial-snapshot-enhancements.js` |
+| `watts-financial-professional` | `workers/live/financial-professional.js` |
 | `watts-about-page` | `workers/live/about-page.js` |
 | `watts-business-legalshield` | `workers/live/business-legalshield.js` |
 | `watts-business-page` | `workers/live/business-page.js` |
@@ -63,7 +66,7 @@ The `workers/live/` files were downloaded from the deployed Cloudflare Workers a
 ## Current verification
 
 - Production build passed.
-- 15 automated tests passed.
+- 17 automated tests passed.
 - 17 sitemap pages checked.
 - 71 server-rendered image placements (33 unique images) checked across all 17 indexed pages.
 - 0 image failures.
