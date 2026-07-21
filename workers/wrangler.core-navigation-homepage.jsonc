@@ -13,14 +13,6 @@
       "zone_name": "wattsunified.com"
     },
     {
-      "pattern": "wattsunified.com/*",
-      "zone_name": "wattsunified.com"
-    },
-    {
-      "pattern": "www.wattsunified.com/*",
-      "zone_name": "wattsunified.com"
-    },
-    {
       "pattern": "wattsunified.com/assets/index-CQRwdLu0.js*",
       "zone_name": "wattsunified.com"
     },
@@ -58,6 +50,54 @@
     },
     {
       "pattern": "www.wattsunified.com/assets/solutions.webp*",
+      "zone_name": "wattsunified.com"
+    },
+    {
+      "pattern": "wattsunified.com/assets/veterans-live-hero.webp*",
+      "zone_name": "wattsunified.com"
+    },
+    {
+      "pattern": "www.wattsunified.com/assets/veterans-live-hero.webp*",
+      "zone_name": "wattsunified.com"
+    },
+    {
+      "pattern": "wattsunified.com/assets/system-live-hero.png*",
+      "zone_name": "wattsunified.com"
+    },
+    {
+      "pattern": "www.wattsunified.com/assets/system-live-hero.png*",
+      "zone_name": "wattsunified.com"
+    },
+    {
+      "pattern": "wattsunified.com/assets/domain.png*",
+      "zone_name": "wattsunified.com"
+    },
+    {
+      "pattern": "www.wattsunified.com/assets/domain.png*",
+      "zone_name": "wattsunified.com"
+    },
+    {
+      "pattern": "wattsunified.com/assets/email.png*",
+      "zone_name": "wattsunified.com"
+    },
+    {
+      "pattern": "www.wattsunified.com/assets/email.png*",
+      "zone_name": "wattsunified.com"
+    },
+    {
+      "pattern": "wattsunified.com/assets/tools.png*",
+      "zone_name": "wattsunified.com"
+    },
+    {
+      "pattern": "www.wattsunified.com/assets/tools.png*",
+      "zone_name": "wattsunified.com"
+    },
+    {
+      "pattern": "wattsunified.com/assets/opportunity-paths.png*",
+      "zone_name": "wattsunified.com"
+    },
+    {
+      "pattern": "www.wattsunified.com/assets/opportunity-paths.png*",
       "zone_name": "wattsunified.com"
     }
   ]
