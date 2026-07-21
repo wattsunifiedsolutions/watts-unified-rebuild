@@ -1,7 +1,7 @@
 const ORIGIN = "https://watts-unified-rebuild.pages.dev";
 const STABLE_SITE = "https://watts-retirement-wealth.salexw.chatgpt.site";
 const APP_ASSET = "/assets/index-CQRwdLu0.js";
-const APP_VERSION = "20260721-cache-policy2";
+const APP_VERSION = "20260721-solutions-nav3";
 const HOMEPAGE_REPAIR_SCRIPT = "/homepage-images-v1.js";
 const ALIGNABLE_ICON_PATH = "/alignable-icon.png";
 
@@ -50,6 +50,19 @@ export default {
 
     if (incoming.pathname === HOMEPAGE_REPAIR_SCRIPT) {
       const script = `(() => {
+  const solutionsRelease = "20260721-v33";
+  const forceSolutionsDocumentNavigation = (event) => {
+    if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    const link = event.target.closest?.("a[href]");
+    if (!link) return;
+    const destination = new URL(link.href, location.href);
+    if (destination.pathname.replace(/\\/+$/, "") !== "/solutions") return;
+    event.preventDefault();
+    event.stopImmediatePropagation();
+    destination.pathname = "/solutions/";
+    destination.searchParams.set("wu-nav", solutionsRelease);
+    location.assign(destination.href);
+  };
   const repairHomepage = () => {
     document.querySelectorAll("article h3").forEach((heading) => {
       if (heading.textContent.trim() !== "Retirement & Legacy Solutions") return;
@@ -62,6 +75,7 @@ export default {
       if (link) link.setAttribute("href", "/solutions");
     });
   };
+  document.addEventListener("click", forceSolutionsDocumentNavigation, true);
   repairHomepage();
   new MutationObserver(repairHomepage).observe(document.documentElement, { childList: true, subtree: true });
 })();`;
@@ -119,6 +133,7 @@ export default {
       let html = await originResponse.text();
       html = html.replace(APP_ASSET, `${APP_ASSET}?v=${APP_VERSION}`);
       html = html.replace("</head>", '<style id="wu-nonsticky-header">header{position:relative!important;top:auto!important}</style></head>');
+      html = html.replace("</body>", `<script src="${HOMEPAGE_REPAIR_SCRIPT}?v=${APP_VERSION}" defer></script></body>`);
       return new Response(html, {
         status: originResponse.status,
         headers: {
