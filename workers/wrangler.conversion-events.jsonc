@@ -1,0 +1,16 @@
+{
+  "$schema": "../node_modules/wrangler/config-schema.json",
+  "name": "watts-conversion-events",
+  "main": "conversion-events.js",
+  "compatibility_date": "2026-07-20",
+  "d1_databases": [
+    {
+      "binding": "CONVERSIONS",
+      "database_name": "watts_conversion_events",
+      "database_id": "39f6671c-7f6f-41a1-bcb9-dbeb7b13746e"
+    }
+  ],
+  "observability": {
+    "enabled": true
+  }
+}

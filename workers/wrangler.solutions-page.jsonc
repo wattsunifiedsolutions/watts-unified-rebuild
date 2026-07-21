@@ -1,0 +1,16 @@
+{
+  "$schema": "../node_modules/wrangler/config-schema.json",
+  "name": "watts-solutions-page-v2",
+  "main": "solutions-page-proxy.js",
+  "compatibility_date": "2026-07-20",
+  "routes": [
+    {
+      "pattern": "wattsunified.com/solutions*",
+      "zone_name": "wattsunified.com"
+    },
+    {
+      "pattern": "www.wattsunified.com/solutions*",
+      "zone_name": "wattsunified.com"
+    }
+  ]
+}

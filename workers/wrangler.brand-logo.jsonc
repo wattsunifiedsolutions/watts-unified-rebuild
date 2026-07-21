@@ -1,0 +1,12 @@
+{
+  "$schema": "../node_modules/wrangler/config-schema.json",
+  "name": "watts-brand-logo-asset",
+  "main": "brand-logo-asset.js",
+  "compatibility_date": "2026-07-20",
+  "routes": [
+    {
+      "pattern": "wattsunified.com/solutions/_assets/logo.png",
+      "zone_name": "wattsunified.com"
+    }
+  ]
+}

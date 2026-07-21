@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Financial Snapshot Tool | Watts Unified Solutions</title>
+    <meta
+      name="description"
+      content="Use the Watts Unified Solutions Financial Snapshot Tool to identify income, savings, protection, retirement, and legacy planning gaps before your next money decision."
+    />
+    <meta name="robots" content="index,follow" />
+    <meta name="theme-color" content="#111c35" />
+    <link rel="canonical" href="https://financialsnapshot.wattsunified.com/" />
+    <link rel="icon" type="image/png" href="/assets/external/6b000a6fb69c-5ec89884-6c6e-42ad-b77f-95c4d2d2f45d.jpg" />
+    <meta property="og:title" content="Financial Snapshot Tool | Watts Unified Solutions" />
+    <meta
+      property="og:description"
+      content="A private Watts Unified Solutions diagnostic for retirement income, savings, protection, and legacy planning gaps."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://financialsnapshot.wattsunified.com/" />
+    <meta property="og:image" content="https://financialsnapshot.wattsunified.com/assets/external/ddd1d56edcd8-3bf20ba7-9849-4054-9f3b-3ec33b796492.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="stylesheet" href="/resource-tool-theme-v5.css" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Watts Unified Solutions Financial Snapshot Tool",
+        "url": "https://financialsnapshot.wattsunified.com/",
+        "applicationCategory": "FinanceApplication",
+        "provider": {
+          "@type": "FinancialService",
+          "name": "Watts Unified Solutions",
+          "url": "https://wattsunified.com/"
+        },
+        "description": "A private financial readiness tool that helps identify income, savings, protection, retirement, and legacy planning gaps."
+      }
+    </script>
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="hero">
+        <nav class="brandbar" aria-label="Watts Unified Solutions">
+          <a class="brand-home" href="https://wattsunified.com/" aria-label="Watts Unified Solutions home">
+            <img
+              src="/assets/external/6b000a6fb69c-5ec89884-6c6e-42ad-b77f-95c4d2d2f45d.jpg"
+              alt="Watts Unified Solutions"
+              width="120"
+              height="120"
+              fetchpriority="high"
+            />
+          </a>
+          <a href="https://wattsunified.com/resources">See All Resources</a>
+        </nav>
+
+        <div class="hero-grid">
+          <div class="hero-copy">
+            <p class="eyebrow">Watts Unified Solutions financial readiness tool</p>
+            <h1>Know your financial gaps before they become expensive.</h1>
+            <p class="lead">
+              The Financial Snapshot turns your income, savings, protection, retirement, and legacy answers into a simple
+              readiness score, so Watts Unified Solutions can help you see what needs attention first.
+            </p>
+            <div class="hero-actions">
+              <a class="button primary" href="#snapshot">Start my snapshot</a>
+            </div>
+            <ul class="hero-proof" aria-label="Financial Snapshot benefits">
+              <li>Private diagnostic</li>
+              <li>Readiness score</li>
+              <li>Clear next-step review</li>
+            </ul>
+          </div>
+
+          <aside class="score-card" aria-live="polite">
+            <span>Watts Unified Solutions readiness score</span>
+            <strong id="readinessScore">42</strong>
+            <small id="readinessLabel">Needs attention</small>
+            <div class="meter" aria-hidden="true"><div id="scoreMeter"></div></div>
+            <p id="scoreInsight">Start with the foundation questions to reveal your largest planning gaps.</p>
+          </aside>
+        </div>
+      </section>
+
+      <section class="workspace" id="snapshot" aria-label="Financial Snapshot questionnaire">
+        <div class="panel questions">
+          <div class="panel-heading">
+            <p class="eyebrow">Snapshot inputs</p>
+            <h2>Build your gap profile</h2>
+          </div>
+
+          <div class="question-block">
+            <h3>1. Family foundation</h3>
+            <div class="question">
+              <p>Marital status</p>
+              <div class="choice-grid" data-field="marital">
+                <button type="button" data-value="Single">Single</button>
+                <button type="button" data-value="Married">Married</button>
+                <button type="button" data-value="Divorced">Divorced</button>
+                <button type="button" data-value="Widowed">Widowed</button>
+              </div>
+            </div>
+
+            <div class="question">
+              <p>Children under 18</p>
+              <div class="choice-grid" data-field="children">
+                <button type="button" data-value="0">0</button>
+                <button type="button" data-value="1">1</button>
+                <button type="button" data-value="2">2</button>
+                <button type="button" data-value="3">3</button>
+                <button type="button" data-value="4+">4+</button>
+              </div>
+            </div>
+
+            <div class="question">
+              <p>Homeowner status</p>
+              <div class="choice-grid" data-field="home">
+                <button type="button" data-value="Renting">Renting</button>
+                <button type="button" data-value="Own Home">Own Home</button>
+                <button type="button" data-value="Looking to Buy">Looking to Buy</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="question-block">
+            <h3>2. Cash flow and goals</h3>
+            <label for="incomeRange">Annual income range</label>
+            <select id="incomeRange">
+              <option value="0">Under $50k</option>
+              <option value="1">$50k - $100k</option>
+              <option value="2">$100k - $175k</option>
+              <option value="3">$175k+</option>
+            </select>
+
+            <label for="monthlySavings">Monthly savings</label>
+            <select id="monthlySavings">
+              <option value="0">Under $250</option>
+              <option value="1">$250 - $750</option>
+              <option value="2">$750 - $1,500</option>
+              <option value="3">$1,500+</option>
+            </select>
+
+            <div class="question">
+              <p>Primary financial priority</p>
+              <div class="choice-grid stack" data-field="priority">
+                <button type="button" data-value="Pay off the house and debt">Pay off the house and debt</button>
+                <button type="button" data-value="Replace monthly income">Replace monthly income</button>
+                <button type="button" data-value="Fund education">Fund the kids' education</button>
+                <button type="button" data-value="Cover final expenses">Cover final expenses</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="question-block">
+            <h3>3. Assets and protection</h3>
+            <div class="question">
+              <p>Current savings vehicles</p>
+              <div class="choice-grid stack multi" data-field="vehicles">
+                <button type="button" data-value="401(k) / 403(b)">401(k) / 403(b)</button>
+                <button type="button" data-value="Roth IRA">Roth IRA</button>
+                <button type="button" data-value="Traditional IRA">Traditional IRA</button>
+                <button type="button" data-value="Stocks and bonds">Stocks and bonds</button>
+                <button type="button" data-value="Mutual funds">Mutual funds</button>
+                <button type="button" data-value="Annuities">Annuities</button>
+                <button type="button" data-value="None">None</button>
+              </div>
+            </div>
+
+            <div class="question two-col">
+              <div>
+                <p>Saving enough for retirement?</p>
+                <div class="choice-grid" data-field="savingEnough">
+                  <button type="button" data-value="Yes">Yes</button>
+                  <button type="button" data-value="No">No</button>
+                </div>
+              </div>
+              <div>
+                <p>Concerned about outliving savings?</p>
+                <div class="choice-grid" data-field="outliveSavings">
+                  <button type="button" data-value="Yes">Yes</button>
+                  <button type="button" data-value="No">No</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="question two-col">
+              <div>
+                <p>Current life insurance?</p>
+                <div class="choice-grid" data-field="coverage">
+                  <button type="button" data-value="Yes">Yes</button>
+                  <button type="button" data-value="No">No</button>
+                </div>
+              </div>
+              <div>
+                <p>Estate plan in place?</p>
+                <div class="choice-grid" data-field="estatePlan">
+                  <button type="button" data-value="Yes">Yes</button>
+                  <button type="button" data-value="No">No</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <aside class="results" id="results">
+          <div class="panel sticky">
+            <div class="panel-heading">
+              <p class="eyebrow">Live analysis</p>
+              <h2>Your snapshot</h2>
+            </div>
+
+            <div class="score-row">
+              <strong id="resultScore">42</strong>
+              <div>
+                <span id="resultLabel">Needs attention</span>
+                <p id="resultSummary">Complete the questions to sharpen your strategy profile.</p>
+              </div>
+            </div>
+
+            <div class="gap-list" id="gapList"></div>
+
+            <div class="recommendation">
+              <h3 id="recommendationTitle">Start with foundation protection.</h3>
+              <p id="recommendationCopy">
+                The next conversation should identify the biggest risk first, then connect the right strategy.
+              </p>
+            </div>
+          </div>
+        </aside>
+      </section>
+
+      <section class="contact-section" id="contact">
+        <div>
+          <p class="eyebrow">Fast-track review</p>
+          <h2>Send your Financial Snapshot to Watts Unified Solutions</h2>
+          <p>
+            Your answers are summarized with the form so the follow-up can focus on the right areas instead of starting from scratch.
+          </p>
+        </div>
+
+        <form class="contact-form" data-owned-form>
+          <label for="firstName">First name</label>
+          <input id="firstName" name="firstName" autocomplete="given-name" required />
+
+          <label for="lastName">Last name</label>
+          <input id="lastName" name="lastName" autocomplete="family-name" />
+
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" autocomplete="email" required />
+
+          <label for="phone">Phone</label>
+          <input id="phone" name="phone" type="tel" autocomplete="tel" />
+
+          <label for="notes">Anything you want reviewed first?</label>
+          <textarea id="notes" name="notes" rows="3" placeholder="Example: retirement income, debt, family protection, estate planning."></textarea>
+
+          <input type="hidden" id="snapshotSummary" name="snapshotSummary" />
+          <button type="submit">Send my Financial Snapshot</button>
+        </form>
+        <div class="snapshot-success" data-snapshot-success hidden role="region" aria-labelledby="snapshot-success-title">
+          <p class="eyebrow">Snapshot received</p>
+          <h3 id="snapshot-success-title">Choose a time to review your next step.</h3>
+          <p>Your information is secure. Schedule a focused conversation when you are ready.</p>
+          <a href="https://wattsunified.com/schedule/solutions?source=financial-snapshot" data-schedule-review>Schedule My Review <span aria-hidden="true">→</span></a>
+        </div>
+      </section>
+
+      <footer>
+        <p>Educational diagnostic tool only. This does not provide tax, legal, investment, or insurance advice.</p>
+        <p>© <span data-current-year></span> Watts Unified Solutions</p>
+      </footer>
+    </main>
+
+    <script src="/app.js"></script>
+    <script src="https://assets.wattsunified.com/owned-runtime.js" data-tool="financial-snapshot"></script>
+  </body>
+</html>
