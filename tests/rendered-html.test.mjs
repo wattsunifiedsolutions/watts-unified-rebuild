@@ -244,6 +244,18 @@ test("serves immutable Financial Professional deployment-owned images", async ()
   }
 });
 
+test("uses the approved Financial Professional portrait on the About page", async () => {
+  const { default: worker } = await import("../workers/live/about-page.js");
+  const response = await worker.fetch(new Request("https://wattsunified.com/about"));
+  assert.equal(response.status, 200);
+  const html = await response.text();
+  assert.match(html, /https:\/\/wattsunified\.com\/assets\/financial-professional\/alex\.webp/);
+  assert.match(html, /width="800" height="800" fetchpriority="high" decoding="async"/);
+  assert.match(html, /<meta property="og:image" content="https:\/\/wattsunified\.com\/assets\/financial-professional\/alex\.webp">/);
+  assert.match(html, /"image":"https:\/\/wattsunified\.com\/assets\/financial-professional\/alex\.webp"/);
+  assert.doesNotMatch(html, /about-s-alex-original\.png/);
+});
+
 test("ships optimized local brand and hero assets", async () => {
   const [page, layout, packageJson] = await Promise.all([
     readFile(new URL("../app/page.tsx", import.meta.url), "utf8"),
