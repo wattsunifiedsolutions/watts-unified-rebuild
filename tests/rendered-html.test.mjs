@@ -256,6 +256,33 @@ test("uses the approved Financial Professional portrait on the About page", asyn
   assert.doesNotMatch(html, /about-s-alex-original\.png/);
 });
 
+test("rebuilds the Growth Opportunity booking page from the HighLevel reference", async () => {
+  const { default: worker } = await import("../workers/live/growth-page.js");
+  const response = await worker.fetch(new Request("https://wattsunified.com/growth"));
+  assert.equal(response.status, 200);
+  assert.match(response.headers.get("cache-control") ?? "", /no-store/);
+  assert.equal(response.headers.get("x-watts-growth"), "highlevel-rebuild-v1");
+  const html = await response.text();
+  assert.match(html, /Explore a Growth Opportunity/);
+  assert.match(html, /Schedule Growth &amp; Opportunity Session/);
+  assert.match(html, /calendar\.google\.com\/calendar\/appointments\/schedules\/AcZssZ3ftaGinVKd21W8W3fKh1bv2LsLqiaoDuujeE2eFynNsyyzSF8R0n8AO4AywNeGbn5JdvYQKQrs\?gv=true/);
+  assert.match(html, /\/assets\/growth-opportunity-hero\.webp/);
+  assert.match(html, /width="1408" height="768" fetchpriority="high" decoding="async"/);
+  assert.match(html, /<link rel="canonical" href="https:\/\/wattsunified\.com\/growth">/);
+  assert.match(html, /Let&#39;s Connect/);
+  assert.match(html, /© 2026 Watts Unified Solutions/);
+  assert.doesNotMatch(html, /filesafe\.space|A Clearer Path Starts Here/);
+
+  const image = await worker.fetch(
+    new Request("https://wattsunified.com/assets/growth-opportunity-hero.webp"),
+    { GROWTH_ASSETS: { get: async () => new Uint8Array([82, 73, 70, 70]) } },
+  );
+  assert.equal(image.status, 200);
+  assert.equal(image.headers.get("content-type"), "image/webp");
+  assert.match(image.headers.get("cache-control") ?? "", /immutable/);
+  await access(new URL("../public/growth-opportunity-hero.webp", import.meta.url));
+});
+
 test("ships optimized local brand and hero assets", async () => {
   const [page, layout, packageJson] = await Promise.all([
     readFile(new URL("../app/page.tsx", import.meta.url), "utf8"),
