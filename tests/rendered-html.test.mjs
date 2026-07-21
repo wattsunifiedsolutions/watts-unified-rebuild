@@ -296,6 +296,10 @@ test("keeps homepage program imagery stable and routes the Solutions card correc
   assert.match(worker, /\/assets\/solutions\.webp/);
   assert.match(worker, /\/solutions-hero\.webp/);
   assert.match(worker, /homepage-images-v1\.js/);
+  assert.match(worker, /20260721-solutions-nav3/);
+  assert.match(worker, /forceSolutionsDocumentNavigation/);
+  assert.match(worker, /location\.assign\(destination\.href\)/);
+  assert.match(worker, /html = html\.replace.*script src/);
   assert.match(worker, /heading\.textContent = "Watts Unified Solutions"/);
   assert.match(worker, /link\.setAttribute\("href", "\/solutions"\)/);
   assert.match(worker, /© 2025–2026 Watts Unified Solutions/);
