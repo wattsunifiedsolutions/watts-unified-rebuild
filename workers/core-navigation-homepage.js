@@ -1,7 +1,7 @@
 const ORIGIN = "https://watts-unified-rebuild.pages.dev";
 const STABLE_SITE = "https://watts-retirement-wealth.salexw.chatgpt.site";
 const APP_ASSET = "/assets/index-CQRwdLu0.js";
-const APP_VERSION = "20260721-solutions-nav9";
+const APP_VERSION = "20260721-solutions-nav10";
 const HOMEPAGE_REPAIR_SCRIPT = "/homepage-images-v1.js";
 const ALIGNABLE_ICON_PATH = "/alignable-icon.png";
 const OPPORTUNITY_PATHS_IMAGE_PATH = "/assets/opportunity-paths.png";
@@ -34,6 +34,53 @@ const HOMEPAGE_SCHEMA = {
       name: "Watts Unified Solutions",
       publisher: { "@id": "https://wattsunified.com/#organization" },
       inLanguage: "en-US",
+    },
+  ],
+};
+
+const OPPORTUNITY_FAQ_SCHEMA = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: [
+    {
+      "@type": "Question",
+      name: "Do I need prior financial experience?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "No prior experience is required. We provide comprehensive training, licensing support, and mentorship to help you build your business from the ground up.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "How do I make money?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Partners earn income through commissions on financial and legal services, as well as by building and leading their own teams. We offer a transparent compensation structure with uncapped earning potential.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "What is the time commitment?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "You have the flexibility to build your business on your own terms. Whether you choose part-time hours or transition into a full-time career, the choice is yours.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Is this a franchise or a job?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "This is an independent business ownership opportunity within a proven system. You are not an employee; you are an independent partner building your own agency with our support.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "What training and support is provided?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "We offer world-class training, daily mentorship calls, proven marketing systems, and a supportive community of veteran and faith-led leaders dedicated to your success.",
+      },
     },
   ],
 };
@@ -124,11 +171,34 @@ export function patchHomepageHtml(html, isHomepage = false, pathname = "") {
     ? `<style id="wu-opportunity-path-enhancements">
 .opportunity-paths img[src*="/assets/opportunity-paths.png"]{display:block;width:100%;height:auto;aspect-ratio:1901/577;object-fit:contain}
 .opportunity-paths a:focus-visible{outline:3px solid #d4af37;outline-offset:-3px}
+.faq-section[data-wu-faq="conversion-v2"]{box-sizing:border-box!important;display:grid!important;grid-template-columns:minmax(260px,.78fr) minmax(0,1.35fr)!important;gap:clamp(2.25rem,5vw,4.75rem)!important;width:min(1180px,calc(100% - 2rem))!important;max-width:1180px!important;min-height:0!important;margin:0 auto!important;padding:clamp(3.5rem,7vw,5.75rem) clamp(1rem,3vw,2.5rem)!important;background:#fff!important;color:#0b1f3a!important;content-visibility:auto;contain-intrinsic-size:auto 520px}
+.faq-section[data-wu-faq="conversion-v2"] .section-title{align-self:start!important;margin:0!important;padding:.25rem 0 .25rem clamp(1.1rem,2vw,1.6rem)!important;text-align:left!important;border-left:4px solid #d4af37}
+.faq-section[data-wu-faq="conversion-v2"] .wu-faq-eyebrow{margin:0 0 .65rem!important;color:#9b7517!important;font-size:.75rem!important;font-weight:850!important;letter-spacing:.16em!important;line-height:1.3!important;text-transform:uppercase!important}
+.faq-section[data-wu-faq="conversion-v2"] .section-title h2{margin:0!important;color:#0b1f3a!important;font-family:Georgia,serif!important;font-size:clamp(2rem,4vw,3rem)!important;font-weight:700!important;line-height:1.08!important;letter-spacing:-.025em!important;text-align:left!important}
+.faq-section[data-wu-faq="conversion-v2"] .wu-faq-intro{max-width:31rem;margin:1rem 0 1.35rem!important;color:#526071!important;font-size:1rem!important;line-height:1.65!important}
+.faq-section[data-wu-faq="conversion-v2"] .wu-faq-cta{display:inline-flex!important;align-items:center!important;justify-content:center!important;min-height:48px!important;padding:.75rem 1.15rem!important;border:2px solid #d4af37!important;border-radius:8px!important;background:#d4af37!important;color:#0b1f3a!important;font-size:.78rem!important;font-weight:900!important;letter-spacing:.08em!important;text-decoration:none!important;text-transform:uppercase!important;transition:background-color .18s ease,border-color .18s ease,color .18s ease!important}
+.faq-section[data-wu-faq="conversion-v2"] .wu-faq-cta:hover{border-color:#0b1f3a!important;background:#0b1f3a!important;color:#fff!important}
+.faq-section[data-wu-faq="conversion-v2"] .wu-faq-cta:focus-visible{outline:3px solid #d4af37!important;outline-offset:4px!important}
+.faq-section[data-wu-faq="conversion-v2"] .faq-list{display:grid!important;gap:.65rem!important;width:100%!important;margin:0!important;padding:0!important}
+.faq-section[data-wu-faq="conversion-v2"] details{overflow:hidden!important;margin:0!important;border:1px solid #dfe3e8!important;border-radius:10px!important;background:#fff!important;box-shadow:none!important}
+.faq-section[data-wu-faq="conversion-v2"] details[open]{border-color:#d4af37!important;background:#fffdf7!important}
+.faq-section[data-wu-faq="conversion-v2"] summary{box-sizing:border-box!important;display:flex!important;align-items:center!important;justify-content:space-between!important;gap:1rem!important;min-height:60px!important;padding:1rem 1.15rem!important;color:#0b1f3a!important;font-size:clamp(.96rem,1.5vw,1.05rem)!important;font-weight:800!important;line-height:1.35!important;list-style:none!important;cursor:pointer!important}
+.faq-section[data-wu-faq="conversion-v2"] summary::-webkit-details-marker{display:none!important}
+.faq-section[data-wu-faq="conversion-v2"] summary:hover{color:#9b7517!important}
+.faq-section[data-wu-faq="conversion-v2"] summary:focus-visible{outline:3px solid #d4af37!important;outline-offset:-3px!important}
+.faq-section[data-wu-faq="conversion-v2"] summary svg{flex:0 0 auto!important;width:20px!important;height:20px!important;color:#b38b22!important;transition:transform .18s ease!important}
+.faq-section[data-wu-faq="conversion-v2"] details[open] summary svg{transform:rotate(180deg)!important}
+.faq-section[data-wu-faq="conversion-v2"] details>p{margin:0!important;padding:0 1.15rem 1.15rem!important;color:#526071!important;font-size:.95rem!important;line-height:1.65!important}
+@media(max-width:780px){.faq-section[data-wu-faq="conversion-v2"]{grid-template-columns:1fr!important;gap:2rem!important;width:100%!important;padding:3.5rem 1rem!important}.faq-section[data-wu-faq="conversion-v2"] .section-title{padding-left:1rem!important}.faq-section[data-wu-faq="conversion-v2"] summary{min-height:58px!important;padding:.9rem 1rem!important}.faq-section[data-wu-faq="conversion-v2"] details>p{padding:0 1rem 1rem!important}}
+@media(prefers-reduced-motion:reduce){.faq-section[data-wu-faq="conversion-v2"] summary svg,.faq-section[data-wu-faq="conversion-v2"] .wu-faq-cta{transition:none!important}}
 </style>`
+    : "";
+  const opportunityFaqMetadata = pathname.startsWith("/opportunity")
+    ? `<script id="wu-opportunity-faq-schema" type="application/ld+json">${JSON.stringify(OPPORTUNITY_FAQ_SCHEMA).replaceAll("<", "\\u003c")}</script>`
     : "";
   html = html.replace(
     "</head>",
-    `${homepageMetadata}${opportunityPathEnhancements}<style id="wu-nonsticky-header">header{position:relative!important;top:auto!important}</style></head>`,
+    `${homepageMetadata}${opportunityFaqMetadata}${opportunityPathEnhancements}<style id="wu-nonsticky-header">header{position:relative!important;top:auto!important}</style></head>`,
   );
   return installVersionedRepairScript(html);
 }
@@ -218,6 +288,21 @@ export default {
         link.setAttribute("href", href);
         link.setAttribute("aria-label", label);
       });
+      const faqSection = document.querySelector("section.faq-section");
+      if (faqSection && faqSection.getAttribute("data-wu-faq") !== "conversion-v2") {
+        faqSection.setAttribute("data-wu-faq", "conversion-v2");
+        faqSection.setAttribute("aria-label", "Frequently Asked Questions");
+        faqSection.setAttribute("id", "opportunity-faq");
+        const faqTitle = faqSection.querySelector(".section-title");
+        if (faqTitle) {
+          faqTitle.insertAdjacentHTML("afterbegin", '<p class="wu-faq-eyebrow">Questions before you start?</p>');
+          faqTitle.insertAdjacentHTML("beforeend", '<p class="wu-faq-intro">Get clear answers, then choose the professional path that fits your goals.</p><a class="wu-faq-cta" href="/schedule/solutions" data-wu-event="opportunity_faq_connect">Talk With S. Alex</a>');
+        }
+        faqSection.querySelectorAll("details").forEach((item) => {
+          item.setAttribute("name", "opportunity-faq");
+          item.removeAttribute("open");
+        });
+      }
     }
   };
   document.addEventListener("click", forceSolutionsDocumentNavigation, true);
@@ -228,7 +313,7 @@ export default {
         headers: {
           "content-type": "application/javascript; charset=UTF-8",
           "cache-control": "no-store",
-          "x-watts-homepage-repair": "homepage-card-v1",
+          "x-watts-homepage-repair": "opportunity-faq-v2",
           "x-content-type-options": "nosniff",
         },
       });
