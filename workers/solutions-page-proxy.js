@@ -1,5 +1,6 @@
 const PUBLISHED_SITE = "https://watts-retirement-wealth.salexw.chatgpt.site";
 const ASSET_PREFIX = "/solutions-app";
+const SOLUTIONS_REPAIR_VERSION = "20260721-optimizer4";
 const PAGE_ASSETS = new Set([
   "watts-logo.png",
   "watts-brand-lockup.png",
@@ -20,6 +21,7 @@ function upstreamRequest(request, target) {
     method: request.method,
     headers,
     redirect: "follow",
+    cache: "no-store",
   });
 }
 
@@ -59,7 +61,40 @@ function rewritePublishedHtml(html) {
       /(?<!\/solutions-app)\/(watts-logo\.png|solutions-protection\.jpg|solutions-(?:hero|retirement|legacy|business|veteran)\.webp)/g,
       `${ASSET_PREFIX}/$1`,
     )
-    .replace(/<section class="solutions-trust"[\s\S]*?<\/section>/, "");
+    .replace(/<section class="solutions-trust"[\s\S]*?<\/section>/, "")
+    .replace(
+      "</body>",
+      `<script id="wu-solutions-runtime-repair">(() => {
+  const version = "${SOLUTIONS_REPAIR_VERSION}";
+  const repair = () => {
+    document.querySelectorAll('img[src^="/_vinext/image"], img[src^="/solutions-app/"], img[src^="https://wattsunified.com/solutions-app/"], img[src^="https://www.wattsunified.com/solutions-app/"]').forEach((image) => {
+      const source = image.getAttribute("src");
+      if (!source) return;
+      const url = new URL(source, location.origin);
+      if (url.searchParams.get("wu") === version) return;
+      url.searchParams.set("wu", version);
+      image.src = url.pathname + url.search;
+    });
+    document.querySelectorAll("main section").forEach((section) => {
+      if (section.textContent.includes("What Happens Next")) section.remove();
+    });
+  };
+  repair();
+  new MutationObserver(repair).observe(document.documentElement, {
+    childList: true,
+    subtree: true,
+    attributes: true,
+    attributeFilter: ["src"],
+  });
+})();</script></body>`,
+    );
+}
+
+function normalizeOptimizerSource(sourcePath) {
+  if (sourcePath.startsWith(`${ASSET_PREFIX}/`)) {
+    return sourcePath.slice(ASSET_PREFIX.length);
+  }
+  return sourcePath;
 }
 
 export default {
@@ -74,13 +109,14 @@ export default {
     const url = new URL(request.url);
     const pathname = url.pathname;
 
-    if (pathname.startsWith(`${ASSET_PREFIX}/_vinext/image`)) {
+    if (pathname.startsWith(`${ASSET_PREFIX}/_vinext/image`) || pathname.startsWith("/_vinext/image")) {
       const sourcePath = url.searchParams.get("url");
       if (!sourcePath || !sourcePath.startsWith("/") || sourcePath.startsWith("//")) {
         return new Response("Invalid image path", { status: 400 });
       }
-      const response = await fetch(upstreamRequest(request, `${PUBLISHED_SITE}${sourcePath}`));
-      const served = stableResponse(response, "stable-image-bypass-v3", sourcePath);
+      const normalizedSource = normalizeOptimizerSource(sourcePath);
+      const response = await fetch(upstreamRequest(request, `${PUBLISHED_SITE}${normalizedSource}`));
+      const served = stableResponse(response, "stable-image-bypass-v4", normalizedSource);
       const headers = new Headers(served.headers);
       headers.set("cache-control", "public, max-age=86400, stale-while-revalidate=604800");
       return new Response(served.body, { status: served.status, headers });
@@ -107,7 +143,11 @@ export default {
     const html = rewritePublishedHtml(await response.text());
     const headers = new Headers(response.headers);
     headers.set("content-type", "text/html; charset=utf-8");
-    headers.set("cache-control", "no-store");
+    headers.set("cache-control", "no-store, no-cache, must-revalidate, max-age=0");
+    headers.set("cdn-cache-control", "no-store");
+    headers.set("cloudflare-cdn-cache-control", "no-store");
+    headers.set("pragma", "no-cache");
+    headers.set("expires", "0");
     headers.set("x-watts-solutions-worker", "stable-approved-v3");
     headers.set("x-content-type-options", "nosniff");
     headers.delete("content-length");
