@@ -183,19 +183,24 @@ test("renders the complete Financial Professional opportunity page", async () =>
 
   const html = await response.text();
   assert.match(html, /Financial Professional Opportunity \| Watts Unified Solutions/);
-  assert.match(html, /Build a Financial Business On Your Terms\./);
-  assert.match(html, /What You Will Actually Do\./);
+  assert.match(html, /Build a Financial Business/);
+  assert.match(html, /On Your Terms\./);
+  assert.match(html, /Join the financial industry as an independent professional/);
+  assert.match(html, /Apply to Partner With S\. Alex/);
+  assert.match(html, /What You Will <em>Actually Do\.<\/em>/);
   assert.match(html, /Retirement Planning/);
   assert.match(html, /Financial Education/);
   assert.match(html, /Generational Legacy/);
-  assert.match(html, /Build independently\. Never build alone\./);
-  assert.match(html, /The Freedom Framework/);
-  assert.match(html, /\.framework\{padding:72px 0;background:var\(--cream\)/);
-  assert.doesNotMatch(html, /\.framework\{[^}]*background:var\(--navy\)/);
-  assert.match(html, /\.values\{display:grid;grid-template-columns:repeat\(6,1fr\)/);
-  assert.match(html, /\.value:nth-child\(4\)\{grid-column:2\/span 2\}/);
-  assert.match(html, /Meet Your Mentor/);
-  assert.match(html, /Book a Fit Conversation/);
+  assert.match(html, /Why Partner With/);
+  assert.match(html, /Watts Unified Solutions<\/em>/);
+  assert.match(html, /The Freedom <em>Framework\.<\/em>/);
+  assert.match(html, /background:#151515 url\('\/assets\/financial-professional\/freedom\.webp'\)/);
+  assert.match(html, /\.values\{display:grid;grid-template-columns:repeat\(5,1fr\)/);
+  assert.match(html, /Grounded in principles that matter more than money/);
+  assert.match(html, /Know what you are exploring\./);
+  assert.match(html, /Talk With S\. Alex/);
+  assert.match(html, /Meet S\. Alex Watts/);
+  assert.match(html, /Real success isn't measured only by income/);
   assert.match(html, /\/schedule\/opportunity/);
   assert.match(html, /independent 1099 contractor opportunity/i);
   assert.match(html, /no income is guaranteed/i);
@@ -203,11 +208,12 @@ test("renders the complete Financial Professional opportunity page", async () =>
   assert.match(html, /FAQPage/);
   assert.match(html, /data-analytics-event="primary_cta_click"/);
   assert.match(html, /\/assets\/financial-professional\/hero\.webp/);
+  assert.match(html, /\/assets\/financial-professional\/freedom\.webp/);
   assert.match(html, /width="1408" height="768" fetchpriority="high"/);
   assert.match(html, /LinkedIn/);
   assert.match(html, /Instagram/);
   assert.match(html, /Alignable/);
-  assert.match(html, /© 2026 Watts Unified Solutions/);
+  assert.match(html, /(?:©|&copy;) 2026 Watts Unified Solutions/);
   assert.doesNotMatch(html, /filesafe\.space|\/growth|carrier logo/i);
 });
 
@@ -249,6 +255,7 @@ test("ships optimized local brand and hero assets", async () => {
     access(new URL("../public/financial-professional-education.webp", import.meta.url)),
     access(new URL("../public/financial-professional-legacy.webp", import.meta.url)),
     access(new URL("../public/financial-professional-mentor.webp", import.meta.url)),
+    access(new URL("../public/financial-professional-freedom.webp", import.meta.url)),
     access(new URL("../public/financial-professional-alex.webp", import.meta.url)),
   ]);
 
