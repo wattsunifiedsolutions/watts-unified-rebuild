@@ -283,6 +283,41 @@ test("rebuilds the Growth Opportunity booking page from the HighLevel reference"
   await access(new URL("../public/growth-opportunity-hero.webp", import.meta.url));
 });
 
+test("rebuilds the Financial Strategy Session page for focused conversion", async () => {
+  const { default: worker } = await import("../workers/live/financial-strategy-session.js");
+  const response = await worker.fetch(new Request("https://wattsunified.com/financial-strategy-session"));
+  assert.equal(response.status, 200);
+  assert.match(response.headers.get("cache-control") ?? "", /no-store/);
+  assert.equal(response.headers.get("x-watts-financial-strategy"), "highlevel-conversion-v1");
+  const html = await response.text();
+  assert.match(html, /Financial Strategy Session/);
+  assert.match(html, /Choose a Time That Works for You/);
+  assert.match(html, /Schedule Financial Strategy Session/);
+  assert.match(html, /calendar\.google\.com\/calendar\/appointments\/schedules\/AcZssZ0lseR7Aby6nJ6CKEqfSD-Dl9-9ZhzjpupzdIBN5iTWWYTBzFuPCvE9a7R4nRQs2DpgdEyoN8o4\?gv=true/);
+  assert.match(html, /\/assets\/financial-strategy-session-hero\.webp/);
+  assert.match(html, /width="1408" height="768" fetchpriority="high" decoding="async"/);
+  assert.match(html, /<link rel="canonical" href="https:\/\/wattsunified\.com\/financial-strategy-session">/);
+  assert.match(html, /Clear Priorities/);
+  assert.match(html, /60 Minutes/);
+  assert.match(html, /Private &amp; Confidential/);
+  assert.match(html, /Let&#39;s Connect/);
+  assert.match(html, /LinkedIn/);
+  assert.match(html, /Instagram/);
+  assert.match(html, /Alignable/);
+  assert.match(html, /&copy; 2026 Watts Unified Solutions/);
+  assert.doesNotMatch(html, /filesafe\.space|Unified System<\/a><\/nav>/);
+
+  const image = await worker.fetch(
+    new Request("https://wattsunified.com/assets/financial-strategy-session-hero.webp"),
+    { SCHEDULE_ASSETS: { get: async () => new Uint8Array([82, 73, 70, 70]) } },
+  );
+  assert.equal(image.status, 200);
+  assert.equal(image.headers.get("content-type"), "image/webp");
+  assert.match(image.headers.get("cache-control") ?? "", /immutable/);
+  assert.equal(image.headers.get("x-watts-financial-strategy"), "highlevel-conversion-v1");
+  await access(new URL("../public/financial-strategy-session-hero.webp", import.meta.url));
+});
+
 test("ships optimized local brand and hero assets", async () => {
   const [page, layout, packageJson] = await Promise.all([
     readFile(new URL("../app/page.tsx", import.meta.url), "utf8"),
