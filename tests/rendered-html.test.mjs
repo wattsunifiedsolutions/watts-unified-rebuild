@@ -301,6 +301,8 @@ test("keeps homepage program imagery stable and routes the Solutions card correc
   assert.match(worker, /location\.assign\(destination\.href\)/);
   assert.match(worker, /installVersionedRepairScript/);
   assert.match(worker, /patchHomepageHtml/);
+  assert.match(worker, /isManagedHtmlPath/);
+  assert.match(worker, /pathname\.startsWith\("\/opportunity"\)/);
   assert.match(worker, /wu-homepage-schema/);
   assert.match(worker, /rel=\"preload\" as=\"image\" href=\"\/assets\/hero\.webp\"/);
   assert.match(worker, /hero\.setAttribute\(\"fetchpriority\", \"high\"\)/);
@@ -319,6 +321,8 @@ test("keeps homepage program imagery stable and routes the Solutions card correc
   assert.match(config, /www\.wattsunified\.com\/assets\/solutions\.webp\*/);
   assert.match(config, /wattsunified\.com\/homepage-images-v1\.js\*/);
   assert.match(config, /www\.wattsunified\.com\/homepage-images-v1\.js\*/);
+  assert.match(config, /"pattern": "wattsunified\.com\/\*"/);
+  assert.match(config, /"pattern": "www\.wattsunified\.com\/\*"/);
   assert.match(config, /wattsunified\.com\/alignable-icon\.png\*/);
   assert.match(config, /www\.wattsunified\.com\/alignable-icon\.png\*/);
 });
@@ -326,7 +330,7 @@ test("keeps homepage program imagery stable and routes the Solutions card correc
 test("adds homepage discovery metadata and one versioned repair script", async () => {
   const { patchHomepageHtml } = await import("../workers/core-navigation-homepage.js");
   const source = `<!doctype html><html><head><title>Retirement & Legacy Specialist | Watts Unified Solutions</title></head><body><div id="root"></div><script type="module" src="/assets/index-CQRwdLu0.js"></script><script src="/homepage-images-v1.js"></script></body></html>`;
-  const html = patchHomepageHtml(source);
+  const html = patchHomepageHtml(source, true);
 
   assert.match(html, /rel="canonical" href="https:\/\/wattsunified\.com\/"/);
   assert.match(html, /name="robots" content="index, follow, max-image-preview:large"/);
@@ -336,4 +340,9 @@ test("adds homepage discovery metadata and one versioned repair script", async (
   assert.match(html, /\/assets\/index-CQRwdLu0\.js\?v=20260721-solutions-nav3/);
   assert.equal((html.match(/homepage-images-v1\.js/g) || []).length, 1);
   assert.match(html, /homepage-images-v1\.js\?v=20260721-solutions-nav3/);
+
+  const internalPage = patchHomepageHtml(source, false);
+  assert.doesNotMatch(internalPage, /rel="canonical" href="https:\/\/wattsunified\.com\/"/);
+  assert.doesNotMatch(internalPage, /id="wu-homepage-schema"/);
+  assert.match(internalPage, /homepage-images-v1\.js\?v=20260721-solutions-nav3/);
 });
