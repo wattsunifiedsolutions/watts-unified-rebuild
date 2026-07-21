@@ -35,7 +35,9 @@ if (contactForm && successPanel) {
   observer.observe(contactForm, { childList: true, subtree: true, characterData: true });
 }
 scheduleLink?.addEventListener("click", () => trackConversion("snapshot_schedule_click", "Schedule My Review", scheduleLink.href));
-document.querySelectorAll("footer p").forEach((item) => { if (item.textContent.includes("©")) item.textContent = "© 2025 Watts Unified Solutions"; });
+const copyrightYear = new Date().getFullYear();
+const copyrightYears = copyrightYear > 2025 ? "2025–" + copyrightYear : "2025";
+document.querySelectorAll("footer p, footer small").forEach((item) => { if (item.textContent.includes("©")) item.textContent = "© " + copyrightYears + " Watts Unified Solutions. All rights reserved."; });
 `;
 
 const styleEnhancements = `
