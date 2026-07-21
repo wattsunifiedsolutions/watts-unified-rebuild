@@ -34,7 +34,7 @@ export function SiteFooter() {
           <span>Alignable</span>
         </a>
       </div>
-      <small>© 2025 Watts Unified Solutions. All rights reserved.</small>
+      <small>© 2025–2026 Watts Unified Solutions. All rights reserved.</small>
     </footer>
   );
 }
