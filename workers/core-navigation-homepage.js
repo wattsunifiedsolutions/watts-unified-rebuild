@@ -1,0 +1,119 @@
+const ORIGIN = "https://watts-unified-rebuild.pages.dev";
+const STABLE_SITE = "https://watts-retirement-wealth.salexw.chatgpt.site";
+const APP_ASSET = "/assets/index-CQRwdLu0.js";
+const APP_VERSION = "20260721-cache-policy2";
+const HOMEPAGE_REPAIR_SCRIPT = "/homepage-images-v1.js";
+
+const HOMEPAGE_IMAGE_REPLACEMENTS = new Map([
+  ["/assets/veterans.webp", "/solutions-veteran.webp"],
+  ["/assets/solutions.webp", "/solutions-hero.webp"],
+]);
+
+function patchAppBundle(source) {
+  const oldNavigation = "ke=[[`Home`,`/`],[`Solutions`,`/solutions`],[`Unified System`,`/system`],[`Veteran Summit`,`/solutions/programs/veterans`],[`Opportunity`,`/opportunity`],[`Resources`,`/resources`],[`About`,`/about`]]";
+  const newNavigation = "ke=[[`Home`,`/`],[`Solutions`,`/solutions`],[`Veteran Summit`,`/solutions/programs/veterans`],[`Opportunity`,`/opportunity`],[`Resources`,`/resources`],[`About`,`/about`]]";
+  const oldHeaderCta = "(0,k.jsx)(A,{href:`/schedule`,children:`Connect With S. Alex`})";
+  const newHeaderCta = "(0,k.jsx)(A,{href:`/schedule/solutions`,children:`Let's Connect`})";
+  const oldFooterLinks = "ke.slice(1).map(([e,t])=>(0,k.jsx)(`a`,{href:t,onClick:Ae(t),children:e},t))";
+  const newFooterLinks = "[[`Solutions`,`/solutions`],[`Unified System`,`/system`],[`Veteran Summit`,`/solutions/programs/veterans`],[`Opportunity`,`/opportunity`],[`Resources`,`/resources`],[`About`,`/about`]].map(([e,t])=>(0,k.jsx)(`a`,{href:t,onClick:Ae(t),children:e},t))";
+  return source
+    .replace(oldNavigation, newNavigation)
+    .replace(oldHeaderCta, newHeaderCta)
+    .replace(oldFooterLinks, newFooterLinks)
+    .replaceAll("Retirement & Legacy Solutions", "Watts Unified Solutions");
+}
+
+function upstreamRequest(request, target) {
+  const headers = new Headers(request.headers);
+  headers.delete("host");
+  headers.delete("cookie");
+  headers.delete("authorization");
+  return new Request(target, {
+    method: request.method,
+    headers,
+    redirect: "follow",
+    cache: "no-store",
+  });
+}
+
+export default {
+  async fetch(request) {
+    const incoming = new URL(request.url);
+
+    if (incoming.pathname === "/carrier-network" || incoming.pathname === "/carrier-network/") {
+      return Response.redirect(new URL("/solutions", incoming), 302);
+    }
+
+    if (incoming.pathname === HOMEPAGE_REPAIR_SCRIPT) {
+      const script = `(() => {
+  const repairHomepage = () => {
+    document.querySelectorAll("article h3").forEach((heading) => {
+      if (heading.textContent.trim() !== "Retirement & Legacy Solutions") return;
+      heading.textContent = "Watts Unified Solutions";
+      const card = heading.closest("article");
+      if (!card) return;
+      const image = card.querySelector("img");
+      if (image) image.alt = "Watts Unified Solutions";
+      const link = card.querySelector("a");
+      if (link) link.setAttribute("href", "/solutions");
+    });
+  };
+  repairHomepage();
+  new MutationObserver(repairHomepage).observe(document.documentElement, { childList: true, subtree: true });
+})();`;
+      return new Response(script, {
+        headers: {
+          "content-type": "application/javascript; charset=UTF-8",
+          "cache-control": "no-store",
+          "x-watts-homepage-repair": "homepage-card-v1",
+          "x-content-type-options": "nosniff",
+        },
+      });
+    }
+
+    const stableImage = HOMEPAGE_IMAGE_REPLACEMENTS.get(incoming.pathname);
+    if (stableImage) {
+      const response = await fetch(upstreamRequest(request, `${STABLE_SITE}${stableImage}`));
+      const headers = new Headers(response.headers);
+      headers.set("content-type", "image/webp");
+      headers.set("cache-control", "no-cache");
+      headers.set("x-watts-home-image", "stable-homepage-image-v1");
+      headers.set("x-content-type-options", "nosniff");
+      headers.delete("content-length");
+      return new Response(response.body, { status: response.status, headers });
+    }
+
+    const originUrl = new URL(incoming.pathname + incoming.search, ORIGIN);
+    const originRequest = new Request(originUrl, request);
+    const originResponse = await fetch(new Request(originRequest, { cache: "no-store" }));
+
+    if (incoming.pathname === APP_ASSET) {
+      const source = patchAppBundle(await originResponse.text());
+      return new Response(source, {
+        status: originResponse.status,
+        headers: {
+          "content-type": "application/javascript;charset=UTF-8",
+          "cache-control": "no-store",
+          "x-content-type-options": "nosniff",
+        },
+      });
+    }
+
+    const contentType = originResponse.headers.get("content-type") || "";
+    if (contentType.includes("text/html")) {
+      let html = await originResponse.text();
+      html = html.replace(APP_ASSET, `${APP_ASSET}?v=${APP_VERSION}`);
+      html = html.replace("</head>", '<style id="wu-nonsticky-header">header{position:relative!important;top:auto!important}</style></head>');
+      return new Response(html, {
+        status: originResponse.status,
+        headers: {
+          "content-type": "text/html;charset=UTF-8",
+          "cache-control": "no-store",
+          "x-content-type-options": "nosniff",
+        },
+      });
+    }
+
+    return originResponse;
+  },
+};
