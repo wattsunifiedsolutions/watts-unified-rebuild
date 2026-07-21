@@ -1,7 +1,7 @@
 const ORIGIN = "https://watts-unified-rebuild.pages.dev";
 const STABLE_SITE = "https://watts-retirement-wealth.salexw.chatgpt.site";
 const APP_ASSET = "/assets/index-CQRwdLu0.js";
-const APP_VERSION = "20260721-solutions-nav10";
+const APP_VERSION = "20260721-solutions-nav16";
 const HOMEPAGE_REPAIR_SCRIPT = "/homepage-images-v1.js";
 const ALIGNABLE_ICON_PATH = "/alignable-icon.png";
 const OPPORTUNITY_PATHS_IMAGE_PATH = "/assets/opportunity-paths.png";
@@ -167,7 +167,8 @@ export function patchHomepageHtml(html, isHomepage = false, pathname = "") {
 
   html = html.replace(APP_ASSET, `${APP_ASSET}?v=${APP_VERSION}`);
   const homepageMetadata = isHomepage ? homepageSeo : "";
-  const opportunityPathEnhancements = pathname.startsWith("/opportunity")
+  const isOpportunityRoot = pathname.replace(/\/+$/, "") === "/opportunity";
+  const opportunityPathEnhancements = isOpportunityRoot
     ? `<style id="wu-opportunity-path-enhancements">
 .opportunity-paths img[src*="/assets/opportunity-paths.png"]{display:block;width:100%;height:auto;aspect-ratio:1901/577;object-fit:contain}
 .opportunity-paths a:focus-visible{outline:3px solid #d4af37;outline-offset:-3px}
@@ -189,11 +190,25 @@ export function patchHomepageHtml(html, isHomepage = false, pathname = "") {
 .faq-section[data-wu-faq="conversion-v2"] summary svg{flex:0 0 auto!important;width:20px!important;height:20px!important;color:#b38b22!important;transition:transform .18s ease!important}
 .faq-section[data-wu-faq="conversion-v2"] details[open] summary svg{transform:rotate(180deg)!important}
 .faq-section[data-wu-faq="conversion-v2"] details>p{margin:0!important;padding:0 1.15rem 1.15rem!important;color:#526071!important;font-size:.95rem!important;line-height:1.65!important}
+.cta[data-wu-next-step="conversion-v2"]{box-sizing:border-box!important;display:block!important;width:100%!important;min-height:0!important;margin:0!important;padding:0!important;border-top:1px solid #e6e2d8!important;background:#f7f6f2!important;color:#0b1f3a!important;text-align:left!important;content-visibility:auto;contain-intrinsic-size:auto 270px}
+.cta[data-wu-next-step="conversion-v2"] .wu-next-step-inner{box-sizing:border-box!important;display:grid!important;grid-template-columns:minmax(0,1fr) auto!important;align-items:center!important;gap:clamp(2.5rem,7vw,6rem)!important;width:min(1180px,100%)!important;margin:0 auto!important;padding:clamp(3.25rem,6vw,4.75rem) clamp(1.25rem,4vw,3rem)!important}
+.cta[data-wu-next-step="conversion-v2"] .wu-next-step-copy{max-width:760px!important}
+.cta[data-wu-next-step="conversion-v2"] .wu-next-step-eyebrow{display:block!important;margin:0 0 .65rem!important;color:#9b7517!important;font-family:inherit!important;font-size:.76rem!important;font-weight:900!important;letter-spacing:.17em!important;line-height:1.3!important;text-transform:uppercase!important}
+.cta[data-wu-next-step="conversion-v2"] h2{margin:0 0 .8rem!important;color:#0b1f3a!important;font-family:Georgia,serif!important;font-size:clamp(2rem,4vw,3rem)!important;font-weight:700!important;letter-spacing:-.025em!important;line-height:1.08!important;text-align:left!important;text-transform:none!important}
+.cta[data-wu-next-step="conversion-v2"] .wu-next-step-copy>p{max-width:720px!important;margin:0!important;color:#526071!important;font-size:clamp(1rem,1.5vw,1.08rem)!important;line-height:1.65!important;text-align:left!important}
+.cta[data-wu-next-step="conversion-v2"] .wu-next-step-action{display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;min-width:min(100%,270px)!important}
+.cta[data-wu-next-step="conversion-v2"] .wu-next-step-cta{box-sizing:border-box!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;gap:.65rem!important;min-height:52px!important;padding:.85rem 1.35rem!important;border:2px solid #d4af37!important;border-radius:7px!important;background:#d4af37!important;color:#0b1f3a!important;font-size:.78rem!important;font-weight:900!important;letter-spacing:.08em!important;line-height:1.2!important;text-align:center!important;text-decoration:none!important;text-transform:uppercase!important;box-shadow:none!important;transition:background-color .18s ease,border-color .18s ease,color .18s ease!important}
+.cta[data-wu-next-step="conversion-v2"] .wu-next-step-cta:hover{border-color:#0b1f3a!important;background:#0b1f3a!important;color:#fff!important;transform:none!important}
+.cta[data-wu-next-step="conversion-v2"] .wu-next-step-cta:focus-visible{outline:3px solid #d4af37!important;outline-offset:4px!important}
+.cta[data-wu-next-step="conversion-v2"] .wu-next-step-cta svg{flex:0 0 auto!important;width:17px!important;height:17px!important;transition:transform .18s ease!important}
+.cta[data-wu-next-step="conversion-v2"] .wu-next-step-cta:hover svg{transform:translateX(3px)!important}
+.cta[data-wu-next-step="conversion-v2"] .wu-next-step-trust{margin:.7rem 0 0!important;color:#667181!important;font-size:.78rem!important;font-weight:650!important;line-height:1.4!important;text-align:center!important}
 @media(max-width:780px){.faq-section[data-wu-faq="conversion-v2"]{grid-template-columns:1fr!important;gap:2rem!important;width:100%!important;padding:3.5rem 1rem!important}.faq-section[data-wu-faq="conversion-v2"] .section-title{padding-left:1rem!important}.faq-section[data-wu-faq="conversion-v2"] summary{min-height:58px!important;padding:.9rem 1rem!important}.faq-section[data-wu-faq="conversion-v2"] details>p{padding:0 1rem 1rem!important}}
-@media(prefers-reduced-motion:reduce){.faq-section[data-wu-faq="conversion-v2"] summary svg,.faq-section[data-wu-faq="conversion-v2"] .wu-faq-cta{transition:none!important}}
+@media(max-width:780px){.cta[data-wu-next-step="conversion-v2"] .wu-next-step-inner{grid-template-columns:1fr!important;gap:1.75rem!important;padding:3.5rem 1.25rem!important;text-align:center!important}.cta[data-wu-next-step="conversion-v2"] .wu-next-step-copy{max-width:620px!important;margin:0 auto!important}.cta[data-wu-next-step="conversion-v2"] h2,.cta[data-wu-next-step="conversion-v2"] .wu-next-step-copy>p{text-align:center!important}.cta[data-wu-next-step="conversion-v2"] .wu-next-step-action{width:100%!important}.cta[data-wu-next-step="conversion-v2"] .wu-next-step-cta{width:min(100%,340px)!important}}
+@media(prefers-reduced-motion:reduce){.faq-section[data-wu-faq="conversion-v2"] summary svg,.faq-section[data-wu-faq="conversion-v2"] .wu-faq-cta,.cta[data-wu-next-step="conversion-v2"] .wu-next-step-cta,.cta[data-wu-next-step="conversion-v2"] .wu-next-step-cta svg{transition:none!important}}
 </style>`
     : "";
-  const opportunityFaqMetadata = pathname.startsWith("/opportunity")
+  const opportunityFaqMetadata = isOpportunityRoot
     ? `<script id="wu-opportunity-faq-schema" type="application/ld+json">${JSON.stringify(OPPORTUNITY_FAQ_SCHEMA).replaceAll("<", "\\u003c")}</script>`
     : "";
   html = html.replace(
@@ -265,9 +280,16 @@ export default {
     });
     document.querySelectorAll("footer small, footer p").forEach((item) => {
       const copyright = "© 2026 Watts Unified Solutions. All rights reserved.";
-      if (item.textContent.trim().startsWith("©") && item.textContent.trim() !== copyright) item.textContent = copyright;
+      const currentText = item.textContent.trim();
+      const isCopyright = currentText.includes("Watts Unified Solutions") && currentText.includes("All rights reserved.");
+      if (isCopyright && currentText !== copyright) {
+        item.textContent = copyright;
+      }
     });
-    if (location.pathname.startsWith("/opportunity")) {
+    const opportunityPathname = location.pathname.endsWith("/")
+      ? location.pathname.slice(0, -1)
+      : location.pathname;
+    if (opportunityPathname === "/opportunity") {
       const pathSection = document.querySelector("section.opportunity-paths");
       const pathImage = pathSection?.querySelector('img[src*="/assets/opportunity-paths.png"]');
       if (pathImage) {
@@ -303,17 +325,40 @@ export default {
           item.removeAttribute("open");
         });
       }
+      const nextStepSection = document.querySelector("section.cta");
+      if (nextStepSection && nextStepSection.getAttribute("data-wu-next-step") !== "conversion-v2") {
+        nextStepSection.setAttribute("data-wu-next-step", "conversion-v2");
+        nextStepSection.setAttribute("aria-label", "Next Steps");
+        nextStepSection.innerHTML = [
+          '<div class="wu-next-step-inner">',
+          '<div class="wu-next-step-copy">',
+          '<span class="wu-next-step-eyebrow">Fit Conversation</span>',
+          '<h2>Talk Through the Right Path.</h2>',
+          '<p>If you are looking for additional income, professional growth, or business ownership, start with a clear conversation before choosing a path.</p>',
+          '</div>',
+          '<div class="wu-next-step-action">',
+          '<a class="wu-next-step-cta" href="/schedule/opportunity" data-wu-event="opportunity_fit_conversation">Book a Fit Conversation <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>',
+          '<p class="wu-next-step-trust">No pressure. Clear answers. The right next step.</p>',
+          '</div>',
+          '</div>',
+        ].join("");
+      }
     }
   };
   document.addEventListener("click", forceSolutionsDocumentNavigation, true);
   repairHomepage();
-  new MutationObserver(repairHomepage).observe(document.documentElement, { childList: true, subtree: true });
+  [250, 750, 2000].forEach((delay) => setTimeout(repairHomepage, delay));
+  new MutationObserver(repairHomepage).observe(document.documentElement, {
+    childList: true,
+    characterData: true,
+    subtree: true,
+  });
 })();`;
       return new Response(script, {
         headers: {
           "content-type": "application/javascript; charset=UTF-8",
           "cache-control": "no-store",
-          "x-watts-homepage-repair": "opportunity-faq-v2",
+          "x-watts-homepage-repair": "opportunity-next-step-v2",
           "x-content-type-options": "nosniff",
         },
       });
