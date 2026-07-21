@@ -29,6 +29,14 @@
       "zone_name": "wattsunified.com"
     },
     {
+      "pattern": "wattsunified.com/alignable-icon.png*",
+      "zone_name": "wattsunified.com"
+    },
+    {
+      "pattern": "www.wattsunified.com/alignable-icon.png*",
+      "zone_name": "wattsunified.com"
+    },
+    {
       "pattern": "wattsunified.com/assets/veterans.webp*",
       "zone_name": "wattsunified.com"
     },
