@@ -5,6 +5,36 @@ const APP_VERSION = "20260721-solutions-nav3";
 const HOMEPAGE_REPAIR_SCRIPT = "/homepage-images-v1.js";
 const ALIGNABLE_ICON_PATH = "/alignable-icon.png";
 
+const HOMEPAGE_SCHEMA = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://wattsunified.com/#organization",
+      name: "Watts Unified Solutions",
+      url: "https://wattsunified.com/",
+      logo: {
+        "@type": "ImageObject",
+        url: "https://wattsunified.com/assets/logo.png",
+        width: 545,
+        height: 113,
+      },
+      sameAs: [
+        "https://www.linkedin.com/in/s-alex-watts",
+        "https://www.instagram.com/watts_unifiedsolutions",
+      ],
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://wattsunified.com/#website",
+      url: "https://wattsunified.com/",
+      name: "Watts Unified Solutions",
+      publisher: { "@id": "https://wattsunified.com/#organization" },
+      inLanguage: "en-US",
+    },
+  ],
+};
+
 const ALIGNABLE_ICON = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Alignable"><rect width="64" height="64" rx="12" fill="#1769aa"/><text x="32" y="44" fill="#fff" font-family="Arial,Helvetica,sans-serif" font-size="44" font-weight="700" text-anchor="middle">a</text></svg>`;
 
 const HOMEPAGE_IMAGE_REPLACEMENTS = new Map([
@@ -25,6 +55,51 @@ function patchAppBundle(source) {
     .replace(oldFooterLinks, newFooterLinks)
     .replaceAll("Retirement & Legacy Solutions", "Watts Unified Solutions")
     .replaceAll("© 2025 Watts Unified Solutions. All rights reserved.", "© 2025–2026 Watts Unified Solutions. All rights reserved.");
+}
+
+function installVersionedRepairScript(html) {
+  const versionedSource = `${HOMEPAGE_REPAIR_SCRIPT}?v=${APP_VERSION}`;
+  const scriptPattern = /<script\b[^>]*\bsrc=(["'])\/homepage-images-v1\.js(?:\?[^"']*)?\1[^>]*><\/script>/gi;
+  let installed = false;
+
+  html = html.replace(scriptPattern, () => {
+    if (installed) return "";
+    installed = true;
+    return `<script src="${versionedSource}" defer></script>`;
+  });
+
+  if (!installed) {
+    html = html.replace("</body>", `<script src="${versionedSource}" defer></script></body>`);
+  }
+
+  return html;
+}
+
+export function patchHomepageHtml(html) {
+  const homepageSeo = `<link rel="canonical" href="https://wattsunified.com/">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Watts Unified Solutions">
+<meta property="og:title" content="Retirement &amp; Legacy Specialist | Watts Unified Solutions">
+<meta property="og:description" content="Retirement, protection, and legacy planning with U.S. Army veteran S. Alex Watts. Build a coordinated financial strategy for your family's future.">
+<meta property="og:url" content="https://wattsunified.com/">
+<meta property="og:image" content="https://wattsunified.com/assets/hero.webp">
+<meta property="og:image:width" content="1672">
+<meta property="og:image:height" content="941">
+<meta property="og:image:alt" content="Sherman A. Watts, retirement and legacy specialist and U.S. Army veteran">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Retirement &amp; Legacy Specialist | Watts Unified Solutions">
+<meta name="twitter:description" content="Retirement, protection, and legacy planning built around your family's future.">
+<meta name="twitter:image" content="https://wattsunified.com/assets/hero.webp">
+<link rel="preload" as="image" href="/assets/hero.webp" type="image/webp" fetchpriority="high">
+<script id="wu-homepage-schema" type="application/ld+json">${JSON.stringify(HOMEPAGE_SCHEMA).replaceAll("<", "\\u003c")}</script>`;
+
+  html = html.replace(APP_ASSET, `${APP_ASSET}?v=${APP_VERSION}`);
+  html = html.replace(
+    "</head>",
+    `${homepageSeo}<style id="wu-nonsticky-header">header{position:relative!important;top:auto!important}</style></head>`,
+  );
+  return installVersionedRepairScript(html);
 }
 
 function upstreamRequest(request, target) {
@@ -64,6 +139,19 @@ export default {
     location.assign(destination.href);
   };
   const repairHomepage = () => {
+    const hero = document.querySelector('img[src="/assets/hero.webp"], img[src$="/assets/hero.webp"]');
+    if (hero) {
+      hero.setAttribute("width", "1672");
+      hero.setAttribute("height", "941");
+      hero.setAttribute("loading", "eager");
+      hero.setAttribute("fetchpriority", "high");
+      hero.setAttribute("decoding", "async");
+    }
+    document.querySelectorAll('img[src="/assets/logo.png"], img[src$="/assets/logo.png"]').forEach((logo) => {
+      logo.setAttribute("width", "545");
+      logo.setAttribute("height", "113");
+      logo.setAttribute("decoding", "async");
+    });
     document.querySelectorAll("article h3").forEach((heading) => {
       if (heading.textContent.trim() !== "Retirement & Legacy Solutions") return;
       heading.textContent = "Watts Unified Solutions";
@@ -130,10 +218,7 @@ export default {
 
     const contentType = originResponse.headers.get("content-type") || "";
     if (contentType.includes("text/html")) {
-      let html = await originResponse.text();
-      html = html.replace(APP_ASSET, `${APP_ASSET}?v=${APP_VERSION}`);
-      html = html.replace("</head>", '<style id="wu-nonsticky-header">header{position:relative!important;top:auto!important}</style></head>');
-      html = html.replace("</body>", `<script src="${HOMEPAGE_REPAIR_SCRIPT}?v=${APP_VERSION}" defer></script></body>`);
+      const html = patchHomepageHtml(await originResponse.text());
       return new Response(html, {
         status: originResponse.status,
         headers: {
