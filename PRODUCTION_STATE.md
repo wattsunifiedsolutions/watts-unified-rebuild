@@ -24,10 +24,10 @@ When opening the repository in Cursor, fetch the remote branches and check out `
 - Financial Snapshot enhancement deployment: `4b22c1fd21ef465aa5bca5ca9fe2d49c`
 - Financial Professional opportunity deployment: `648670cb559b4b43a4f6240d6a6fbc6f`
 - About page deployment: `0919efa9913f4412b92fe17c263e1a30`
-- Growth Opportunity booking deployment: `f8707707877148948170fb5ccdf5b6f3`
-- Financial Strategy Session deployment: `1a839342475b4d10a2e87d516b4b33ca`
-- Veteran Strategy Session deployment: `a3c8d33ca5fc4022a868f051e070c4be`
-- Marketing Strategy Session deployment: `4683dc76a1b64fc3bec5c5a8f83c2091`
+- Growth Opportunity booking deployment: `e6d379c7a78a45288dece5ad42e573bc`
+- Financial Strategy Session deployment: `b96d6d47374a4d25a4ac79a11cc3696b`
+- Veteran Strategy Session deployment: `798d71b2eee8463c9aea18cdc918f99b`
+- Marketing Strategy Session deployment: `335c89ac1c60414283725a46c2e884f6`
 - The shared `/alignable-icon.png` route serves Alignable's official purple interlocking mark (`alignable-official-v3`) at a uniform 18×18 size across every managed footer.
 - Do not add `wattsunified.com/*` or `www.wattsunified.com/*` to the homepage Worker. Those wildcard routes were removed because they intercepted legacy `/assets/` image files and returned HTML instead of images.
 - Eight legacy image paths on both apex and `www` are pinned to deployment-owned replacements: Veteran imagery, Solutions imagery, Unified System hero, domain, email, tools, and Opportunity paths.
@@ -39,6 +39,7 @@ When opening the repository in Cursor, fetch the remote branches and check out `
 - The `/financial-strategy-session` landing page preserves the original HighLevel office hero and live 60-minute Financial Strategy Session Google Calendar, then adds a concise three-point expectation strip, one primary booking action, private-session reassurance, accessible responsive behavior, and the uniform non-sticky navigation/light footer. Its optimized 1408×768 WebP is stored in the shared deployment-owned schedule KV namespace under `financial-strategy-session-hero.webp` and served from `/assets/financial-strategy-session-hero.webp` with immutable caching. Page HTML remains no-store.
 - The `/veteran-strategy-session` landing page preserves the original HighLevel Mission Briefing identity, exact veteran-strategy boardroom hero, and live 60-minute Google appointment calendar. It adds a concise veteran-and-federal expectation strip, one primary booking action, private-session reassurance, an explicit government non-affiliation disclaimer, responsive behavior, and the uniform non-sticky navigation/light footer. Its optimized 1024×1024 WebP is stored in the shared deployment-owned schedule KV namespace under `veteran-strategy-session-hero.webp` and served from `/assets/veteran-strategy-session-hero.webp` with immutable caching. Page HTML remains no-store.
 - The `/schedule/marketing` landing page preserves the original HighLevel “Audit Your Digital Foundation” positioning and exact 60-minute Business Systems Strategy Google Calendar. The rebuild replaces the dark empty hero and oversized fallback form with a premium image-led opening featuring Black business leaders, a concise systems-audit conversion section, three clear expectations, one primary booking action, a lightweight alternate contact link, analytics events, responsive behavior, and the uniform non-sticky navigation/light footer. Its optimized 1408×768 WebP is stored in the shared deployment-owned schedule KV namespace under `marketing-strategy-session-hero.webp` and served from `/assets/marketing-strategy-session-hero.webp` with immutable caching. Page HTML remains no-store.
+- Schedule hero repair `20260721-hero2` applies to `/growth`, `/financial-strategy-session`, `/veteran-strategy-session`, and `/schedule/marketing`. Every visible hero and preload now uses a versioned first-party URL so a previously cached failed request cannot leave a blank hero. The three overlaid heroes use explicit foreground image stacking (`z-index: 0`) with content above them instead of negative image layers, improving consistency across browsers. The Let’s Connect page and all four Google Calendar URLs were left unchanged.
 - Homepage Solutions links force a full document navigation to release 33 so the legacy SPA route cannot render.
 - Homepage canonical, social metadata, structured data, and hero preload apply to direct homepage visits.
 

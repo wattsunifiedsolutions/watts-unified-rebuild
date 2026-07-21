@@ -1,5 +1,6 @@
 const PAGE_PATHS = new Set(["/schedule/marketing", "/schedule/marketing/"]);
 const HERO_PATH = "/assets/marketing-strategy-session-hero.webp";
+const HERO_URL = `${HERO_PATH}?v=20260721-hero2`;
 const HERO_KEY = "marketing-strategy-session-hero.webp";
 const CALENDAR_URL = "https://calendar.google.com/calendar/appointments/schedules/AcZssZ1gxff_vnvbL_Xrb8CT2bEncJcdBy-_EY-Wa_gYbGqKdf2nKCbVkcgvXMIDtCKqjp83elVSXgTh?gv=true";
 
@@ -17,13 +18,13 @@ const html = `<!doctype html>
   <meta property="og:title" content="Business Systems &amp; Marketing Strategy | Watts Unified Solutions">
   <meta property="og:description" content="Audit the systems supporting your client acquisition and leave with clearer priorities.">
   <meta property="og:url" content="https://wattsunified.com/schedule/marketing">
-  <meta property="og:image" content="https://wattsunified.com${HERO_PATH}">
+  <meta property="og:image" content="https://wattsunified.com${HERO_URL}">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Business Systems &amp; Marketing Strategy | Watts Unified Solutions">
   <meta name="twitter:description" content="Reserve a focused review of the digital foundation supporting your business growth.">
-  <meta name="twitter:image" content="https://wattsunified.com${HERO_PATH}">
+  <meta name="twitter:image" content="https://wattsunified.com${HERO_URL}">
   <link rel="icon" type="image/png" sizes="128x128" href="https://wattsunified.com/watts-falcon.png?v=20260720">
-  <link rel="preload" as="image" type="image/webp" href="${HERO_PATH}" fetchpriority="high">
+  <link rel="preload" as="image" type="image/webp" href="${HERO_URL}" fetchpriority="high">
   <style>
     :root{--navy:#0b1f3a;--gold:#d4af37;--gold-deep:#9b6b17;--ink:#25282d;--muted:#626b76;--line:#e2e5e9;--cream:#faf9f6;--soft:#f6f8fa;--white:#fff;--max:1180px;--shadow:0 16px 42px rgba(23,35,50,.1)}
     *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:#fff;color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased}body:before{content:"";position:absolute;inset:0 0 auto;height:4px;z-index:100;background:#c8992e}a{color:inherit}img{display:block;max-width:100%;height:auto}button,a{-webkit-tap-highlight-color:transparent}:focus-visible{outline:3px solid var(--gold);outline-offset:3px}.skip{position:fixed;left:14px;top:-100px;z-index:1000;padding:10px 16px;border-radius:4px;background:var(--navy);color:#fff}.skip:focus{top:14px}
@@ -49,7 +50,7 @@ const html = `<!doctype html>
     </div>
   </header>
   <main>
-    <section class="hero" aria-label="Black business leaders reviewing a strategic plan"><img src="${HERO_PATH}" alt="Black business leaders reviewing a strategic growth plan together" width="1408" height="768" fetchpriority="high" decoding="async"></section>
+    <section class="hero" aria-label="Black business leaders reviewing a strategic plan"><img src="${HERO_URL}" alt="Black business leaders reviewing a strategic growth plan together" width="1408" height="768" fetchpriority="high" decoding="async"></section>
     <section class="intro" aria-labelledby="marketing-title">
       <div class="intro-inner"><span class="eyebrow">Watts Unified Solutions | Systems &amp; Infrastructure Audit</span><h1 id="marketing-title">Audit Your Digital Foundation</h1><p>A focused session for business owners ready to strengthen the systems supporting client acquisition and growth.</p><a class="primary-cta" href="#book" data-watts-event="marketing_primary_cta">Reserve My Systems Audit</a></div>
     </section>

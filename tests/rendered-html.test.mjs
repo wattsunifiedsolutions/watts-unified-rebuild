@@ -267,6 +267,7 @@ test("rebuilds the Growth Opportunity booking page from the HighLevel reference"
   assert.match(html, /Schedule Growth &amp; Opportunity Session/);
   assert.match(html, /calendar\.google\.com\/calendar\/appointments\/schedules\/AcZssZ3ftaGinVKd21W8W3fKh1bv2LsLqiaoDuujeE2eFynNsyyzSF8R0n8AO4AywNeGbn5JdvYQKQrs\?gv=true/);
   assert.match(html, /\/assets\/growth-opportunity-hero\.webp/);
+  assert.match(html, /growth-opportunity-hero\.webp\?v=20260721-hero2/);
   assert.match(html, /width="1408" height="768" fetchpriority="high" decoding="async"/);
   assert.match(html, /<link rel="canonical" href="https:\/\/wattsunified\.com\/growth">/);
   assert.match(html, /Let&#39;s Connect/);
@@ -295,6 +296,7 @@ test("rebuilds the Financial Strategy Session page for focused conversion", asyn
   assert.match(html, /Schedule Financial Strategy Session/);
   assert.match(html, /calendar\.google\.com\/calendar\/appointments\/schedules\/AcZssZ0lseR7Aby6nJ6CKEqfSD-Dl9-9ZhzjpupzdIBN5iTWWYTBzFuPCvE9a7R4nRQs2DpgdEyoN8o4\?gv=true/);
   assert.match(html, /\/assets\/financial-strategy-session-hero\.webp/);
+  assert.match(html, /financial-strategy-session-hero\.webp\?v=20260721-hero2/);
   assert.match(html, /width="1408" height="768" fetchpriority="high" decoding="async"/);
   assert.match(html, /<link rel="canonical" href="https:\/\/wattsunified\.com\/financial-strategy-session">/);
   assert.match(html, /Clear Priorities/);
@@ -331,6 +333,7 @@ test("rebuilds the Veteran Strategy Session page from the HighLevel mission brie
   assert.match(html, /Schedule Mission Briefing/);
   assert.match(html, /calendar\.google\.com\/calendar\/appointments\/schedules\/AcZssZ0gtBbKISi03dplcfFfJEQqRCocuYZBrbUJYiuavFzCB9yXUZ-_sc3J0h-pXY9pMTV55ClCaLob\?gv=true/);
   assert.match(html, /\/assets\/veteran-strategy-session-hero\.webp/);
+  assert.match(html, /veteran-strategy-session-hero\.webp\?v=20260721-hero2/);
   assert.match(html, /width="1024" height="1024" fetchpriority="high" decoding="async"/);
   assert.match(html, /<link rel="canonical" href="https:\/\/wattsunified\.com\/veteran-strategy-session">/);
   assert.match(html, /not affiliated with or endorsed by the U\.S\. Government/);
@@ -365,6 +368,7 @@ test("rebuilds the Marketing Strategy Session page around the original systems a
   assert.match(html, /Schedule Marketing Audit/);
   assert.match(html, /calendar\.google\.com\/calendar\/appointments\/schedules\/AcZssZ1gxff_vnvbL_Xrb8CT2bEncJcdBy-_EY-Wa_gYbGqKdf2nKCbVkcgvXMIDtCKqjp83elVSXgTh\?gv=true/);
   assert.match(html, /\/assets\/marketing-strategy-session-hero\.webp/);
+  assert.match(html, /marketing-strategy-session-hero\.webp\?v=20260721-hero2/);
   assert.match(html, /width="1408" height="768" fetchpriority="high" decoding="async"/);
   assert.match(html, /<link rel="canonical" href="https:\/\/wattsunified\.com\/schedule\/marketing">/);
   assert.match(html, /60-Minute Strategy Session/);
