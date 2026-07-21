@@ -18,8 +18,11 @@ When opening the repository in Cursor, fetch the remote branches and check out `
 - Deployment ID: `appgdep_6a5fb0e4620081918c5df70adf233a88`
 - Shared source commit: `c8f4e417b074b79d1b7f09395d6f35970d248212`
 - Solutions edge release: `20260721-v33`
-- Solutions Worker deployment: `28a2bdf9-ee68-4bee-85c7-713e2de51383`
-- Homepage navigation Worker deployment: `69748445-b5ee-4192-8c80-5e146f5c02c8`
+- Solutions Worker deployment: `ba22546f8b6748aa9fa9fb86e056bcb2`
+- Homepage navigation Worker deployment: `fef0d22be0784aaebf7556d5566e1e50`
+- Resources Worker deployment: `ed024d71445543b5adb1e4d98f401d10`
+- Financial Snapshot enhancement deployment: `4b22c1fd21ef465aa5bca5ca9fe2d49c`
+- The shared `/alignable-icon.png` route serves Alignable's official purple interlocking mark (`alignable-official-v2`) across every footer.
 - Do not add `wattsunified.com/*` or `www.wattsunified.com/*` to the homepage Worker. Those wildcard routes were removed because they intercepted legacy `/assets/` image files and returned HTML instead of images.
 - Six legacy image paths on both apex and `www` are pinned to deployment-owned replacements: Veteran hero, Unified System hero, domain, email, tools, and opportunity-paths.
 - Opportunity page release `20260721-solutions-nav5` removes the oversized standalone `opportunity-paths.png` section while preserving the hero and supporting imagery.
@@ -42,8 +45,12 @@ When opening the repository in Cursor, fetch the remote branches and check out `
 | `watts-life-insurance` | `workers/live/life-insurance.js` |
 | `watts-protection-legacy` | `workers/live/protection-legacy.js` |
 | `watts-retirement-wealth` | `workers/live/retirement-wealth.js` |
+| `watts-million-dollar-baby` | `workers/live/million-dollar-baby-proxy.js` |
+| `watts-retirement-roadmap` | `workers/live/retirement-roadmap-proxy.js` |
+| `watts-protected-growth` | `workers/live/protected-growth-proxy.js` |
+| `watts-tax-free-retirement` | `workers/live/tax-free-retirement-proxy.js` |
 
-The `workers/live/` files were downloaded from the deployed Cloudflare Workers after the footer update. They are the exact standalone Worker sources to use for future Cursor edits.
+The `workers/live/` files were downloaded from the deployed Cloudflare Workers after the footer update. They are the exact standalone Worker and edge-proxy sources to use for future Cursor edits.
 
 ## Required checks before a future deployment
 
@@ -56,8 +63,8 @@ The `workers/live/` files were downloaded from the deployed Cloudflare Workers a
 ## Current verification
 
 - Production build passed.
-- 14 automated tests passed.
+- 15 automated tests passed.
 - 17 sitemap pages checked.
-- 97 rendered image placements checked across all 17 indexed pages, including lazy-loaded images below the fold.
+- 71 server-rendered image placements (33 unique images) checked across all 17 indexed pages.
 - 0 image failures.
-- Footer copyright: `© 2025–2026 Watts Unified Solutions. All rights reserved.`
+- Footer copyright: `© 2026 Watts Unified Solutions. All rights reserved.`
