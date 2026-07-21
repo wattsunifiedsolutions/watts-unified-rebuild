@@ -208,12 +208,17 @@ test("ships optimized local brand and hero assets", async () => {
 
 test("keeps Resources imagery deployment-owned and removes category labels", async () => {
   const source = await readFile(new URL("../workers/resources-page.js", import.meta.url), "utf8");
+  const config = await readFile(new URL("../workers/wrangler.resources-page.jsonc", import.meta.url), "utf8");
+  assert.match(source, /20260721-resources-stable2/);
+  assert.match(source, /versioned\('\/solutions-app\/legacy-center-hero\.webp'\)/);
+  assert.match(source, /cloudflare-cdn-cache-control':'no-store'/);
   assert.match(source, /\/solutions-app\/legacy-center-hero\.webp/);
   assert.match(source, /\/solutions-app\/resources-calculators\.webp/);
   assert.match(source, /\/solutions-app\/resources-family\.webp/);
   assert.match(source, /\/solutions-app\/solutions-business\.webp/);
   assert.doesNotMatch(source, /Category 0[123]|vibe\.filesafe|data:image/);
   assert.doesNotMatch(source, /replaceAll\('loading="lazy"','loading="eager"'\)/);
+  assert.match(config, /watts-resources-stable-20260721/);
 });
 
 test("ships indexable SEO discovery files for every rebuilt route", async () => {
@@ -251,9 +256,44 @@ test("keeps the Solutions edge route pinned to the approved build", async () => 
   const config = await readFile(new URL("../workers/wrangler.solutions-page.jsonc", import.meta.url), "utf8");
 
   assert.match(worker, /stable-approved-v3/);
-  assert.match(worker, /stable-image-bypass-v3/);
+  assert.match(worker, /stable-image-bypass-v4/);
   assert.match(worker, /solutions-trust/);
+  assert.match(worker, /normalizeOptimizerSource/);
+  assert.match(worker, /pathname\.startsWith\("\/_vinext\/image"\)/);
+  assert.match(worker, /wu-solutions-runtime-repair/);
+  assert.match(worker, /20260721-optimizer4/);
+  assert.match(worker, /url\.searchParams\.set\("wu", version\)/);
+  assert.match(worker, /img\[src\^="\/solutions-app\/"\]/);
+  assert.match(worker, /cloudflare-cdn-cache-control", "no-store"/);
+  assert.match(worker, /cache: "no-store"/);
   assert.doesNotMatch(worker, /North American Company Partner|Retirement Readiness Checklist|wus-trust-bar|injectEnhancements/);
   assert.match(config, /wattsunified\.com\/solutions\*/);
   assert.match(config, /www\.wattsunified\.com\/solutions\*/);
+  assert.match(config, /watts-solutions-stable-20260721/);
+  assert.match(config, /wattsunified\.com\/_vinext\/image\*/);
+  assert.match(config, /www\.wattsunified\.com\/_vinext\/image\*/);
+});
+
+test("keeps homepage program imagery stable and routes the Solutions card correctly", async () => {
+  const worker = await readFile(new URL("../workers/core-navigation-homepage.js", import.meta.url), "utf8");
+  const config = await readFile(new URL("../workers/wrangler.core-navigation-homepage.jsonc", import.meta.url), "utf8");
+
+  assert.match(worker, /Retirement & Legacy Solutions/);
+  assert.match(worker, /Watts Unified Solutions/);
+  assert.match(worker, /\/assets\/veterans\.webp/);
+  assert.match(worker, /\/solutions-veteran\.webp/);
+  assert.match(worker, /\/assets\/solutions\.webp/);
+  assert.match(worker, /\/solutions-hero\.webp/);
+  assert.match(worker, /homepage-images-v1\.js/);
+  assert.match(worker, /heading\.textContent = "Watts Unified Solutions"/);
+  assert.match(worker, /link\.setAttribute\("href", "\/solutions"\)/);
+  assert.match(worker, /new Request\(originRequest, \{ cache: "no-store" \}\)/);
+  assert.match(worker, /"cache-control": "no-store"/);
+  assert.match(worker, /headers\.set\("cache-control", "no-cache"\)/);
+  assert.match(config, /wattsunified\.com\/assets\/veterans\.webp\*/);
+  assert.match(config, /wattsunified\.com\/assets\/solutions\.webp\*/);
+  assert.match(config, /www\.wattsunified\.com\/assets\/veterans\.webp\*/);
+  assert.match(config, /www\.wattsunified\.com\/assets\/solutions\.webp\*/);
+  assert.match(config, /wattsunified\.com\/homepage-images-v1\.js\*/);
+  assert.match(config, /www\.wattsunified\.com\/homepage-images-v1\.js\*/);
 });
