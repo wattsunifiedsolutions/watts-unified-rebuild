@@ -42,6 +42,14 @@ const HOMEPAGE_IMAGE_REPLACEMENTS = new Map([
   ["/assets/solutions.webp", "/solutions-hero.webp"],
 ]);
 
+function isManagedHtmlPath(pathname) {
+  return pathname === "/"
+    || pathname.startsWith("/schedule")
+    || pathname.startsWith("/system")
+    || pathname.startsWith("/opportunity")
+    || pathname.startsWith("/solutions/programs/veterans");
+}
+
 function patchAppBundle(source) {
   const oldNavigation = "ke=[[`Home`,`/`],[`Solutions`,`/solutions`],[`Unified System`,`/system`],[`Veteran Summit`,`/solutions/programs/veterans`],[`Opportunity`,`/opportunity`],[`Resources`,`/resources`],[`About`,`/about`]]";
   const newNavigation = "ke=[[`Home`,`/`],[`Solutions`,`/solutions`],[`Veteran Summit`,`/solutions/programs/veterans`],[`Opportunity`,`/opportunity`],[`Resources`,`/resources`],[`About`,`/about`]]";
@@ -75,7 +83,7 @@ function installVersionedRepairScript(html) {
   return html;
 }
 
-export function patchHomepageHtml(html) {
+export function patchHomepageHtml(html, isHomepage = false) {
   const homepageSeo = `<link rel="canonical" href="https://wattsunified.com/">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <meta property="og:type" content="website">
@@ -95,9 +103,10 @@ export function patchHomepageHtml(html) {
 <script id="wu-homepage-schema" type="application/ld+json">${JSON.stringify(HOMEPAGE_SCHEMA).replaceAll("<", "\\u003c")}</script>`;
 
   html = html.replace(APP_ASSET, `${APP_ASSET}?v=${APP_VERSION}`);
+  const homepageMetadata = isHomepage ? homepageSeo : "";
   html = html.replace(
     "</head>",
-    `${homepageSeo}<style id="wu-nonsticky-header">header{position:relative!important;top:auto!important}</style></head>`,
+    `${homepageMetadata}<style id="wu-nonsticky-header">header{position:relative!important;top:auto!important}</style></head>`,
   );
   return installVersionedRepairScript(html);
 }
@@ -217,8 +226,8 @@ export default {
     }
 
     const contentType = originResponse.headers.get("content-type") || "";
-    if (contentType.includes("text/html")) {
-      const html = patchHomepageHtml(await originResponse.text());
+    if (contentType.includes("text/html") && isManagedHtmlPath(incoming.pathname)) {
+      const html = patchHomepageHtml(await originResponse.text(), incoming.pathname === "/");
       return new Response(html, {
         status: originResponse.status,
         headers: {
