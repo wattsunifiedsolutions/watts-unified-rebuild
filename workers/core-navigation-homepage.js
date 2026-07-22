@@ -1,10 +1,11 @@
 const ORIGIN = "https://watts-unified-rebuild.pages.dev";
 const STABLE_SITE = "https://watts-retirement-wealth.salexw.chatgpt.site";
 const APP_ASSET = "/assets/index-CQRwdLu0.js";
-const APP_VERSION = "20260721-solutions-nav20";
+const APP_VERSION = "20260721-connect-hero2";
 const HOMEPAGE_REPAIR_SCRIPT = "/homepage-images-v1.js";
 const ALIGNABLE_ICON_PATH = "/alignable-icon.png";
 const OPPORTUNITY_PATHS_IMAGE_PATH = "/assets/opportunity-paths.png";
+const LETS_CONNECT_HERO_IMAGE_PATH = "/assets/lets-connect-hero-v2.webp";
 const LEGALSHIELD_IMAGE_KEYS = new Map([
   ["/assets/legalshield-live-hero.png", "legalshield-live-hero.webp"],
   ["/assets/legalshield-professional.png", "legalshield-professional.webp"],
@@ -171,6 +172,17 @@ export function patchHomepageHtml(html, isHomepage = false, pathname = "") {
 
   html = html.replace(APP_ASSET, `${APP_ASSET}?v=${APP_VERSION}`);
   const homepageMetadata = isHomepage ? homepageSeo : "";
+  const isLetsConnectPage = pathname.replace(/\/+$/, "") === "/schedule";
+  const letsConnectHeroEnhancements = isLetsConnectPage
+    ? `<link rel="preload" as="image" href="${LETS_CONNECT_HERO_IMAGE_PATH}?v=${APP_VERSION}" type="image/webp" fetchpriority="high">
+<style id="wu-lets-connect-hero">
+.page-hero{box-sizing:border-box!important;min-height:570px!important;background-color:#f8f4ea!important;background-image:url("${LETS_CONNECT_HERO_IMAGE_PATH}?v=${APP_VERSION}")!important;background-repeat:no-repeat!important;background-position:center right!important;background-size:cover!important}
+.page-hero .hero-copy{position:relative!important;z-index:1!important;max-width:min(48%,34rem)!important;background:transparent!important}
+.page-hero .hero-copy h1{color:#0b1f3a!important;text-shadow:none!important}
+.page-hero .hero-copy p{color:#465466!important;text-shadow:none!important}
+@media(max-width:760px){.page-hero{display:flex!important;flex-direction:column!important;min-height:0!important;padding:0!important;background:#fff!important}.page-hero::before{display:block!important;flex:0 0 auto!important;width:100%!important;aspect-ratio:16/9!important;content:""!important;background-color:#f8f4ea!important;background-image:url("${LETS_CONNECT_HERO_IMAGE_PATH}?v=${APP_VERSION}")!important;background-repeat:no-repeat!important;background-position:72% center!important;background-size:cover!important}.page-hero .hero-copy{box-sizing:border-box!important;max-width:none!important;width:100%!important;padding:2.25rem 1.25rem 2.75rem!important;background:#fff!important}}
+</style>`
+    : "";
   const isOpportunityRoot = pathname.replace(/\/+$/, "") === "/opportunity";
   const opportunityPathEnhancements = isOpportunityRoot
     ? `<style id="wu-opportunity-path-enhancements">
@@ -217,7 +229,7 @@ export function patchHomepageHtml(html, isHomepage = false, pathname = "") {
     : "";
   html = html.replace(
     "</head>",
-    `${homepageMetadata}${opportunityFaqMetadata}${opportunityPathEnhancements}<style id="wu-nonsticky-header">header{position:relative!important;top:auto!important}</style></head>`,
+    `${homepageMetadata}${letsConnectHeroEnhancements}${opportunityFaqMetadata}${opportunityPathEnhancements}<style id="wu-nonsticky-header">header{position:relative!important;top:auto!important}</style></head>`,
   );
   return installVersionedRepairScript(html);
 }
@@ -453,6 +465,24 @@ export default {
           "content-type": "image/webp",
           "cache-control": "public, max-age=31536000, immutable",
           "x-watts-home-image": "opportunity-paths-original-v1",
+          "x-content-type-options": "nosniff",
+        },
+      });
+    }
+
+    if (incoming.pathname === LETS_CONNECT_HERO_IMAGE_PATH) {
+      const image = await env.LEGALSHIELD_ASSETS.get("lets-connect-hero-v2.webp", "arrayBuffer");
+      if (!image) {
+        return new Response("Let’s Connect hero unavailable", {
+          status: 503,
+          headers: { "cache-control": "no-store" },
+        });
+      }
+      return new Response(image, {
+        headers: {
+          "content-type": "image/webp",
+          "cache-control": "public, max-age=31536000, immutable",
+          "x-watts-core-image": "lets-connect-hero-v2",
           "x-content-type-options": "nosniff",
         },
       });

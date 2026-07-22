@@ -121,6 +121,14 @@
     {
       "pattern": "www.wattsunified.com/assets/opportunity-paths.png*",
       "zone_name": "wattsunified.com"
+    },
+    {
+      "pattern": "wattsunified.com/assets/lets-connect-hero-v2.webp*",
+      "zone_name": "wattsunified.com"
+    },
+    {
+      "pattern": "www.wattsunified.com/assets/lets-connect-hero-v2.webp*",
+      "zone_name": "wattsunified.com"
     }
   ]
 }

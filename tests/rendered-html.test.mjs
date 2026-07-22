@@ -452,6 +452,7 @@ test("ships optimized local brand and hero assets", async () => {
     access(new URL("../public/financial-professional-mentor.webp", import.meta.url)),
     access(new URL("../public/financial-professional-freedom.webp", import.meta.url)),
     access(new URL("../public/financial-professional-alex.webp", import.meta.url)),
+    access(new URL("../public/lets-connect-hero-v2.webp", import.meta.url)),
   ]);
 
   assert.match(page, /src="\/retirement-family-v2\.webp"/);
@@ -607,7 +608,7 @@ test("keeps homepage program imagery stable and routes the Solutions card correc
   assert.match(worker, /\/assets\/tools\.png/);
   assert.match(worker, /\/assets\/opportunity-paths\.png/);
   assert.match(worker, /homepage-images-v1\.js/);
-  assert.match(worker, /20260721-solutions-nav20/);
+  assert.match(worker, /20260721-connect-hero2/);
   assert.match(worker, /wu-opportunity-path-enhancements/);
   assert.match(worker, /opportunity-paths\.png/);
   assert.match(worker, /opportunity-paths-original-v1/);
@@ -690,6 +691,8 @@ test("keeps homepage program imagery stable and routes the Solutions card correc
   assert.match(config, /wattsunified\.com\/assets\/email\.png\*/);
   assert.match(config, /wattsunified\.com\/assets\/tools\.png\*/);
   assert.match(config, /wattsunified\.com\/assets\/opportunity-paths\.png\*/);
+  assert.match(config, /wattsunified\.com\/assets\/lets-connect-hero-v2\.webp\*/);
+  assert.match(config, /www\.wattsunified\.com\/assets\/lets-connect-hero-v2\.webp\*/);
   assert.match(config, /wattsunified\.com\/assets\/legalshield-live-hero\.png\*/);
   assert.match(config, /www\.wattsunified\.com\/assets\/legalshield-live-hero\.png\*/);
   assert.match(config, /wattsunified\.com\/assets\/legalshield-professional\.png\*/);
@@ -710,14 +713,21 @@ test("adds homepage discovery metadata and one versioned repair script", async (
   assert.match(html, /property="og:image" content="https:\/\/wattsunified\.com\/assets\/hero\.webp"/);
   assert.match(html, /rel="preload" as="image" href="\/assets\/hero\.webp"[^>]*fetchpriority="high"/);
   assert.match(html, /id="wu-homepage-schema" type="application\/ld\+json"/);
-  assert.match(html, /\/assets\/index-CQRwdLu0\.js\?v=20260721-solutions-nav20/);
+  assert.match(html, /\/assets\/index-CQRwdLu0\.js\?v=20260721-connect-hero2/);
   assert.equal((html.match(/homepage-images-v1\.js/g) || []).length, 1);
-  assert.match(html, /homepage-images-v1\.js\?v=20260721-solutions-nav20/);
+  assert.match(html, /homepage-images-v1\.js\?v=20260721-connect-hero2/);
 
   const internalPage = patchHomepageHtml(source, false);
   assert.doesNotMatch(internalPage, /rel="canonical" href="https:\/\/wattsunified\.com\/"/);
   assert.doesNotMatch(internalPage, /id="wu-homepage-schema"/);
-  assert.match(internalPage, /homepage-images-v1\.js\?v=20260721-solutions-nav20/);
+  assert.match(internalPage, /homepage-images-v1\.js\?v=20260721-connect-hero2/);
+
+  const letsConnectPage = patchHomepageHtml(source, false, "/schedule");
+  assert.match(letsConnectPage, /id="wu-lets-connect-hero"/);
+  assert.match(letsConnectPage, /rel="preload" as="image" href="\/assets\/lets-connect-hero-v2\.webp\?v=20260721-connect-hero2"/);
+  assert.match(letsConnectPage, /background-image:url\("\/assets\/lets-connect-hero-v2\.webp\?v=20260721-connect-hero2"\)/);
+  assert.match(letsConnectPage, /aspect-ratio:16\/9/);
+  assert.doesNotMatch(letsConnectPage, /linear-gradient/);
 
   const opportunityPage = patchHomepageHtml(source, false, "/opportunity");
   assert.match(opportunityPage, /wu-opportunity-path-enhancements/);
@@ -766,4 +776,29 @@ test("serves deployment-owned LegalShield opportunity images", async () => {
     assert.deepEqual(new Uint8Array(await response.arrayBuffer()), expectedBytes);
     assert.deepEqual(requestedKeys.at(-1), [key, "arrayBuffer"]);
   }
+});
+
+test("serves the deployment-owned Let’s Connect hero", async () => {
+  const { default: homepageWorker } = await import("../workers/core-navigation-homepage.js");
+  const expectedBytes = new Uint8Array([82, 73, 70, 70, 87, 69, 66, 80]);
+  const requestedKeys = [];
+  const env = {
+    LEGALSHIELD_ASSETS: {
+      async get(key, type) {
+        requestedKeys.push([key, type]);
+        return expectedBytes.buffer;
+      },
+    },
+  };
+
+  const response = await homepageWorker.fetch(
+    new Request("https://wattsunified.com/assets/lets-connect-hero-v2.webp"),
+    env,
+  );
+  assert.equal(response.status, 200);
+  assert.equal(response.headers.get("content-type"), "image/webp");
+  assert.match(response.headers.get("cache-control") ?? "", /immutable/);
+  assert.equal(response.headers.get("x-watts-core-image"), "lets-connect-hero-v2");
+  assert.deepEqual(new Uint8Array(await response.arrayBuffer()), expectedBytes);
+  assert.deepEqual(requestedKeys, [["lets-connect-hero-v2.webp", "arrayBuffer"]]);
 });
