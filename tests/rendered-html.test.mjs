@@ -200,7 +200,8 @@ test("renders the complete Financial Professional opportunity page", async () =>
   assert.match(html, /Retirement Planning/);
   assert.match(html, /Financial Education/);
   assert.match(html, /Generational Legacy/);
-  assert.match(html, /Why Watts Unified/);
+  assert.match(html, /Why Watts Unified Solutions/);
+  assert.doesNotMatch(html, /Watts Unified(?! Solutions)/);
   assert.match(html, /Support to Build With Confidence\./);
   assert.match(html, /class="compact-benefits"/);
   assert.match(html, /class="value-strip" aria-label="The Freedom Framework values"/);

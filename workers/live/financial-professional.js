@@ -19,7 +19,7 @@ const html = `<!doctype html>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Financial Professional Opportunity | Watts Unified Solutions</title>
-  <meta name="description" content="Explore the original Watts Unified financial professional opportunity: flexible business ownership, mentorship, proven systems, and a purpose-led path to serving families.">
+  <meta name="description" content="Explore the Watts Unified Solutions financial professional opportunity: flexible business ownership, mentorship, proven systems, and a purpose-led path to serving families.">
   <link rel="canonical" href="https://wattsunified.com/opportunity/financial-professional">
   <meta name="robots" content="index,follow,max-image-preview:large">
   <meta property="og:type" content="website">
@@ -67,7 +67,7 @@ const html = `<!doctype html>
       </div></div>
     </section>
     <section class="section compact-why">
-      <div class="wrap"><div class="section-head"><span class="eyebrow">Why Watts Unified</span><h2>Support to Build With Confidence.</h2><p>Mentorship, proven systems, and an ownership model built around meaningful service.</p></div><div class="compact-benefits"><article class="compact-benefit"><h3>Mentorship</h3><p>Direct guidance from experienced leaders as you develop your practice.</p></article><article class="compact-benefit"><h3>Business Systems</h3><p>Practical infrastructure so you can focus on relationships and execution.</p></article><article class="compact-benefit"><h3>True Ownership</h3><p>A path designed to help you build independence and long-term value.</p></article></div><div class="value-strip" aria-label="The Freedom Framework values"><span>Faith</span><span>Family</span><span>Freedom</span><span>Fitness</span><span>Fun</span></div></div>
+      <div class="wrap"><div class="section-head"><span class="eyebrow">Why Watts Unified Solutions</span><h2>Support to Build With Confidence.</h2><p>Mentorship, proven systems, and an ownership model built around meaningful service.</p></div><div class="compact-benefits"><article class="compact-benefit"><h3>Mentorship</h3><p>Direct guidance from experienced leaders as you develop your practice.</p></article><article class="compact-benefit"><h3>Business Systems</h3><p>Practical infrastructure so you can focus on relationships and execution.</p></article><article class="compact-benefit"><h3>True Ownership</h3><p>A path designed to help you build independence and long-term value.</p></article></div><div class="value-strip" aria-label="The Freedom Framework values"><span>Faith</span><span>Family</span><span>Freedom</span><span>Fitness</span><span>Fun</span></div></div>
     </section>
     <section class="section faq-section">
       <div class="wrap faq-layout"><div class="faq-side"><span class="eyebrow">Common Questions</span><h2>Know what you are exploring.</h2><p>Review the essentials about licensing, flexibility, compensation, and support before deciding whether this path fits.</p></div><div class="faq-list">
