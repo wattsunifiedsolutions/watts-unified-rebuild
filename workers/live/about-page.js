@@ -74,7 +74,19 @@ const html = `<!doctype html>
 </html>`;
 
 export default {
-  async fetch() {
-    return new Response(html,{headers:{"content-type":"text/html; charset=UTF-8","cache-control":"public, max-age=0, must-revalidate","x-content-type-options":"nosniff","referrer-policy":"strict-origin-when-cross-origin","permissions-policy":"camera=(), microphone=(), geolocation=()"}});
+  async fetch(request) {
+    const headers = {
+      "content-type": "text/html; charset=UTF-8",
+      "cache-control": "no-store, max-age=0",
+      "cloudflare-cdn-cache-control": "no-store",
+      "cdn-cache-control": "no-store",
+      "pragma": "no-cache",
+      "expires": "0",
+      "x-content-type-options": "nosniff",
+      "referrer-policy": "strict-origin-when-cross-origin",
+      "permissions-policy": "camera=(), microphone=(), geolocation=()",
+      "x-watts-about": "direct-no-refresh-v1",
+    };
+    return new Response(request.method === "HEAD" ? null : html, { headers });
   }
 };
