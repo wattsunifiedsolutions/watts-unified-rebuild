@@ -186,7 +186,11 @@ test("renders the complete Financial Professional opportunity page", async () =>
   assert.match(html, /Build a Financial Business/);
   assert.match(html, /On Your Terms\./);
   assert.match(html, /Join the financial industry as an independent professional/);
-  assert.match(html, /Apply to Partner With S\. Alex/);
+  assert.match(html, /Explore Business Ownership/);
+  assert.match(html, /Explore the Ownership Path/);
+  assert.match(html, /Schedule an Ownership Conversation/);
+  assert.match(html, /Independent business ownership opportunity&mdash;not employment/);
+  assert.doesNotMatch(html, /Apply to Partner With S\. Alex/i);
   assert.match(html, /What You Will <em>Actually Do\.<\/em>/);
   assert.match(html, /Retirement Planning/);
   assert.match(html, /Financial Education/);
@@ -202,7 +206,7 @@ test("renders the complete Financial Professional opportunity page", async () =>
   assert.match(html, /Meet S\. Alex Watts/);
   assert.match(html, /Real success isn't measured only by income/);
   assert.match(html, /\/schedule\/opportunity/);
-  assert.match(html, /independent 1099 contractor opportunity/i);
+  assert.match(html, /business ownership opportunity structured through a 1099 contractor relationship/i);
   assert.match(html, /no income is guaranteed/i);
   assert.match(html, /rel="canonical" href="https:\/\/wattsunified\.com\/opportunity\/financial-professional"/);
   assert.match(html, /FAQPage/);
