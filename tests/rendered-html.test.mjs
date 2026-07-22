@@ -190,7 +190,8 @@ test("renders the complete Financial Professional opportunity page", async () =>
   assert.match(html, /Independent Business Ownership/);
   assert.match(html, /class="hero-link" href="#ownership-fit"[^>]*>Let's Connect<\/a>/);
   assert.equal((html.match(/href="#ownership-fit"/g) || []).length, 1);
-  assert.match(html, /Explore Business Ownership With S\. Alex Watts/);
+  assert.match(html, /Ready to Build Something You Own\?/);
+  assert.doesNotMatch(html, /Explore Business Ownership With S\. Alex Watts|Your Next Step/);
   assert.match(html, /Start an Ownership Conversation/);
   assert.equal((html.match(/href="\/schedule\/opportunity"/g) || []).length, 1);
   assert.doesNotMatch(html, /Explore the Ownership Path|Financial professional FAQ/);
@@ -208,7 +209,6 @@ test("renders the complete Financial Professional opportunity page", async () =>
   assert.match(html, /<span>Faith<\/span><span>Family<\/span><span>Freedom<\/span><span>Fitness<\/span><span>Fun<\/span>/);
   assert.doesNotMatch(html, /<section class="framework">|Black mentor guiding a new financial professional/);
   assert.match(html, /Know what you are exploring\./);
-  assert.match(html, /Your Next Step/);
   assert.match(html, /Real success isn't measured only by income/);
   assert.match(html, /\/schedule\/opportunity/);
   assert.match(html, /business ownership opportunity structured through a 1099 contractor relationship/i);
