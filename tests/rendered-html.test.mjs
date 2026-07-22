@@ -200,12 +200,12 @@ test("renders the complete Financial Professional opportunity page", async () =>
   assert.match(html, /Retirement Planning/);
   assert.match(html, /Financial Education/);
   assert.match(html, /Generational Legacy/);
-  assert.match(html, /Why Partner With/);
-  assert.match(html, /Watts Unified Solutions<\/em>/);
-  assert.match(html, /The Freedom <em>Framework\.<\/em>/);
-  assert.match(html, /background:#151515 url\('\/assets\/financial-professional\/freedom\.webp'\)/);
-  assert.match(html, /\.values\{display:grid;grid-template-columns:repeat\(5,1fr\)/);
-  assert.match(html, /Grounded in principles that matter more than money/);
+  assert.match(html, /Why Watts Unified/);
+  assert.match(html, /Support to Build With Confidence\./);
+  assert.match(html, /class="compact-benefits"/);
+  assert.match(html, /class="value-strip" aria-label="The Freedom Framework values"/);
+  assert.match(html, /<span>Faith<\/span><span>Family<\/span><span>Freedom<\/span><span>Fitness<\/span><span>Fun<\/span>/);
+  assert.doesNotMatch(html, /<section class="framework">|Black mentor guiding a new financial professional/);
   assert.match(html, /Know what you are exploring\./);
   assert.match(html, /Your Next Step/);
   assert.match(html, /Real success isn't measured only by income/);
@@ -216,7 +216,6 @@ test("renders the complete Financial Professional opportunity page", async () =>
   assert.match(html, /FAQPage/);
   assert.match(html, /data-analytics-event="primary_cta_click"/);
   assert.match(html, /\/assets\/financial-professional\/hero\.webp/);
-  assert.match(html, /\/assets\/financial-professional\/freedom\.webp/);
   assert.match(html, /width="1408" height="768" fetchpriority="high"/);
   assert.match(html, /LinkedIn/);
   assert.match(html, /Instagram/);
