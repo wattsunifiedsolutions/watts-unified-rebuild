@@ -209,7 +209,10 @@ test("renders the complete Financial Professional opportunity page", async () =>
   assert.match(html, /class="value-strip" aria-label="The Freedom Framework values"/);
   assert.match(html, /<span>Faith<\/span><span>Family<\/span><span>Freedom<\/span><span>Fitness<\/span><span>Fun<\/span>/);
   assert.doesNotMatch(html, /<section class="framework">|Black mentor guiding a new financial professional/);
-  assert.match(html, /Know what you are exploring\./);
+  assert.match(html, /Partnership FAQ/);
+  assert.match(html, /See Whether This Partnership Fits\./);
+  assert.match(html, /Get clear answers about licensing, flexibility, compensation, and mentorship before starting a conversation\./);
+  assert.doesNotMatch(html, /Common Questions|Know what you are exploring|Review the essentials about licensing/);
   assert.match(html, /Real success isn't measured only by income/);
   assert.match(html, /\/schedule\/opportunity/);
   assert.match(html, /independent financial services opportunity&mdash;not employment&mdash;with commission-based compensation/i);
