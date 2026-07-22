@@ -123,11 +123,11 @@
       "zone_name": "wattsunified.com"
     },
     {
-      "pattern": "wattsunified.com/assets/lets-connect-hero-v2.webp*",
+      "pattern": "wattsunified.com/assets/lets-connect-hero-original-v1.webp*",
       "zone_name": "wattsunified.com"
     },
     {
-      "pattern": "www.wattsunified.com/assets/lets-connect-hero-v2.webp*",
+      "pattern": "www.wattsunified.com/assets/lets-connect-hero-original-v1.webp*",
       "zone_name": "wattsunified.com"
     }
   ]
