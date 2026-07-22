@@ -183,9 +183,9 @@ test("renders the complete Financial Professional opportunity page", async () =>
 
   const html = await response.text();
   assert.match(html, /Financial Professional Opportunity \| Watts Unified Solutions/);
-  assert.match(html, /Build a Financial Business/);
-  assert.match(html, /On Your Terms\./);
-  assert.match(html, /Join the financial industry as an independent professional/);
+  assert.match(html, /Build Your Financial Business\./);
+  assert.match(html, /Serve families with flexible ownership, mentorship, and proven systems\./);
+  assert.doesNotMatch(html, /On Your Terms|Join the financial industry|support-lines/);
   assert.match(html, /class="hero-message"/);
   assert.match(html, /Independent Business Ownership/);
   assert.match(html, /class="hero-link" href="#ownership-fit"[^>]*>Let's Connect<\/a>/);
@@ -194,7 +194,7 @@ test("renders the complete Financial Professional opportunity page", async () =>
   assert.match(html, /Start an Ownership Conversation/);
   assert.equal((html.match(/href="\/schedule\/opportunity"/g) || []).length, 1);
   assert.doesNotMatch(html, /Explore the Ownership Path|Financial professional FAQ/);
-  assert.match(html, /Independent business ownership opportunity&mdash;not employment/);
+  assert.match(html, /Independent business ownership opportunity&mdash;not employment\. Licensing required; commission-based compensation and results vary\./);
   assert.doesNotMatch(html, /Apply to Partner With S\. Alex/i);
   assert.match(html, /What You Will <em>Actually Do\.<\/em>/);
   assert.match(html, /Retirement Planning/);
