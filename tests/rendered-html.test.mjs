@@ -195,7 +195,8 @@ test("renders the complete Financial Professional opportunity page", async () =>
   assert.match(html, /Start an Ownership Conversation/);
   assert.equal((html.match(/href="\/schedule\/opportunity"/g) || []).length, 1);
   assert.doesNotMatch(html, /Explore the Ownership Path|Financial professional FAQ/);
-  assert.match(html, /Independent business ownership opportunity&mdash;not employment\. Licensing required; commission-based compensation and results vary\./);
+  assert.match(html, /Independent business ownership opportunity&mdash;not employment\.<\/small>/);
+  assert.doesNotMatch(html, /Licensing required; commission-based compensation and results vary\./);
   assert.doesNotMatch(html, /Apply to Partner With S\. Alex/i);
   assert.match(html, /What You Will <em>Actually Do\.<\/em>/);
   assert.match(html, /Retirement Planning/);

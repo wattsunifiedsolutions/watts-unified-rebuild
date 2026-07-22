@@ -57,7 +57,7 @@ const html = `<!doctype html>
   <main id="main">
     <section class="hero" aria-label="Financial professional meeting with a family"><img src="/assets/financial-professional/hero.webp" alt="Black financial professional helping a Black family plan their future" width="1408" height="768" fetchpriority="high" decoding="async"><div class="hero-message"><span>Independent Business Ownership</span><a class="hero-link" href="#ownership-fit" data-analytics-event="ownership_path_click" data-analytics-label="Hero Let's Connect">Let's Connect</a></div></section>
     <section class="intro">
-      <div class="wrap intro-inner"><h1>Build Your Financial Business.</h1><p class="lead">Serve families with flexible ownership, mentorship, and proven systems.</p><small class="disclosure">Independent business ownership opportunity&mdash;not employment. Licensing required; commission-based compensation and results vary.</small></div>
+      <div class="wrap intro-inner"><h1>Build Your Financial Business.</h1><p class="lead">Serve families with flexible ownership, mentorship, and proven systems.</p><small class="disclosure">Independent business ownership opportunity&mdash;not employment.</small></div>
     </section>
     <section class="section soft" id="work">
       <div class="wrap"><div class="section-head"><h2>What You Will <em>Actually Do.</em></h2><p>As a Financial Professional, your daily work fundamentally changes the trajectory of the families you serve. Here is how you will make an impact.</p></div><div class="work-grid">
