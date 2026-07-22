@@ -186,8 +186,10 @@ test("renders the complete Financial Professional opportunity page", async () =>
   assert.match(html, /Build a Financial Business/);
   assert.match(html, /On Your Terms\./);
   assert.match(html, /Join the financial industry as an independent professional/);
-  assert.match(html, /See If This Path Fits/);
-  assert.match(html, /href="#ownership-fit"/);
+  assert.match(html, /class="hero-message"/);
+  assert.match(html, /Independent Business Ownership/);
+  assert.match(html, /class="hero-link" href="#ownership-fit"[^>]*>Let's Connect<\/a>/);
+  assert.equal((html.match(/href="#ownership-fit"/g) || []).length, 1);
   assert.match(html, /Explore Business Ownership With S\. Alex Watts/);
   assert.match(html, /Start an Ownership Conversation/);
   assert.equal((html.match(/href="\/schedule\/opportunity"/g) || []).length, 1);
