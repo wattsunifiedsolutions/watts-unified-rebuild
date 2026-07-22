@@ -46,7 +46,7 @@ const html = `<!doctype html>
     <div class="header-inner">
       <a class="brand" href="/" aria-label="Watts Unified Solutions home"><img src="https://wattsunified.com/solutions-app/watts-brand-lockup.png" alt="Watts Unified Solutions" width="545" height="113"></a>
       <button class="menu-toggle" type="button" aria-label="Open navigation" aria-expanded="false" aria-controls="site-nav">&#9776;</button>
-      <nav class="site-nav" id="site-nav" aria-label="Primary navigation"><a href="/">Home</a><a href="/solutions/">Solutions</a><a href="/solutions/programs/veterans" aria-current="page">Veteran Summit</a><a href="/opportunity">Opportunity</a><a href="/resources">Resources</a><a href="/about">About</a><a class="nav-cta" href="/schedule/solutions">Let&#39;s Connect</a></nav>
+      <nav class="site-nav" id="site-nav" aria-label="Primary navigation"><a href="/">Home</a><a href="/solutions/">Solutions</a><a href="/solutions/programs/veterans" aria-current="page">Veteran Summit</a><a href="/opportunity">Opportunity</a><a href="/resources">Resources</a><a href="/about">About</a><a class="nav-cta" href="/schedule">Let&#39;s Connect</a></nav>
     </div>
   </header>
   <main>

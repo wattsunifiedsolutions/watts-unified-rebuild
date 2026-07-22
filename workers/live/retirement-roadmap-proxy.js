@@ -7,6 +7,7 @@ function upstreamRequest(request, target) {
   return new Request(target, { method: request.method, headers, redirect: "follow" });
 }
 function rewriteHtml(html) {
+  html = html.replace(/(<a\b(?=[^>]*\bclass="[^"]*(?:header-cta|nav-cta))[^>]*\bhref=")[^"]*(")/gi, "$1https://wattsunified.com/schedule$2");
   html = html.replace(/<link rel="preload" as="image" imageSrcSet="[^"]*"[^>]*>/g, "");
   html = html.replace(/\s+srcSet="[^"]*"/g, "").replace(/\s+imageSrcSet="[^"]*"/g, "");
   for (const asset of localAssets) html = html.replaceAll("/" + asset, assetPrefix + "/" + asset);
@@ -16,6 +17,7 @@ function rewriteHtml(html) {
   html = html.replace("</head>", '<link rel="preload" as="image" href="' + assetPrefix + '/retirement-roadmap-hero-v2.webp" fetchpriority="high" /></head>');
   html = html.replaceAll("© 2025–2026 Watts Unified Solutions. All rights reserved.", "© 2026 Watts Unified Solutions. All rights reserved.");
   html = html.replaceAll("© 2025 Watts Unified Solutions. All rights reserved.", "© 2026 Watts Unified Solutions. All rights reserved.");
+  html = html.replace("</body>", '<script id="wu-lets-connect-route">(()=>{const repair=()=>document.querySelectorAll("header a.header-cta,header a.nav-cta").forEach(link=>link.setAttribute("href","https://wattsunified.com/schedule"));repair();new MutationObserver(repair).observe(document.documentElement,{childList:true,subtree:true,attributes:true,attributeFilter:["href"]})})();</script></body>');
   return html;
 }
 addEventListener("fetch", event => {

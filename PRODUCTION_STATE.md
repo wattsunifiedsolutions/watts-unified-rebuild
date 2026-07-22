@@ -18,16 +18,27 @@ When opening the repository in Cursor, fetch the remote branches and check out `
 - Deployment ID: `appgdep_6a5fb0e4620081918c5df70adf233a88`
 - Shared source commit: `c8f4e417b074b79d1b7f09395d6f35970d248212`
 - Solutions edge release: `20260721-v33`
-- Solutions Worker deployment: `ba22546f8b6748aa9fa9fb86e056bcb2`
-- Homepage navigation Worker deployment: `e936450ca71f40fd8991dd06d33933bd`
-- Resources Worker deployment: `ed024d71445543b5adb1e4d98f401d10`
+- Solutions Worker deployment: `7a98a9eb124c46b89d633332f421fddb`
+- Homepage navigation Worker deployment: `85396bd51c304f7b828b7c9fbf23a3a8`
+- Resources Worker deployment: `63378b4372fb42a3998f764ec945e5f0`
 - Financial Snapshot enhancement deployment: `4b22c1fd21ef465aa5bca5ca9fe2d49c`
-- Financial Professional opportunity deployment: `648670cb559b4b43a4f6240d6a6fbc6f`
-- About page deployment: `ce95a1e322be4b268fe20130172d45b9`
-- Growth Opportunity booking deployment: `488e47ca0eb1403ea262aea474fa1d7b`
-- Financial Strategy Session deployment: `b96d6d47374a4d25a4ac79a11cc3696b`
-- Veteran Strategy Session deployment: `798d71b2eee8463c9aea18cdc918f99b`
-- Marketing Strategy Session deployment: `3580a2ef1f8e47558624fecfd07d4bcb`
+- Financial Professional opportunity deployment: `f950b71298bd42f2bf4e6e8d52a55b05`
+- About page deployment: `3e547e7ff5f047c4865e7d51e2fa41b4`
+- Growth Opportunity booking deployment: `9cdefc5b316a4be1bb315f4108a58ba4`
+- Financial Strategy Session deployment: `9ec1c7bfd1b548fab2540c50959a2e59`
+- Veteran Strategy Session deployment: `c824f444a1b14906a73c98a399c8f23c`
+- Marketing Strategy Session deployment: `174488e3d05e470b8a65317530f3f1ae`
+- Business LegalShield deployment: `87774ea9af614f41bcf2cd21338998b2`
+- Business Solutions deployment: `827e3395241b4bbe97dd87104730ae18`
+- Interactive Briefings deployment: `37b6afc6e26a4707bcc4d4af9035bb0f`
+- Legacy Playbook deployment: `eb81cbab382f4e5d81f80a58c4ea83e1`
+- Life Insurance deployment: `0d796a7cd74a4648872304d31c0fcf1e`
+- Protection & Legacy deployment: `d224337f41ec4eb8a4c31c103f5131fe`
+- Retirement & Wealth deployment: `dc00e312529a4962b90adfe0ae5a65a8`
+- Million Dollar Baby deployment: `dacaa9db5fc24f809e588965f94509a5`
+- Retirement Roadmap deployment: `8880381ad49843489f5731af84a3481b`
+- Protected Growth deployment: `3632e5de30864f3188b22a7fc878f6b5`
+- Tax-Free Retirement deployment: `dfaf60f408fc4bcaa8165abdf525ae80`
 - The shared `/alignable-icon.png` route serves Alignable's official purple interlocking mark (`alignable-official-v3`) at a uniform 18×18 size across every managed footer.
 - Do not add `wattsunified.com/*` or `www.wattsunified.com/*` to the homepage Worker. Those wildcard routes were removed because they intercepted legacy `/assets/` image files and returned HTML instead of images.
 - Eight legacy image paths on both apex and `www` are pinned to deployment-owned replacements: Veteran imagery, Solutions imagery, Unified System hero, domain, email, tools, and Opportunity paths.
@@ -41,6 +52,7 @@ When opening the repository in Cursor, fetch the remote branches and check out `
 - The `/schedule/marketing` landing page preserves the original HighLevel “Audit Your Digital Foundation” positioning and exact 60-minute Business Systems Strategy Google Calendar. `/schedule/system` and its trailing-slash form are direct aliases of that completed dedicated page, while `/schedule/marketing` remains canonical to prevent duplicate indexing. The rebuild replaces the dark empty hero and oversized fallback form with a premium image-led opening featuring Black business leaders, a concise systems-audit conversion section, three clear expectations, one primary booking action, a lightweight alternate contact link, analytics events, responsive behavior, and the uniform non-sticky navigation/light footer. Its optimized 1408×768 WebP is stored in the shared deployment-owned schedule KV namespace under `marketing-strategy-session-hero.webp` and served from `/assets/marketing-strategy-session-hero.webp` with immutable caching. Page HTML remains no-store.
 - Schedule hero repair `20260721-hero2` applies to `/growth`, `/financial-strategy-session`, `/veteran-strategy-session`, and `/schedule/marketing`. Every visible hero and preload now uses a versioned first-party URL so a previously cached failed request cannot leave a blank hero. The three overlaid heroes use explicit foreground image stacking (`z-index: 0`) with content above them instead of negative image layers, improving consistency across browsers. The Let’s Connect page and all four Google Calendar URLs were left unchanged.
 - `/schedule/opportunity` and `/schedule/opportunity/` are specific aliases of the completed `/growth` booking build. Opportunity-page CTAs therefore receive the same image-led Growth page and Growth & Opportunity calendar instead of the older generic schedule shell; the canonical remains `/growth` to prevent duplicate indexing.
+- Every top navigation “Let’s Connect” button routes to the dedicated `/schedule` Let’s Connect page. Service-specific Financial Strategy, Veteran Strategy, Growth Opportunity, and Marketing appointments retain their separate destination pages.
 - Homepage Solutions links force a full document navigation to release 33 so the legacy SPA route cannot render.
 - Homepage canonical, social metadata, structured data, and hero preload apply to direct homepage visits.
 

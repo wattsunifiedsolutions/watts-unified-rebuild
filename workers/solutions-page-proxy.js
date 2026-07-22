@@ -72,6 +72,9 @@ function rewritePublishedHtml(html) {
       `<script id="wu-solutions-runtime-repair">(() => {
   const version = "${SOLUTIONS_REPAIR_VERSION}";
   const repair = () => {
+    document.querySelectorAll("header a.header-cta, header a.nav-cta").forEach((link) => {
+      link.setAttribute("href", "https://wattsunified.com/schedule");
+    });
     document.querySelectorAll('img[src^="/_vinext/image"], img[src^="/solutions-app/"], img[src^="https://wattsunified.com/solutions-app/"], img[src^="https://www.wattsunified.com/solutions-app/"]').forEach((image) => {
       const source = image.getAttribute("src");
       if (!source) return;
@@ -89,7 +92,7 @@ function rewritePublishedHtml(html) {
     childList: true,
     subtree: true,
     attributes: true,
-    attributeFilter: ["src"],
+    attributeFilter: ["src", "href"],
   });
 })();</script></body>`,
     );

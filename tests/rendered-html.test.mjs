@@ -522,11 +522,42 @@ test("keeps the shared header, footer, and conversion tracking uniform", async (
     const html = await response.text();
     assert.match(html, /Watts Unified Solutions home/);
     assert.match(html, /Let(?:&#x27;|')s Connect/);
+    assert.match(html, /class="header-cta" href="https:\/\/wattsunified\.com\/schedule"/);
+    assert.doesNotMatch(html, /class="header-cta" href="https:\/\/wattsunified\.com\/schedule\/solutions"/);
     assert.match(html, /LinkedIn/);
     assert.match(html, /Instagram/);
     assert.match(html, /Alignable/);
     assert.match(html, /© 2026 Watts Unified Solutions/);
     assert.match(html, /watts-logo\.png/);
+  }
+});
+
+test("keeps every standalone top Let's Connect button on the dedicated page", async () => {
+  const standaloneWorkers = [
+    "about-page.js",
+    "business-legalshield.js",
+    "business-page.js",
+    "financial-professional.js",
+    "financial-strategy-session.js",
+    "growth-page.js",
+    "interactive-briefings.js",
+    "legacy-playbook.js",
+    "life-insurance.js",
+    "marketing-strategy-session.js",
+    "protection-legacy.js",
+    "retirement-wealth.js",
+    "veteran-strategy-session.js",
+  ];
+  for (const file of standaloneWorkers) {
+    const source = await readFile(new URL(`../workers/live/${file}`, import.meta.url), "utf8");
+    assert.doesNotMatch(source, /class=\\?"(?:header-cta|nav-cta)\\?" href=\\?"[^\\?"]*\/schedule\/solutions/, file);
+    assert.match(source, /class=\\?"(?:header-cta|nav-cta)\\?" href=\\?"[^\\?"]*\/schedule\\?"/, file);
+  }
+
+  for (const file of ["million-dollar-baby-proxy.js", "retirement-roadmap-proxy.js", "protected-growth-proxy.js", "tax-free-retirement-proxy.js"]) {
+    const source = await readFile(new URL(`../workers/live/${file}`, import.meta.url), "utf8");
+    assert.match(source, /wu-lets-connect-route/, file);
+    assert.match(source, /header a\.header-cta,header a\.nav-cta/, file);
   }
 });
 
@@ -540,6 +571,8 @@ test("keeps the Solutions edge route pinned to the approved build", async () => 
   assert.match(worker, /normalizeOptimizerSource/);
   assert.match(worker, /pathname\.startsWith\("\/_vinext\/image"\)/);
   assert.match(worker, /wu-solutions-runtime-repair/);
+  assert.match(worker, /header a\.header-cta, header a\.nav-cta/);
+  assert.match(worker, /https:\/\/wattsunified\.com\/schedule/);
   assert.match(worker, /20260721-optimizer4/);
   assert.match(worker, /SOLUTIONS_SITE_RELEASE = "20260721-v33"/);
   assert.match(worker, /stable-footer-asset-v1/);
@@ -593,6 +626,7 @@ test("keeps homepage program imagery stable and routes the Solutions card correc
   assert.match(worker, /content-visibility:auto/);
   assert.match(worker, /opportunity_faq_connect/);
   assert.match(worker, /Talk With S\. Alex/);
+  assert.match(worker, /href:`\/schedule`,children:`Let's Connect`/);
   assert.match(worker, /\/schedule\/solutions/);
   assert.match(worker, /item\.setAttribute\("name", "opportunity-faq"\)/);
   assert.match(worker, /data-wu-next-step/);

@@ -120,7 +120,7 @@ function patchAppBundle(source) {
   const oldNavigation = "ke=[[`Home`,`/`],[`Solutions`,`/solutions`],[`Unified System`,`/system`],[`Veteran Summit`,`/solutions/programs/veterans`],[`Opportunity`,`/opportunity`],[`Resources`,`/resources`],[`About`,`/about`]]";
   const newNavigation = "ke=[[`Home`,`/`],[`Solutions`,`/solutions`],[`Veteran Summit`,`/solutions/programs/veterans`],[`Opportunity`,`/opportunity`],[`Resources`,`/resources`],[`About`,`/about`]]";
   const oldHeaderCta = "(0,k.jsx)(A,{href:`/schedule`,children:`Connect With S. Alex`})";
-  const newHeaderCta = "(0,k.jsx)(A,{href:`/schedule/solutions`,children:`Let's Connect`})";
+  const newHeaderCta = "(0,k.jsx)(A,{href:`/schedule`,children:`Let's Connect`})";
   const oldFooterLinks = "ke.slice(1).map(([e,t])=>(0,k.jsx)(`a`,{href:t,onClick:Ae(t),children:e},t))";
   const newFooterLinks = "[[`Solutions`,`/solutions`],[`Unified System`,`/system`],[`Veteran Summit`,`/solutions/programs/veterans`],[`Opportunity`,`/opportunity`],[`Resources`,`/resources`],[`About`,`/about`]].map(([e,t])=>(0,k.jsx)(`a`,{href:t,onClick:Ae(t),children:e},t))";
   return source

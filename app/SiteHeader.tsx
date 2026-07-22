@@ -36,7 +36,7 @@ export function SiteHeader() {
         {links.map(([label, href]) => (
           <a key={label} href={href} onClick={() => setOpen(false)}>{label}</a>
         ))}
-        <a className="header-cta" href={`${siteUrl}/schedule/solutions`} onClick={() => setOpen(false)}>
+        <a className="header-cta" href={`${siteUrl}/schedule`} onClick={() => setOpen(false)}>
           Let&apos;s Connect <span aria-hidden="true">→</span>
         </a>
       </nav>
