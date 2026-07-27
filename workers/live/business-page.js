@@ -37,5 +37,11 @@ body{background:#fff;color:#211b16;font-family:Inter,ui-sans-serif,system-ui,-ap
 .final h2{color:#0b1f3a}.final p{color:#526071}.final .disclaimer{color:#6b7280}
 @media(max-width:820px){.site-nav{background:#fff;color:#211b16;border-bottom:1px solid #e7dfd4;box-shadow:0 12px 26px rgba(25,55,85,.12)}}
 </style>`;
-const themedHtml=html.replace('</head>',`${uniformTheme}</head>`);
+const uniformFooterHtml=html
+  .replace('<footer>','<footer class="global-footer">')
+  .replace('src="https://wattsunified.com/solutions/_assets/logo.png"','width="545" height="113" src="/assets/logo.png"')
+  .replace("<p>Securing your lifetime income and protecting your family's future.</p>","<p>Securing your lifetime income and protecting your family's future.</p><p id=\"wu-footer-nap\" data-wu-footer-nap=\"footer1\"><a href=\"tel:+14236772623\">423-677-2623</a> · Chattanooga, TN</p>")
+  .replace('href="https://wattsunified.com/solutions">Solutions','href="https://wattsunified.com/solutions/">Solutions')
+  .replace('© 2025 Watts Unified Solutions.','© 2026 Watts Unified Solutions.');
+const themedHtml=uniformFooterHtml.replace('</head>',`${uniformTheme}</head>`);
 export default{async fetch(req){const u=new URL(req.url);if(assets[u.pathname]){const bin=Uint8Array.from(atob(assets[u.pathname]),c=>c.charCodeAt(0));return new Response(bin,{headers:{'content-type':'image/webp','cache-control':'public,max-age=31536000,immutable'}})}if(u.pathname==='/solutions/business'||u.pathname==='/solutions/business/')return new Response(themedHtml,{headers:{'content-type':'text/html;charset=UTF-8','cache-control':'public,max-age=300','x-robots-tag':'index,follow','x-watts-business-theme':'uniform-light-20260727'}});return Response.redirect('https://wattsunified.com/solutions/business',302)}};
