@@ -1,0 +1,16 @@
+{
+  "$schema": "../node_modules/wrangler/config-schema.json",
+  "name": "watts-resources-stable-20260721",
+  "main": "resources-page.js",
+  "compatibility_date": "2026-07-21",
+  "routes": [
+    {
+      "pattern": "wattsunified.com/resources*",
+      "zone_name": "wattsunified.com"
+    },
+    {
+      "pattern": "www.wattsunified.com/resources*",
+      "zone_name": "wattsunified.com"
+    }
+  ]
+}
