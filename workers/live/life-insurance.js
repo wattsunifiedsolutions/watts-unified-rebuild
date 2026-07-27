@@ -73,9 +73,15 @@ const html = `<!doctype html>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"Service","name":"Strategic Life Insurance Coverage","serviceType":"Term, permanent, indexed cash-value, final expense, and business life insurance strategy","url":"https://wattsunified.com/solutions/life-insurance","provider":{"@type":"FinancialService","name":"Watts Unified Solutions","url":"https://wattsunified.com"},"areaServed":"US"}</script>
 </body></html>`;
 
+const standardizedHtml=html
+  .replace('<footer>','<footer class="global-footer">')
+  .replace('src="https://wattsunified.com/solutions/_assets/logo.png"><p>U.S. Army Veteran','width="545" height="113" src="/assets/logo.png"><p>U.S. Army Veteran')
+  .replace("<p>Securing your lifetime income and protecting your family's future.</p>","<p>Securing your lifetime income and protecting your family's future.</p><p id=\"wu-footer-nap\" data-wu-footer-nap=\"footer1\"><a href=\"tel:+14236772623\">423-677-2623</a> · Chattanooga, TN</p>")
+  .replace('href="https://wattsunified.com/solutions">Solutions','href="https://wattsunified.com/solutions/">Solutions')
+  .replace('© 2025 Watts Unified Solutions.','© 2026 Watts Unified Solutions.');
+
 export default {
   async fetch() {
-    return new Response(html,{headers:{"content-type":"text/html; charset=UTF-8","cache-control":"public, max-age=0, must-revalidate","x-content-type-options":"nosniff","referrer-policy":"strict-origin-when-cross-origin"}});
+    return new Response(standardizedHtml,{headers:{"content-type":"text/html; charset=UTF-8","cache-control":"public, max-age=0, must-revalidate","x-content-type-options":"nosniff","referrer-policy":"strict-origin-when-cross-origin","x-watts-footer":"global-20260727"}});
   }
 };
-
