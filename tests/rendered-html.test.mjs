@@ -72,6 +72,26 @@ test("server-renders the conversion-focused retirement page", async () => {
   assert.doesNotMatch(html, /codex-preview|Your site is taking shape|react-loading-skeleton/i);
 });
 
+test("keeps the live retirement wealth page on the premium conversion system", async () => {
+  const { default: worker } = await import("../workers/live/retirement-wealth.js");
+  const response = await worker.fetch(new Request("https://wattsunified.com/solutions/retirement-wealth/"));
+  assert.equal(response.status, 200);
+  assert.match(response.headers.get("content-type") ?? "", /^text\/html\b/i);
+
+  const html = await response.text();
+  assert.match(html, /retirement-wealth-hero-final/);
+  assert.match(html, /Build Income That Lasts\. Protect the Wealth You Built\./);
+  assert.match(html, /\/assets\/retirement-wealth-hero-v2\.jpg/);
+  assert.match(html, /Schedule a Strategy Session/);
+  assert.match(html, /Take the Financial Snapshot/);
+  assert.match(html, /class="global-footer"/);
+  assert.match(html, /data-wu-footer-nap="footer1"/);
+  assert.doesNotMatch(html, /solutions\/_assets\/logo\.png/);
+
+  await access(new URL("../public/assets/retirement-wealth-hero-v2.jpg", import.meta.url));
+  await access(new URL("../public/assets/logo.png", import.meta.url));
+});
+
 test("server-renders the Million Dollar Baby conversion page", async () => {
   const response = await render("/million-dollar-baby");
   assert.equal(response.status, 200);
