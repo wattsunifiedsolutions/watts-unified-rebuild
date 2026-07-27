@@ -79,9 +79,10 @@ test("keeps the live retirement wealth page on the premium conversion system", a
   assert.match(response.headers.get("content-type") ?? "", /^text\/html\b/i);
 
   const html = await response.text();
-  assert.match(html, /retirement-wealth-hero-light/);
+  assert.match(html, /retirement-wealth-hero-full-image/);
   assert.match(html, /\.site-header\{background:#fff/);
-  assert.match(html, /rgba\(251,248,242,\.95\)/);
+  assert.match(html, /\.retirement-hero-shade\{display:none\}/);
+  assert.doesNotMatch(html, /rgba\(251,248,242,\.95\)/);
   assert.match(html, /Build Income That Lasts\. Protect the Wealth You Built\./);
   assert.match(html, /\/assets\/retirement-wealth-hero-v2\.jpg/);
   assert.match(html, /Schedule a Strategy Session/);
