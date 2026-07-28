@@ -391,3 +391,11 @@ footer small{border-top-color:#e4e1da;color:#667085}
   nav>a:not(.btn){color:var(--ink)}
 }
 @media(max-width:600px){.resources-overlay-hero{height:520px;padding:90px 20px 55px}.resources-hero-copy h1{font-size:43px}.resources-hero-copy p{font-size:16px}.resources-body>.resource-intro{padding-top:68px}}
+
+/* Navigation conversion cleanup */
+nav>a[aria-current="page"]{color:var(--action)}
+nav>a:focus-visible,.menu:focus-visible{outline:3px solid rgba(193,141,19,.3);outline-offset:3px}
+footer{grid-template-columns:minmax(260px,2fr) repeat(4,minmax(145px,1fr));gap:36px;padding-left:max(24px,5vw);padding-right:max(24px,5vw)}
+footer .footer-links a{width:auto;max-width:18rem;line-height:1.45}
+@media(max-width:1100px){footer{grid-template-columns:1fr 1fr}footer .footer-brand{grid-column:1/-1}}
+@media(max-width:600px){footer{grid-template-columns:1fr}footer .footer-brand,footer small{grid-column:1}}
