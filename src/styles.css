@@ -391,3 +391,33 @@ footer small{border-top-color:#e4e1da;color:#667085}
   nav>a:not(.btn){color:var(--ink)}
 }
 @media(max-width:600px){.resources-overlay-hero{height:520px;padding:90px 20px 55px}.resources-hero-copy h1{font-size:43px}.resources-hero-copy p{font-size:16px}.resources-body>.resource-intro{padding-top:68px}}
+
+/* Navigation conversion cleanup */
+nav>a[aria-current="page"]{color:var(--action)}
+nav>a:focus-visible,.menu:focus-visible{outline:3px solid rgba(193,141,19,.3);outline-offset:3px}
+footer{grid-template-columns:minmax(260px,2fr) repeat(4,minmax(145px,1fr));gap:36px;padding-left:max(24px,5vw);padding-right:max(24px,5vw)}
+footer .footer-links a{width:auto;max-width:18rem;line-height:1.45}
+@media(max-width:1100px){footer{grid-template-columns:1fr 1fr}footer .footer-brand{grid-column:1/-1}}
+@media(max-width:600px){footer{grid-template-columns:1fr}footer .footer-brand,footer small{grid-column:1}}
+
+/* Keep the primary navigation geometry identical on every route. */
+header{height:86px;min-height:86px;padding:0 max(24px,5vw)}
+header .brand{display:flex;align-items:center;flex:0 0 auto}
+header .brand img{display:block;width:225px;height:auto;max-height:68px;object-fit:contain}
+header nav{flex:0 0 auto;gap:26px;font-size:14px;font-weight:600}
+header nav>a:not(.btn){position:relative;display:inline-flex;align-items:center;min-height:44px;line-height:1;white-space:nowrap}
+header nav>a:not(.btn)::after{content:"";position:absolute;left:0;right:0;bottom:5px;height:2px;background:transparent}
+header nav>a[aria-current="page"]::after{background:var(--action)}
+header nav>.btn{min-height:47px;white-space:nowrap}
+@media(min-width:1041px){
+  header nav{display:grid;grid-template-columns:40px 64px 61px 72px 41px 220px}
+  header nav>a{width:100%;justify-content:center}
+}
+@media(max-width:1040px){
+  header{height:74px;min-height:74px}
+  header .brand img{width:185px;max-height:52px}
+  header .menu{display:inline-flex;align-items:center;justify-content:center;width:42px;height:42px;padding:8px}
+  header nav{display:none;position:absolute;top:74px;left:0;right:0;flex-direction:column;align-items:stretch;gap:14px;padding:24px;background:#fff;color:var(--ink);border-bottom:1px solid var(--line);box-shadow:0 12px 26px rgba(25,55,85,.1);font-size:14px}
+  header nav.open{display:flex}
+  header nav>a:not(.btn){min-height:44px}
+}
