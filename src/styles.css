@@ -392,16 +392,17 @@ footer small{border-top-color:#e4e1da;color:#667085}
 }
 @media(max-width:600px){.resources-overlay-hero{height:520px;padding:90px 20px 55px}.resources-hero-copy h1{font-size:43px}.resources-hero-copy p{font-size:16px}.resources-body>.resource-intro{padding-top:68px}}
 
-/* Veterans: full-width image followed by a centered, brand-aligned introduction. */
+/* Veterans: title placed in the image's clear upper-center space, with no overlay panel. */
 .veterans-stacked-hero{padding:0;background:#fff;border-bottom:1px solid var(--line);overflow:hidden}
-.veterans-hero-image{width:100%;background:#e9e4d9}
+.veterans-hero-image{position:relative;width:100%;background:#e9e4d9}
 .veterans-hero-image img{display:block;width:100%;height:auto}
-.veterans-hero-intro{text-align:center;padding:64px max(24px,7vw) 70px;background:#fff8e8;color:var(--ink)}
-.veterans-hero-intro>span{display:block;color:var(--gold-dark);text-transform:uppercase;letter-spacing:.18em;font-size:12px;font-weight:800;margin-bottom:18px}
-.veterans-hero-intro h1{max-width:1000px;margin:0 auto;color:var(--navy);font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(46px,5.5vw,72px);line-height:.95;letter-spacing:-.025em;text-transform:uppercase}
-.veterans-hero-intro p{max-width:680px;margin:24px auto 30px;color:var(--muted);font-size:19px;line-height:1.55}
+.veterans-hero-heading{position:absolute;z-index:1;top:clamp(20px,3.2vw,50px);left:52%;transform:translateX(-50%);width:min(48%,720px);text-align:center;pointer-events:none}
+.veterans-hero-heading>span{display:block;margin-bottom:10px;color:var(--gold-dark);text-transform:uppercase;letter-spacing:.18em;font-size:clamp(9px,.85vw,12px);font-weight:800;text-shadow:0 1px 4px rgba(255,255,255,.95)}
+.veterans-hero-heading h1{margin:0;color:var(--navy);font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(30px,3.7vw,58px);line-height:.95;letter-spacing:-.025em;text-transform:uppercase;text-shadow:0 1px 5px rgba(255,255,255,.98),0 0 12px rgba(255,255,255,.78)}
+.veterans-hero-intro{text-align:center;padding:40px max(24px,7vw) 46px;background:#fff8e8;color:var(--ink)}
+.veterans-hero-intro p{max-width:680px;margin:0 auto 26px;color:var(--muted);font-size:19px;line-height:1.55}
 .veterans-hero-intro .btn{min-width:250px}
-@media(max-width:600px){.veterans-hero-intro{padding:46px 20px 52px}.veterans-hero-intro h1{font-size:42px}.veterans-hero-intro p{font-size:17px}.veterans-hero-intro .btn{width:100%;min-width:0}}
+@media(max-width:600px){.veterans-hero-heading{top:10px;left:58%;width:48%}.veterans-hero-heading>span{display:none}.veterans-hero-heading h1{font-size:clamp(18px,5.2vw,25px);line-height:.92}.veterans-hero-intro{padding:32px 20px 38px}.veterans-hero-intro p{font-size:17px}.veterans-hero-intro .btn{width:100%;min-width:0}}
 
 /* Navigation conversion cleanup */
 nav>a[aria-current="page"]{color:var(--action)}
