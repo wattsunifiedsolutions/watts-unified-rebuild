@@ -400,6 +400,17 @@ footer small{border-top-color:#e4e1da;color:#667085}
 .veterans-hero-heading h1{margin:0;color:var(--navy);font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(30px,3.7vw,58px);line-height:.95;letter-spacing:-.025em;text-transform:uppercase;text-shadow:0 1px 5px rgba(255,255,255,.98),0 0 12px rgba(255,255,255,.78)}
 @media(max-width:600px){.veterans-hero-heading{top:10px;left:58%;width:48%}.veterans-hero-heading h1{font-size:clamp(18px,5.2vw,25px);line-height:.92}}
 
+/* Veterans: decisive final action in the current black, white, and gold brand direction. */
+.veterans-final-cta{padding:88px 24px 94px;background:#1c1c1a;color:#fff;border-top:4px solid var(--action);border-bottom:0}
+.veterans-final-cta h2{max-width:900px;margin:0 auto 22px;color:#fff}
+.veterans-final-cta p{max-width:650px;margin:0 auto 32px;color:rgba(255,255,255,.78);font-size:18px;line-height:1.65}
+.veterans-final-cta .cta-actions{display:flex;justify-content:center;gap:14px;flex-wrap:wrap}
+.veterans-final-cta .btn{background:var(--action);color:#1c1c1a;border-color:var(--action)}
+.veterans-final-cta .btn:hover{background:var(--gold2);color:#1c1c1a;border-color:var(--gold2)}
+.veterans-final-cta .btn.ghost{background:transparent;color:#fff;border-color:rgba(255,255,255,.72)}
+.veterans-final-cta .btn.ghost:hover{background:#fff;color:#1c1c1a;border-color:#fff}
+@media(max-width:600px){.veterans-final-cta{padding:72px 20px 78px}.veterans-final-cta p{font-size:17px}.veterans-final-cta .cta-actions{display:grid}.veterans-final-cta .btn{width:100%}}
+
 /* Navigation conversion cleanup */
 nav>a[aria-current="page"]{color:var(--action)}
 nav>a:focus-visible,.menu:focus-visible{outline:3px solid rgba(193,141,19,.3);outline-offset:3px}
