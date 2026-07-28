@@ -392,16 +392,15 @@ footer small{border-top-color:#e4e1da;color:#667085}
 }
 @media(max-width:600px){.resources-overlay-hero{height:520px;padding:90px 20px 55px}.resources-hero-copy h1{font-size:43px}.resources-hero-copy p{font-size:16px}.resources-body>.resource-intro{padding-top:68px}}
 
-/* Veterans: one integrated hero with a single action anchored to the image edge. */
-.veterans-stacked-hero{position:relative;padding:0 0 30px;background:var(--surface);border:0;overflow:visible}
+/* Veterans: one integrated hero with the primary action inside the image's open center. */
+.veterans-stacked-hero{position:relative;padding:0;background:#fff;border:0;overflow:hidden}
 .veterans-hero-image{position:relative;width:100%;background:#e9e4d9}
 .veterans-hero-image img{display:block;width:100%;height:auto}
 .veterans-hero-heading{position:absolute;z-index:1;top:clamp(20px,3.2vw,50px);left:52%;transform:translateX(-50%);width:min(48%,720px);text-align:center;pointer-events:none}
 .veterans-hero-heading h1{margin:0;color:var(--navy);font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(30px,3.7vw,58px);line-height:.95;letter-spacing:-.025em;text-transform:uppercase;text-shadow:0 1px 5px rgba(255,255,255,.98),0 0 12px rgba(255,255,255,.78)}
-.veterans-hero-action{position:absolute;z-index:2;left:50%;bottom:30px;transform:translate(-50%,50%);width:max-content}
+.veterans-hero-action{position:absolute;z-index:2;top:clamp(180px,15.5vw,205px);left:52%;transform:translateX(-50%);width:max-content}
 .veterans-hero-action .btn{min-width:310px;padding:16px 28px;box-shadow:0 14px 32px rgba(24,31,42,.24)}
-.veteran-problem{padding-top:104px}
-@media(max-width:600px){.veterans-stacked-hero{padding-bottom:26px}.veterans-hero-heading{top:10px;left:58%;width:48%}.veterans-hero-heading h1{font-size:clamp(18px,5.2vw,25px);line-height:.92}.veterans-hero-action{bottom:26px}.veterans-hero-action .btn{width:calc(100vw - 40px);min-width:0;max-width:335px}.veteran-problem{padding-top:86px}}
+@media(max-width:600px){.veterans-hero-heading{top:10px;left:58%;width:48%}.veterans-hero-heading h1{font-size:clamp(18px,5.2vw,25px);line-height:.92}.veterans-hero-action{top:auto;bottom:14px;left:50%;transform:translateX(-50%)}.veterans-hero-action .btn{width:calc(100vw - 40px);min-width:0;max-width:335px;padding:12px 18px}}
 
 /* Navigation conversion cleanup */
 nav>a[aria-current="page"]{color:var(--action)}
