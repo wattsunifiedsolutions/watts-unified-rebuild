@@ -418,8 +418,9 @@ header nav>a:not(.btn)::after{content:"";position:absolute;left:0;right:0;bottom
 header nav>a[aria-current="page"]::after{background:var(--action)}
 header nav>.btn{min-height:47px;white-space:nowrap}
 @media(min-width:1041px){
-  header nav{display:grid;grid-template-columns:40px 64px 61px 72px 41px 252px}
+  header nav{display:grid;grid-template-columns:40px 64px 61px 72px 41px 220px}
   header nav>a{width:100%;justify-content:center}
+  body:has(.veterans-stacked-hero) header nav>.btn{padding-left:12px;padding-right:12px;font-size:11px;letter-spacing:.05em}
 }
 @media(max-width:1040px){
   header{height:74px;min-height:74px}
