@@ -447,9 +447,9 @@ header nav>.btn{min-height:47px;white-space:nowrap}
 .about-page .page-hero{grid-template-columns:minmax(0,1.05fr) minmax(340px,.75fr);gap:clamp(40px,6vw,92px);min-height:650px;background:linear-gradient(135deg,#fffaf0 0%,#fff 70%)}
 .about-page .page-hero h1{text-transform:none;max-width:680px}
 .about-page .page-hero p{max-width:700px;font-size:19px}
-.about-page .hero-art{height:590px;padding:16px;background:#f7f1e5;border:1px solid #e6dcc8;border-radius:2px;box-shadow:0 24px 60px rgba(51,39,22,.12)}
+.about-page .hero-art{height:590px;padding:28px 0 0;background:transparent;border:0;box-shadow:none}
 .about-page .hero-art:after{display:none}
-.about-page .hero-art img{height:100%;object-fit:contain;object-position:center bottom;border-radius:1px;filter:drop-shadow(0 22px 28px rgba(52,39,20,.16))}
+.about-page .hero-art img{height:100%;object-fit:contain;object-position:center bottom;border-radius:0;filter:none}
 .about-trust{display:grid;grid-template-columns:repeat(4,1fr);max-width:1180px;margin:0 auto;padding:26px max(24px,3vw);background:#fff;border:1px solid var(--line);box-shadow:0 14px 40px rgba(48,38,22,.06);transform:translateY(-28px);position:relative;z-index:2}
 .about-trust span{padding:8px 20px;text-align:center;color:#7c5a08;font-size:12px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;border-right:1px solid var(--line)}
 .about-trust span:last-child{border-right:0}
