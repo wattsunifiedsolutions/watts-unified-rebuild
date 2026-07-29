@@ -458,6 +458,9 @@ header nav>.btn{min-height:47px;white-space:nowrap}
 .about-story h2{font-family:'Cormorant Garamond',serif;font-size:clamp(42px,5vw,64px);line-height:1;text-transform:none;margin:0 0 30px;color:var(--ink)}
 .about-story p{font-size:18px;line-height:1.85;color:var(--muted);margin:0 auto 18px}
 .about-principles{background:var(--surface)}
+.about-principles .section-title{margin-bottom:24px}
+.about-values-framework{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:9px;margin:0 auto 50px;color:#4e4b46;font-size:clamp(14px,1.35vw,17px);font-weight:800;letter-spacing:.07em;text-align:center;text-transform:uppercase}
+.about-values-framework>span{color:var(--accent);font-weight:900}.about-values-framework strong{display:inline-flex;align-items:center;gap:9px;color:#7c5a08;font-weight:900}.about-values-framework strong span{color:var(--accent)}
 .about-principles .card{height:100%}
 @media(max-width:900px){.about-page .page-hero{grid-template-columns:1fr;min-height:auto;gap:30px}.about-page .hero-art{order:0;height:min(640px,85vw);max-width:560px;width:100%;margin:auto}.about-trust{grid-template-columns:1fr 1fr;transform:none;margin:28px 24px 0}.about-trust span:nth-child(2){border-right:0}.about-trust span{border-bottom:1px solid var(--line)}.about-trust span:nth-child(3),.about-trust span:nth-child(4){border-bottom:0}}
-@media(max-width:560px){.about-page .page-hero h1{font-size:48px}.about-page .hero-art{height:118vw;max-height:590px;padding:10px}.about-trust{grid-template-columns:1fr}.about-trust span{border-right:0;border-bottom:1px solid var(--line)!important}.about-trust span:last-child{border-bottom:0!important}.about-story{text-align:left}}
+@media(max-width:560px){.about-page .page-hero h1{font-size:48px}.about-page .hero-art{height:118vw;max-height:590px;padding:10px}.about-trust{grid-template-columns:1fr}.about-trust span{border-right:0;border-bottom:1px solid var(--line)!important}.about-trust span:last-child{border-bottom:0!important}.about-story{text-align:left}.about-values-framework{gap:7px;margin-bottom:38px;font-size:13px;line-height:1.65}}
