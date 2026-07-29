@@ -1,4 +1,5 @@
 import { access, readFile, readdir } from "node:fs/promises";
+import { createHash } from "node:crypto";
 import path from "node:path";
 import process from "node:process";
 
@@ -19,6 +20,7 @@ const forbidden = [
 ];
 const sourceRoots = ["src", "workers"];
 const resourceSource = path.join(root, "workers", "resources-page.js");
+const officialCrestSha256 = "7ccf0dd10aa73a097d90c0df024d37a4f0553743399ba0421d5fa34e6ea89caa";
 
 async function sourceFiles(directory) {
   const entries = await readdir(directory, { withFileTypes: true });
@@ -56,6 +58,17 @@ for (const assetPath of required) {
   }
 }
 
+const crest = await readFile(path.join(root, "dist", "assets", "logo.png"));
+const crestWidth = crest.readUInt32BE(16);
+const crestHeight = crest.readUInt32BE(20);
+const crestSha256 = createHash("sha256").update(crest).digest("hex");
+if (crestWidth !== 1024 || crestHeight !== 1024) {
+  throw new Error(`Official crest must remain 1024x1024; received ${crestWidth}x${crestHeight}`);
+}
+if (crestSha256 !== officialCrestSha256) {
+  throw new Error("Built crest does not byte-match the official supplied artwork");
+}
+
 const files = (await Promise.all(sourceRoots.map((directory) => sourceFiles(path.join(root, directory))))).flat();
 for (const file of files) {
   const source = await readFile(file, "utf8");
@@ -63,6 +76,9 @@ for (const file of files) {
     if (source.includes(stalePath)) {
       throw new Error(`Forbidden legacy Resources asset reference "${stalePath}" found in ${path.relative(root, file)}`);
     }
+  }
+  if (source.includes("aspect-ratio:545/113")) {
+    throw new Error(`Legacy wide logo ratio found in ${path.relative(root, file)}`);
   }
 }
 

@@ -12,7 +12,7 @@ test("About Worker serves the approved page and deployment marker", async () => 
 
   assert.equal(response.status, 200);
   assert.match(response.headers.get("content-type") ?? "", /^text\/html/);
-  assert.equal(response.headers.get("x-watts-about-build"), "20260728-about-testimonial-slider1");
+  assert.equal(response.headers.get("x-watts-about-build"), "20260728-official-crest1");
   assert.match(html, /Meet S\. Alex Watts/);
   assert.match(html, /Service Shaped the Mission\./);
   assert.match(html, /The Values Behind Watts Unified Solutions/);
@@ -20,6 +20,17 @@ test("About Worker serves the approved page and deployment marker", async () => 
   assert.match(html, /Bring the Pieces Together\./);
   assert.match(html, /\.about-cta\{[^}]*background:#f8f6f0;[^}]*border-top:1px solid #dedbd2/);
   assert.doesNotMatch(html, /\.about-cta\{[^}]*linear-gradient/);
+});
+
+test("About Worker renders the official crest without a forced wide ratio", async () => {
+  const { html } = await render();
+
+  assert.match(html, /logo\.png\?v=official-crest-20260728/);
+  assert.equal((html.match(/width="1024" height="1024"/g) ?? []).length, 2);
+  assert.match(html, /header\.header \.brand img\{[^}]*width:56px!important;[^}]*height:auto!important;[^}]*aspect-ratio:auto!important/);
+  assert.match(html, /max-width:42px!important;max-height:42px!important/);
+  assert.match(html, /footer \.footer-brand>img\{[^}]*width:80px!important;[^}]*height:auto!important;[^}]*aspect-ratio:auto!important/);
+  assert.doesNotMatch(html, /aspect-ratio:545\/113/);
 });
 
 test("About Worker preserves the approved testimonial set", async () => {
