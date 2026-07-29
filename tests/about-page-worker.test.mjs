@@ -12,12 +12,14 @@ test("About Worker serves the approved page and deployment marker", async () => 
 
   assert.equal(response.status, 200);
   assert.match(response.headers.get("content-type") ?? "", /^text\/html/);
-  assert.equal(response.headers.get("x-watts-about-build"), "20260728-about-maintainability1");
+  assert.equal(response.headers.get("x-watts-about-build"), "20260728-about-cta-uniform1");
   assert.match(html, /Meet S\. Alex Watts/);
   assert.match(html, /Service Shaped the Mission\./);
   assert.match(html, /The Values Behind Watts Unified Solutions/);
   assert.match(html, /Faith <span aria-hidden="true">\+<\/span> Family <span aria-hidden="true">\+<\/span> Finance <span aria-hidden="true">\+<\/span> Fitness <span aria-hidden="true">\+<\/span> Fun <strong><span aria-hidden="true">=<\/span> Freedom<\/strong>/);
   assert.match(html, /Bring the Pieces Together\./);
+  assert.match(html, /\.about-cta\{[^}]*background:#f8f6f0;[^}]*border-top:1px solid #dedbd2/);
+  assert.doesNotMatch(html, /\.about-cta\{[^}]*linear-gradient/);
 });
 
 test("About Worker preserves the approved testimonial set", async () => {

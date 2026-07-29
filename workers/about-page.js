@@ -1,5 +1,5 @@
 // index.js
-var ABOUT_BUILD = "20260728-about-maintainability1";
+var ABOUT_BUILD = "20260728-about-cta-uniform1";
 var PAGE_TITLE = "Meet S. Alex Watts | Watts Unified Solutions";
 var PAGE_DESCRIPTION = "Meet S. Alex Watts, a faith-led U.S. Army veteran helping families and business owners make clearer protection, retirement income, and legacy decisions.";
 var OG_IMAGE = "https://wattsunified.com/assets/financial-professional/alex.webp";
@@ -39,7 +39,7 @@ var html = `<!doctype html>
     .about-trust{display:grid;grid-template-columns:repeat(4,1fr);max-width:1160px;margin:28px auto 0;padding:24px;background:#fff;border:1px solid var(--line);box-shadow:0 14px 40px rgba(48,38,22,.06)}
     .about-trust span{padding:8px 18px;text-align:center;color:var(--gold-deep);font-size:12px;font-weight:850;letter-spacing:.08em;text-transform:uppercase;border-right:1px solid var(--line)}.about-trust span:last-child{border-right:0}
     .about-story{padding:100px 24px;background:#fff}.about-story>div{max-width:860px;margin:auto;text-align:center}.about-story h2{margin:0 0 30px;font-size:clamp(2.6rem,5vw,4rem);line-height:1}.about-story p{margin:0 auto 18px;color:#565b61;font-size:18px;line-height:1.85}
-    .about-cta{padding:88px 24px;text-align:center;background:linear-gradient(135deg,#fff8e8,#fffdf8);border-top:1px solid #eadfca}.about-cta h2{max-width:900px;margin:0 auto 22px;font-size:clamp(2.4rem,4vw,3.5rem);line-height:1.05}.about-cta p{max-width:680px;margin:0 auto 28px;color:#565b61;font-size:17px;line-height:1.7}.about-cta .button{background:var(--gold);border-color:var(--gold);color:#2f2717}
+    .about-cta{padding:88px 24px;text-align:center;background:#f8f6f0;border-top:1px solid #dedbd2}.about-cta h2{max-width:900px;margin:0 auto 22px;font-size:clamp(2.4rem,4vw,3.5rem);line-height:1.05}.about-cta p{max-width:680px;margin:0 auto 28px;color:#565b61;font-size:17px;line-height:1.7}.about-cta .button{background:var(--gold);border-color:var(--gold);color:#2f2717}
     @media(max-width:900px){.about-trust{grid-template-columns:1fr 1fr;margin:28px 24px 0}.about-trust span:nth-child(2){border-right:0}}
     @media(max-width:560px){.portrait{padding:24px 0 0}.about-trust{grid-template-columns:1fr}.about-trust span{border-right:0;border-bottom:1px solid var(--line)}.about-trust span:last-child{border-bottom:0}.about-story>div{text-align:left}}
     .approach .section-title{margin-bottom:24px}.values-framework{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:9px;margin:0 auto 50px;color:#4e4b46;font-size:clamp(14px,1.35vw,17px);font-weight:800;letter-spacing:.07em;text-align:center;text-transform:uppercase}.values-framework>span{color:var(--gold);font-weight:900}.values-framework strong{display:inline-flex;align-items:center;gap:9px;color:var(--gold-deep);font-weight:900}.values-framework strong span{color:var(--gold)}
