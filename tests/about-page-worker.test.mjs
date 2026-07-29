@@ -12,7 +12,7 @@ test("About Worker serves the approved page and deployment marker", async () => 
 
   assert.equal(response.status, 200);
   assert.match(response.headers.get("content-type") ?? "", /^text\/html/);
-  assert.equal(response.headers.get("x-watts-about-build"), "20260728-about-cta-uniform1");
+  assert.equal(response.headers.get("x-watts-about-build"), "20260728-about-testimonial-slider1");
   assert.match(html, /Meet S\. Alex Watts/);
   assert.match(html, /Service Shaped the Mission\./);
   assert.match(html, /The Values Behind Watts Unified Solutions/);
@@ -36,6 +36,17 @@ test("About Worker preserves the approved testimonial set", async () => {
   ]) {
     assert.ok(!html.includes(removed), `${removed} must remain hidden`);
   }
+
+  assert.equal((html.match(/<article class="rec"/g) ?? []).length, 4);
+  assert.match(html, /class="recs-carousel" role="region" aria-roledescription="carousel"/);
+  assert.match(html, /class="recs-track" aria-live="off"/);
+  assert.match(html, /data-recs-prev/);
+  assert.match(html, /data-recs-next/);
+  assert.match(html, /data-recs-toggle/);
+  assert.match(html, /setInterval\(\(\)=>render\(active\+1\),9000\)/);
+  assert.match(html, /prefers-reduced-motion: reduce/);
+  assert.match(html, /\.recs-track\{[^}]*transition:transform \.65s/);
+  assert.doesNotMatch(html, /\.recs-list\{/);
 });
 
 test("About Worker renders the approved primary navigation and CTAs", async () => {
