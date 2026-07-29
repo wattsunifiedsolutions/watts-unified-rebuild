@@ -1,0 +1,22 @@
+{
+  "$schema": "../node_modules/wrangler/config-schema.json",
+  "name": "watts-about-page",
+  "main": "about-page.js",
+  "compatibility_date": "2026-07-28",
+  "compatibility_flags": ["nodejs_compat"],
+  "workers_dev": false,
+  "routes": [
+    {
+      "pattern": "wattsunified.com/about*",
+      "zone_name": "wattsunified.com"
+    },
+    {
+      "pattern": "www.wattsunified.com/about*",
+      "zone_name": "wattsunified.com"
+    }
+  ],
+  "observability": {
+    "enabled": true,
+    "head_sampling_rate": 1
+  }
+}
